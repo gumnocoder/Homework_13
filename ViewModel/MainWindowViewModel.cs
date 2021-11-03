@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Homework_13.ViewModel
 {
-    class MainWindowViewModel
+    class MainWindowViewModel : BaseViewModel
     {
         private string _tittle;
         public string Tittle
         {
             get => _tittle;
-            set => _tittle = value;
+            set { _tittle = value; OnPropertyChanged(); }
         }
 
         public MainWindowViewModel()
