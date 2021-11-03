@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Homework_13.Service.Command;
 
 namespace Homework_13.ViewModel
 {
@@ -19,5 +21,13 @@ namespace Homework_13.ViewModel
         {
             Tittle = "Банк";
         }
+
+        private SimpleCommand _appExit;
+        public SimpleCommand AppExit
+        {
+            get => _appExit ??= new SimpleCommand(() => ExitBtnClick());
+        }
+
+        private void ExitBtnClick() => Environment.Exit(0);
     }
 }
