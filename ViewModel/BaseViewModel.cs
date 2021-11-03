@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Homework_13.ViewModel
 {
+    /// <summary>
+    /// базовая логика для viewmodels
+    /// </summary>
     class BaseViewModel : INotifyPropertyChanged
     {
 
@@ -15,5 +13,18 @@ namespace Homework_13.ViewModel
 
         public void OnPropertyChanged([CallerMemberName] string name = "") => 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
+        protected bool Set<T>(
+            ref T field, 
+            T value)
+        {
+            if (!Equals(field, value))
+            {
+                field = value;
+                OnPropertyChanged();
+                return true;
+            }
+            return false;
+        }
     }
 }
