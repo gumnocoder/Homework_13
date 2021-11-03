@@ -27,7 +27,8 @@
                 Header="Файл" 
                 Height="20"
                 Width="40">
-                <MenuItem Header="Выход" Command="{Binding AppExit}"/>
+                <MenuItem Header="Выход" 
+                          Command="{Binding AppExit}"/>
             </MenuItem>
         </Menu>
         <Button 
@@ -38,6 +39,7 @@
             BorderThickness="0"
             HorizontalAlignment="Right"
             Width="20"
-            FontSize="20"/>
+            FontSize="20"
+            Command="{Binding AppExit}"/>
     </Grid>
 </Window>

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using Homework_13.Service.Command;
 
 namespace Homework_13.ViewModel
@@ -22,12 +17,12 @@ namespace Homework_13.ViewModel
             Tittle = "Банк";
         }
 
-        private SimpleCommand _appExit;
-        public SimpleCommand AppExit
+        private RelayCommand _appExit;
+        public RelayCommand AppExit
         {
-            get => _appExit ??= new SimpleCommand(() => ExitBtnClick());
+            get => _appExit ??= new(ExitBtnClick);
         }
 
-        private void ExitBtnClick() => Environment.Exit(0);
+        private void ExitBtnClick(object s) => Environment.Exit(0);
     }
 }
