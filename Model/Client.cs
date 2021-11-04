@@ -1,4 +1,5 @@
 ﻿using Homework_13.Model.bankModel;
+using Homework_13.Model.Interfaces;
 using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.Model

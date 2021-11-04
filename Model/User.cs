@@ -3,7 +3,7 @@ using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.Model
 {
-    public class User : Person, INamedObject, IPasswordHolder
+    public class User : Person, IPasswordHolder
     {
         private long _id;
         private string _login;
