@@ -1,13 +1,13 @@
-﻿using Homework_13.Model;
-using Homework_13.Model.bankModel;
+﻿using Homework_13.Model.bankModel;
 using static Homework_13.Model.bankModel.Bank;
 
-namespace Homework_13
+namespace Homework_13.Model
 {
     class Client : Person
     {
         private bool _creditIsActive;
-        private bool _debitIsActive = false;
+        private bool _debitIsActive;
+        private bool _depositIsActive;
         private BankCreditAccount _clientsCreditAccount;
         private string _type;
         private int _reputation;
@@ -31,6 +31,16 @@ namespace Homework_13
             set
             {
                 _debitIsActive = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool DepositIsActive
+        {
+            get => _depositIsActive;
+            set
+            {
+                _depositIsActive = value;
                 OnPropertyChanged();
             }
         }
@@ -59,7 +69,9 @@ namespace Homework_13
             get => _reputation;
             set
             {
-                _reputation = value;
+                if (value < 0) _reputation = 0;
+                else if (value > 10) _reputation = 10;
+                else _reputation = value;
                 OnPropertyChanged();
             }
         }
@@ -77,7 +89,7 @@ namespace Homework_13
         {
             ClientID = ++ThisBank.currentClientID;
         }
-        public Client(string Name, string Type = "Частный клиент", int Reputation = 5)
+        public Client(string Name, string Type = "Частный клиент", int Reputation = 6)
         {
             SetID();
             this.Name = Name;
