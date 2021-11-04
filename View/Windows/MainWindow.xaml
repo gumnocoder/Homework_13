@@ -14,14 +14,8 @@
         Height="450"
         Width="800"
         WindowStyle="None"
-        ResizeMode="NoResize"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        ResizeMode="CanResizeWithGrip">
+
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
@@ -30,7 +24,7 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Width="200" HorizontalAlignment="Left">
+        <Menu Grid.Row="0" Width="200" HorizontalAlignment="Left" >
             <MenuItem 
                 Header="Файл" 
                 Height="30"
@@ -42,18 +36,6 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <Button 
-            Background="Transparent"
-            Content="U" 
-            FontFamily="Wingdings 2"
-            Foreground="Red"
-            BorderThickness="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Width="40"
-            Height="20"
-            FontSize="10"
-            Command="{Binding AppExit}"/>
         <uc:UserListView Grid.Row="1"/>
     </Grid>
 </Window>

@@ -13,8 +13,6 @@ namespace Homework_13.ViewModel
         public ObservableCollection<User> Users { get => UserList<User>.UsersList; }
         public UserListViewModel()
         {
-            //Users = new();
-            //Users.Add(new User("1", "2", "3", "4"));
         }
     }
 }
