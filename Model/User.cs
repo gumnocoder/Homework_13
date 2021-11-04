@@ -7,7 +7,7 @@ using Homework_13.Model.Interfaces;
 
 namespace Homework_13.Model
 {
-    class User : BaseModel, INamedObject, IPasswordHolder
+    class User : UserPermissions, INamedObject, IPasswordHolder
     {
         private long _id;
         private string _name;
