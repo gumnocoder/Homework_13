@@ -28,7 +28,6 @@ namespace Homework_13.ViewModel
         {
             get => _appExit ??= new(ExitBtnClick);
         }
-
         private void ExitBtnClick(object s) => Environment.Exit(0);
     }
 }
