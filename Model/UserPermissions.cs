@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Homework_13.Model
+﻿namespace Homework_13.Model
 {
-    abstract class UserPermissions : BaseModel
+    public abstract class UserPermissions : BaseModel
     {
         #region Поля
         private bool _canCreateUsers = false;

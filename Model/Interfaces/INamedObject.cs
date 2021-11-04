@@ -1,6 +1,6 @@
 ﻿namespace Homework_13.Model.Interfaces
 {
-    interface  INamedObject
+    public interface  INamedObject
     {
         string Name { get; set; }
     }

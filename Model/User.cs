@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Homework_13.Model.Interfaces;
+﻿using Homework_13.Model.Interfaces;
 
 namespace Homework_13.Model
 {
-    class User : UserPermissions, INamedObject, IPasswordHolder
+    public class User : UserPermissions, INamedObject, IPasswordHolder
     {
         private long _id;
         private string _name;
