@@ -50,14 +50,14 @@ namespace Homework_13.Model.bankModel
             if (value > 0)
             {
                 AccountAmount += value;
-                Debug.WriteLine($"client add {value}$ to account. account condition: {this}");
+                Debug.WriteLine($"клиент внёс {value}$ на счёт. Текущее состояние счёта: {this}");
             }
         }
         public override string ToString()
         {
-            return $"type: {GetType()}, " +
+            return $"Тип: {GetType()}, " +
                 $" ID - {_id}, " +
-                $"Amount - {AccountAmount}";
+                $"Состояние - {AccountAmount}";
         }
         #endregion
     }
