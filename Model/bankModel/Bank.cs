@@ -43,7 +43,7 @@
         /// <summary>
         /// указатель наличия одного экземпляра
         /// </summary>
-        static Bank thisBank = null;
+        static Bank _thisBank = null;
 
         /// <summary>
         /// свойство возращающее экземпляр или 
@@ -53,8 +53,8 @@
         {
             get
             {
-                if (thisBank == null) thisBank = new();
-                return thisBank;
+                if (_thisBank == null) _thisBank = new();
+                return _thisBank;
             }
         }
         #endregion
