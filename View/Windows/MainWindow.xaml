@@ -13,7 +13,14 @@
         Height="450"
         Width="800"
         WindowStyle="None"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
@@ -26,9 +33,12 @@
             <MenuItem 
                 Header="Файл" 
                 Height="20"
-                Width="40">
-                <MenuItem Header="Выход" 
-                          Command="{Binding AppExit}"/>
+                Width="150"
+                >
+                <MenuItem 
+                    Header="Выход" 
+                    Command="{Binding AppExit}">
+                </MenuItem>
             </MenuItem>
         </Menu>
         <Button 
@@ -38,8 +48,10 @@
             Foreground="Red"
             BorderThickness="0"
             HorizontalAlignment="Right"
-            Width="20"
-            FontSize="20"
+            VerticalAlignment="Top"
+            Width="40"
+            Height="20"
+            FontSize="10"
             Command="{Binding AppExit}"/>
     </Grid>
 </Window>

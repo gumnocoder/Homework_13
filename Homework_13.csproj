@@ -10,4 +10,8 @@
     <Folder Include="View\UserControls\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
+  </ItemGroup>
+
 </Project>
