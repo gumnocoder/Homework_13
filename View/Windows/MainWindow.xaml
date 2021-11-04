@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_13"
         xmlns:viewModel="clr-namespace:Homework_13.ViewModel"
+        xmlns:uc="clr-namespace:Homework_13.View.UserControls"
         mc:Ignorable="d"
         Title="{
     Binding Tittle, 
@@ -26,14 +27,14 @@
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0">
+        <Menu Grid.Row="0" Width="200" HorizontalAlignment="Left">
             <MenuItem 
                 Header="Файл" 
-                Height="20"
-                Width="150"
+                Height="30"
+                Width="100"
                 >
                 <MenuItem 
                     Header="Выход" 
@@ -53,5 +54,6 @@
             Height="20"
             FontSize="10"
             Command="{Binding AppExit}"/>
+        <uc:UserListView Grid.Row="1"/>
     </Grid>
 </Window>

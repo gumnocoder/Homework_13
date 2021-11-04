@@ -3,14 +3,17 @@ using Homework_13.Model.Interfaces;
 
 namespace Homework_13.Model
 {
-    public class ListsOperator<T> where T : INamedObject
+    public class ListsOperator<T> where T : Person
     {
         private static bool CheckItemExistance(ObservableCollection<T> personsList, T person)
         {
-            foreach (INamedObject e in personsList)
+            if (personsList != null)
             {
-                if (Equals(e, person)) { return true; }
-                break;
+                foreach (Person e in personsList)
+                {
+                    if (Equals(e, person)) { return true; }
+                    break;
+                }
             }
             return false;
         }

@@ -2,7 +2,7 @@
 
 namespace Homework_13.Model.Interfaces
 {
-    interface ICollectionContainer<out T>
+    interface ICollectionContainer<in T>
     {
         static ObservableCollection<T> ObjectsList;
     }

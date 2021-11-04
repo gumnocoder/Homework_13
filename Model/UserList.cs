@@ -5,7 +5,7 @@ namespace Homework_13.Model
 {
     public class UserList<T> : ICollectionContainer<T> where T : User
     {
-        public static ObservableCollection<T> UsersList;
+        public static ObservableCollection<T> UsersList = new();
 
         public UserList() { }
     }
