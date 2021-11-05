@@ -5,7 +5,7 @@ using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.Model.bankModel
 {
-    class BankCreditAccount : BankAccount, IPercentContainer
+    class BankCreditAccount : BankAccount, IPercentContainer, IExpiring
     {
         #region Конструктор
         public BankCreditAccount(long CreditAmount, Client client)
@@ -43,6 +43,12 @@ namespace Homework_13.Model.bankModel
         public override void SetId()
         {
             ID = ++ThisBank.CurrentCreditID;
+        }
+
+        public bool Expired()
+        {
+            if (Expiration == 0) return true;
+            else return false;
         }
     }
 }

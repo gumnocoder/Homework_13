@@ -3,7 +3,7 @@ using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.Model.bankModel
 {
-    class BankDepositAccount : BankAccount, IPercentContainer
+    class BankDepositAccount : BankAccount, IPercentContainer, IExpiring
     {
         private double _percent;
         private int _expiration;
@@ -20,9 +20,13 @@ namespace Homework_13.Model.bankModel
         { 
             get => _expiration; 
             set 
-            { 
-                if (value < _minExpiration) _expiration = 12; 
-                else _expiration = value; 
+            {
+                if (value < _minExpiration) _expiration = 12;
+                else
+                {
+                    if (_expiration == 0) { _expiration = 0; return; }
+                    _expiration = value;
+                }
             }
         }
 
@@ -38,5 +42,11 @@ namespace Homework_13.Model.bankModel
             }
         }
         public override void SetId() => ID = ++ThisBank.CurrentDepositID;
+
+        public bool Expired()
+        {
+            if (Expiration == 0) return true;
+            else return false;
+        }
     }
 }

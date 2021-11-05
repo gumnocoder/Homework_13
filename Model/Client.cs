@@ -8,6 +8,7 @@ namespace Homework_13.Model
         private bool _creditIsActive;
         private bool _debitIsActive;
         private bool _depositIsActive;
+        private bool _accountFreezed = false;
         private BankCreditAccount _clientsCreditAccount;
         private BankDebitAccount _clientsDebitAccount;
         private BankDepositAccount _clientsDepositAccount;
@@ -43,6 +44,16 @@ namespace Homework_13.Model
             set
             {
                 _depositIsActive = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool AccountFreezed
+        {
+            get => _accountFreezed;
+            set
+            {
+                _accountFreezed = value;
                 OnPropertyChanged();
             }
         }

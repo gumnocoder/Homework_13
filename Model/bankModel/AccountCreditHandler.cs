@@ -35,7 +35,7 @@ namespace Homework_13.Model.bankModel
         public void PayOff()
         {
             Executed = false;
-            _account.AccountAmount += _account.AccountAmount;
+            _account.AccountAmount = 0;
             _client.CreditIsActive = false;
             _client.ClientsCreditAccount = null;
             new ReputationIncreaser(_client, 2);
@@ -47,6 +47,23 @@ namespace Homework_13.Model.bankModel
             Executed = false;
             _account.AccountAmount += PayAmount;
             Execute();
+        }
+
+        public void OnExpiredWithoutPayment()
+        {
+            if (_account.Expired() && _account.AccountAmount < 0)
+            {
+                _client.Reputation -= _client.Reputation;
+                _client.AccountFreezed = true;
+            }
+        }
+
+        public void OnExpiredWithCompletePayment()
+        {
+            if (_account.Expired() && _account.AccountAmount >= 0)
+            {
+                PayOff();
+            }
         }
         public void Execute() =>Executed = true;
     }
