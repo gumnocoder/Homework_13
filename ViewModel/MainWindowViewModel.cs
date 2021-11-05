@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Homework_13.Model;
 using Homework_13.Model.Interfaces;
+using Homework_13.Service;
 using Homework_13.Service.Command;
 
 namespace Homework_13.ViewModel
@@ -19,8 +20,10 @@ namespace Homework_13.ViewModel
         public MainWindowViewModel()
         {
             Tittle = "Банк";
-            ListsOperator<User> listOperator = new();
-            listOperator.AddToList(UserList<User>.UsersList, new User("Иван Иванов", "ivanovivan", "12345", "оператор"));
+            //ListsOperator<User> listOperator = new();
+            //listOperator.AddToList(UserList<User>.UsersList, new User("Админ", "admin", "admin", "администратор"));
+            //DataSaver<User>.JsonSeralize(UserList<User>.UsersList, "users.json");
+            
         }
 
         private RelayCommand _appExit;

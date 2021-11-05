@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Homework_13.View.UserControls"
              xmlns:viewModel="clr-namespace:Homework_13.ViewModel"
+             xmlns:model="clr-namespace:Homework_13.Model"
              mc:Ignorable="d" >
     <UserControl.DataContext>
         <viewModel:UserListViewModel/>

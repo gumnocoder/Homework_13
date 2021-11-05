@@ -2,18 +2,18 @@
 
 namespace Homework_13.Model
 {
-    class ObjectRenamer<T> where T : INamedObject
+    public class ObjectRenamer<T> where T : INamedObject
     {
-        readonly T obj;
-        readonly string newName;
+        private readonly T _obj;
+        private readonly string _newName;
 
         public ObjectRenamer(T obj, string newName)
         {
-            this.obj = obj;
-            this.newName = newName;
+            this._obj = obj;
+            this._newName = newName;
             ReName();
         }
 
-        private void ReName() => obj.Name = newName;
+        private void ReName() => _obj.Name = _newName;
     }
 }

@@ -42,7 +42,5 @@ namespace Homework_13.Model
                 return u;
             }
         }
-
-        public UserList() { }
     }
 }
