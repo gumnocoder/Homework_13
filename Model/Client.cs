@@ -10,6 +10,7 @@ namespace Homework_13.Model
         private bool _depositIsActive;
         private BankCreditAccount _clientsCreditAccount;
         private BankDebitAccount _clientsDebitAccount;
+        private BankDepositAccount _clientsDepositAccount;
         private string _type;
         private int _reputation;
         private long _clientId;
@@ -61,6 +62,16 @@ namespace Homework_13.Model
             set
             {
                 _clientsDebitAccount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public BankDepositAccount ClientsDepositAccount
+        {
+            get => _clientsDepositAccount;
+            set
+            {
+                _clientsDepositAccount = value;
                 OnPropertyChanged();
             }
         }

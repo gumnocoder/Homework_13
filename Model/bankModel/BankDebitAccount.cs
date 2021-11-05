@@ -10,8 +10,8 @@ namespace Homework_13.Model.bankModel
         {
             if (!client.DebitIsActive)
             {
+                if (DebitStartAmount > 100) new ReputationIncreaser(client);
                 AccountAmount += DebitStartAmount;
-                new ReputationIncreaser(client);
                 SetId();
                 client.DebitIsActive = true;
                 client.ClientsDebitAccount = this;
