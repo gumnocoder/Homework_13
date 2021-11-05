@@ -1,5 +1,4 @@
 ﻿using Homework_13.Model.bankModel;
-using Homework_13.Model.Interfaces;
 using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.Model
@@ -10,6 +9,7 @@ namespace Homework_13.Model
         private bool _debitIsActive;
         private bool _depositIsActive;
         private BankCreditAccount _clientsCreditAccount;
+        private BankDebitAccount _clientsDebitAccount;
         private string _type;
         private int _reputation;
         private long _clientId;
@@ -55,6 +55,15 @@ namespace Homework_13.Model
             }
         }
 
+        public BankDebitAccount ClientsDebitAccount
+        {
+            get => _clientsDebitAccount;
+            set
+            {
+                _clientsDebitAccount = value;
+                OnPropertyChanged();
+            }
+        }
         public string Type
         {
             get => _type;
@@ -99,13 +108,12 @@ namespace Homework_13.Model
         }
 
         #region TODO
-        //добавить дебетовый счёт и депозитный счёт
+        //добавить депозитный счёт
         #endregion
 
         public override string ToString()
         {
             return $"{ClientID} {Name} {Reputation}";
         }
-
     }
 }
