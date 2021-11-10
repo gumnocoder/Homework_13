@@ -1,4 +1,5 @@
 ﻿using System;
+using Homework_13.Model;
 using Homework_13.Service;
 using Homework_13.Service.Command;
 using static Homework_13.Model.bankModel.Bank;
@@ -7,6 +8,15 @@ namespace Homework_13.ViewModel
 {
     class MainWindowViewModel : BaseViewModel
     {
+        private UserDialogService _dialogService = new();
+
+        private User _currentUser = new("11111", "111", "1111", "2");
+        public User CurrentUser
+        {
+            get => _currentUser;
+            set { _currentUser = value; OnPropertyChanged(); }
+        }
+
         private string _tittle;
         public string Tittle
         {
@@ -16,6 +26,7 @@ namespace Homework_13.ViewModel
 
         public MainWindowViewModel()
         {
+            _dialogService.Edit(CurrentUser);
             Tittle = "Банк";
             new BankSettingsLoader(ThisBank);
             new BankSettingsSaver(ThisBank);

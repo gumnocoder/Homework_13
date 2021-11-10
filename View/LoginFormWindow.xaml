@@ -1,0 +1,137 @@
+﻿<Window x:Class="Homework_13.View.LoginFormWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="clr-namespace:Homework_13.Service.Command"
+        xmlns:views="clr-namespace:Homework_13.ViewModel"
+        xmlns:local="clr-namespace:Homework_13.View"
+        mc:Ignorable="d"
+        Height="220" Width="350"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        >
+    <Window.DataContext>
+        <views:LoginFormWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <TextBlock 
+                x:Name="uuu" 
+                Text="{
+                Binding Pass,
+                Mode=TwoWay}"
+                Visibility="Hidden"/>
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <Button Height="35"
+                    FontWeight="Bold"
+                    x:Name="enterBtn"
+                        Grid.Column="1" 
+                        Margin="0,6,3,6"
+                        Content="Вход"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=local:LoginFormWindow}}"
+                        >
+                <Button.Command>
+                    <cmd:CloseWindowCommand DialogResult="True"/>
+                </Button.Command>
+            </Button>
+            <Button Height="35"
+                    FontWeight="Bold"
+                    x:Name="exitBtn" 
+                    Grid.Column="2" 
+                    Margin="3,6,0,6"
+                    Content="Выход"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=local:LoginFormWindow}}"
+                        >
+                <Button.Command>
+                    <cmd:CloseWindowCommand ExitApp="True"/>
+                </Button.Command>
+            </Button>
+        </Grid>
+        <StackPanel Grid.Row="2">
+            <TextBlock Name="loginText" 
+                           Text="Введите логин" 
+                           HorizontalAlignment="Center"
+                           Foreground="Black"
+                           FontWeight="Medium"
+                           FontSize="16"/>
+            <TextBox Height="30"
+                         BorderBrush="Black"
+                         Margin="50,10,50,5"
+                         BorderThickness="1"
+                         Padding="10,1,10,1"
+                         x:Name="loginFieldValue"
+                         Foreground="White"
+                         FontSize="17"
+                         FontWeight="Medium"
+                         FontStyle="Italic"
+                         Text="{Binding Login,
+                         Mode=TwoWay}">
+                <TextBox.Background>
+                    <RadialGradientBrush 
+                            RadiusX="1" 
+                            RadiusY="50">
+                        <GradientStop 
+                                Color="White"
+                                Offset="0.2"/>
+                        <GradientStop 
+                                Color="Gray" 
+                                Offset="1"/>
+                    </RadialGradientBrush>
+                </TextBox.Background>
+            </TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="3">
+            <TextBlock Name="passText" 
+                           Text="Введите пароль" 
+                           HorizontalAlignment="Center"
+                           Foreground="Black"
+                           FontWeight="Medium"
+                           FontSize="16"
+                           Margin="5"/>
+            <PasswordBox Height="30" 
+                         views:PasswordHelper.Attach ="true"
+                         views:PasswordHelper.Password="{
+                    Binding Text, 
+                    ElementName=uuu, 
+                    Mode=TwoWay}"
+                         Margin="50,0,50,5"
+                             BorderBrush="Black"
+                         BorderThickness="1"
+                         Padding="10,3,3,3"
+                         x:Name="passFieldValue"
+                         Foreground="White"
+                         FontSize="15"
+                         FontWeight="Medium"
+                         FontStyle="Italic">
+                <PasswordBox.Background>
+                    <RadialGradientBrush 
+                            RadiusX="1" 
+                            RadiusY="10">
+                        <GradientStop 
+                                Color="White"
+                                Offset="0.1"/>
+                        <GradientStop 
+                                Color="Gray" 
+                                Offset="1"/>
+                    </RadialGradientBrush>
+                </PasswordBox.Background>
+            </PasswordBox>
+        </StackPanel>
+    </Grid>
+</Window>
