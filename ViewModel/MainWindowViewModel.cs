@@ -2,6 +2,7 @@
 using Homework_13.Model;
 using Homework_13.Service;
 using Homework_13.Service.Command;
+using Homework_13.View.UserControls;
 using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.ViewModel
@@ -52,6 +53,26 @@ namespace Homework_13.ViewModel
             set { _tittle = value; OnPropertyChanged(); }
         }
 
+        /// <summary>
+        /// Проверяет тип пользователя 
+        /// для доступа к привелегиям
+        /// </summary>
+        public bool IsAdmin
+        {
+            get => CurrentUser.Type == "администратор";
+        }
+        /// <summary>
+        /// Конвертирует информацию о 
+        /// авторизированном пользователе в строку
+        /// </summary>
+        public string LoginedUser
+        {
+            get 
+            { 
+                if (CurrentUser != null) return CurrentUser.ToString();
+                else return string.Empty; 
+            }
+        }
         #endregion
 
         #region Команда загрузки данных в синглтон банка
@@ -73,6 +94,19 @@ namespace Homework_13.ViewModel
             _appExit ??= new(ExitBtnClick);
         private void ExitBtnClick(object s) => 
             Environment.Exit(0);
+
+        #endregion
+
+        #region Команда вызова окна создания пользователя
+
+        private RelayCommand _createUser;
+
+        public RelayCommand CreateUser =>
+            _createUser ??= new(CreateUserCommand);
+        public void CreateUserCommand(object s)
+        {
+            _dialogService.Edit(new UserCreationForm());
+        }
 
         #endregion
     }

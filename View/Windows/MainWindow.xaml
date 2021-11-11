@@ -30,6 +30,12 @@
                 Height="30"
                 Width="100"
                 >
+                <MenuItem
+                    Header="Создать пользователя"
+                    Command="{Binding CreateUser}"
+                    IsEnabled="{Binding IsAdmin}">
+                </MenuItem>
+                <Separator/>
                 <MenuItem 
                     Header="Выход" 
                     Command="{Binding AppExit}">

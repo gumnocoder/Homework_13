@@ -4,13 +4,15 @@ using System.Windows;
 using Homework_13.Model;
 using Homework_13.Service.Interfaces;
 using Homework_13.View;
+using Homework_13.View.UserControls;
 using Homework_13.ViewModel;
 
 namespace Homework_13.Service
 {
     class UserDialogService : IUserDialogService
     {
-        public bool Confirm(string Message, string Tittle, bool Choice = false) =>MessageBox.Show(Message, Tittle, MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+        public bool Confirm(string Message, string Tittle, bool Choice = false) =>
+            MessageBox.Show(Message, Tittle, MessageBoxButton.YesNo) == MessageBoxResult.Yes;
 
         public bool Edit(object o)
         {
@@ -18,6 +20,8 @@ namespace Homework_13.Service
             {
                 case (User user):
                     return OpenLoginForm(user);
+                case (UserCreationForm window):
+                    return OpenUserCreationForm(window);
             }
 
             return true;
@@ -44,9 +48,9 @@ namespace Homework_13.Service
             var dlg = new LoginFormWindow();
 
             if (dlg.ShowDialog() != true) return false;
-            string login = dlg.loginFieldValue.Text; string pass = dlg.uuu.Text;
+            //string login = dlg.loginFieldValue.Text; string pass = dlg.uuu.Text;
 
-            while (true)
+/*            while (true)
             {
                 bool flag = false;
 
@@ -65,8 +69,15 @@ namespace Homework_13.Service
                 }
 
                 if (flag) break;
-            }
+            }*/
 
+            return true;
+        }
+
+        private static bool OpenUserCreationForm(UserCreationForm window)
+        {
+            var dlg = new UserCreationForm();
+            if (dlg.ShowDialog() != true) return false;
             return true;
         }
     }
