@@ -24,7 +24,7 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Width="200" HorizontalAlignment="Left" >
+        <Menu Grid.Row="0" Width="400" HorizontalAlignment="Left" >
             <MenuItem 
                 Header="Файл" 
                 Height="30"
@@ -35,7 +35,12 @@
                     Command="{Binding AppExit}">
                 </MenuItem>
             </MenuItem>
+            <MenuItem 
+                Header="{Binding LoginedUser}"
+                Height="30"
+                Width="100"/>
         </Menu>
+        
         <uc:UserListView Grid.Row="1"/>
     </Grid>
 </Window>

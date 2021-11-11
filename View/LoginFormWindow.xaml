@@ -47,7 +47,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=local:LoginFormWindow}}"
                         >
                 <Button.Command>
-                    <cmd:CloseWindowCommand DialogResult="True"/>
+                    <cmd:AutorizationCommand DialogResult="True"/>
                 </Button.Command>
             </Button>
             <Button Height="35"

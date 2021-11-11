@@ -10,11 +10,16 @@ namespace Homework_13.ViewModel
     {
         private UserDialogService _dialogService = new();
 
-        private User _currentUser = new("11111", "111", "1111", "2");
-        public User CurrentUser
+        private static User _currentUser = new("11111", "111", "1111", "2");
+        public static User CurrentUser
         {
             get => _currentUser;
-            set { _currentUser = value; OnPropertyChanged(); }
+            set { _currentUser = value; }
+        }
+
+        public static string LoginedUser
+        {
+            get => CurrentUser.ToString();
         }
 
         private string _tittle;
@@ -26,6 +31,7 @@ namespace Homework_13.ViewModel
 
         public MainWindowViewModel()
         {
+            DataLoader<User>.LoadFromJson(UserList<User>.UsersList, "users.json");
             _dialogService.Edit(CurrentUser);
             Tittle = "Банк";
             new BankSettingsLoader(ThisBank);
