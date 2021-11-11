@@ -8,27 +8,9 @@ namespace Homework_13.ViewModel
 {
     class MainWindowViewModel : BaseViewModel
     {
-        private UserDialogService _dialogService = new();
-
-        private static User _currentUser = new("11111", "111", "1111", "2");
-        public static User CurrentUser
-        {
-            get => _currentUser;
-            set { _currentUser = value; }
-        }
-
-        public static string LoginedUser
-        {
-            get => CurrentUser.ToString();
-        }
-
-        private string _tittle;
-        public string Tittle
-        {
-            get => _tittle;
-            set { _tittle = value; OnPropertyChanged(); }
-        }
-
+        /// <summary>
+        /// конструктор MainWindow
+        /// </summary>
         public MainWindowViewModel()
         {
             DataLoader<User>.LoadFromJson(UserList<User>.UsersList, "users.json");
@@ -36,21 +18,62 @@ namespace Homework_13.ViewModel
             Tittle = "Банк";
             new BankSettingsLoader(ThisBank);
             new BankSettingsSaver(ThisBank);
-            //ListsOperator<User> listOperator = new();
-            //listOperator.AddToList(UserList<User>.UsersList, new User("Админ", "admin", "admin", "администратор"));
-            //DataSaver<User>.JsonSeralize(UserList<User>.UsersList, "users.json");
-
         }
 
+        #region Поля
+
+        /// <summary>
+        /// Экземпляр сервиса управляющего диалоговыми окнами
+        /// </summary>
+        private UserDialogService _dialogService = new();
+
+        private static User _currentUser = new();
+
+        private string _tittle;
+
+        #endregion
+
+        #region Свойства
+        /// <summary>
+        /// Авторизированный пользователь
+        /// </summary>
+        public static User CurrentUser
+        {
+            get => _currentUser;
+            set { _currentUser = value; }
+        }
+
+        /// <summary>
+        /// заголовок окна
+        /// </summary>
+        public string Tittle
+        {
+            get => _tittle;
+            set { _tittle = value; OnPropertyChanged(); }
+        }
+
+        #endregion
+
+        #region Команда загрузки данных в синглтон банка
+
         private RelayCommand _loadBank;
-        public RelayCommand LoadBank => _loadBank ??= new(LoadBankBtnClick);
+        public RelayCommand LoadBank => 
+            _loadBank ??= new(LoadBankBtnClick);
         private void LoadBankBtnClick(object s)
         {
             new BankSettingsLoader(ThisBank);
         }
 
+        #endregion
+
+        #region Команда выход из приложения
+
         private RelayCommand _appExit;
-        public RelayCommand AppExit => _appExit ??= new(ExitBtnClick);
-        private void ExitBtnClick(object s) => Environment.Exit(0);
+        public RelayCommand AppExit =>
+            _appExit ??= new(ExitBtnClick);
+        private void ExitBtnClick(object s) => 
+            Environment.Exit(0);
+
+        #endregion
     }
 }
