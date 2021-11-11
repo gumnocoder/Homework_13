@@ -1,13 +1,17 @@
-﻿using System.Windows;
-using System.Windows.Input;
-
-namespace Homework_13.ViewModel
+﻿namespace Homework_13.ViewModel
 {
     class UserCreationFormViewModel : BaseViewModel
     {
         private string _login;
         private string _name;
         private string _pass = "*****";
+        private string[] _types = new string[] {
+            "администратор",
+            "модератор",
+            "оператор",
+            "специалист по VIP",
+            "специалист по компаниям",
+        };
 
 
         public string Login
@@ -41,12 +45,9 @@ namespace Homework_13.ViewModel
             }
         }
 
-        public string[] Types = new string[] {
-            "Адмнистратор",
-            "Модератор",
-            "Оператор",
-            "Специалист по VIP",
-            "Специалист по компаниям",
-        };
+        public string[] Types
+        {
+            get { return _types; }
+        }
     }
 }

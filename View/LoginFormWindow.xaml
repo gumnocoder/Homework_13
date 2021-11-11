@@ -12,6 +12,16 @@
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         >
+    <Window.InputBindings>
+        <KeyBinding 
+            Key="Return" 
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=local:LoginFormWindow}}"
+            >
+            <KeyBinding.Command>
+                <cmd:AutorizationCommand DialogResult="True"/>
+            </KeyBinding.Command>
+        </KeyBinding>
+    </Window.InputBindings>
     <Window.DataContext>
         <views:LoginFormWindowViewModel/>
     </Window.DataContext>
@@ -44,8 +54,9 @@
                         Grid.Column="1" 
                         Margin="0,6,3,6"
                         Content="Вход"
-                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=local:LoginFormWindow}}"
-                        >
+                    CommandParameter="{
+                Binding RelativeSource={
+                RelativeSource AncestorType=local:LoginFormWindow}}">
                 <Button.Command>
                     <cmd:AutorizationCommand DialogResult="True"/>
                 </Button.Command>
@@ -56,8 +67,9 @@
                     Grid.Column="2" 
                     Margin="3,6,0,6"
                     Content="Выход"
-                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=local:LoginFormWindow}}"
-                        >
+                    CommandParameter="{
+                Binding RelativeSource={
+                RelativeSource AncestorType=local:LoginFormWindow}}">
                 <Button.Command>
                     <cmd:CloseWindowCommand ExitApp="True"/>
                 </Button.Command>
@@ -80,8 +92,9 @@
                          FontSize="17"
                          FontWeight="Medium"
                          FontStyle="Italic"
-                         Text="{Binding Login,
-                         Mode=TwoWay}">
+                         Text="{
+                Binding Login,
+                Mode=TwoWay}">
                 <TextBox.Background>
                     <RadialGradientBrush 
                             RadiusX="1" 
@@ -127,7 +140,7 @@
                                 Color="White"
                                 Offset="0.1"/>
                         <GradientStop 
-                                Color="Gray" 
+                                Color="SteelBlue" 
                                 Offset="1"/>
                     </RadialGradientBrush>
                 </PasswordBox.Background>

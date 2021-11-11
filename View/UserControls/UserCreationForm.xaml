@@ -7,7 +7,7 @@
              xmlns:viewModel="clr-namespace:Homework_13.ViewModel"
              xmlns:cmd="clr-namespace:Homework_13.Service.Command"
             mc:Ignorable="d" 
-             Height="450" Width="300"
+             Height="500" Width="300"
              ResizeMode="NoResize"
              WindowStyle="None">
     <Window.DataContext>
@@ -69,7 +69,8 @@
                 тип учетной записи
             </TextBlock>
             <ComboBox  
-                ItemsSource="{Binding Types}"
+                ItemsSource="{Binding Types, Mode=OneWay}"
+                x:Name="TypesComboBox"
                 Margin="15"
                 Height="25">
             </ComboBox>
@@ -85,7 +86,14 @@
             <Button 
                 Margin="15,15,0,15" 
                 Width="100" 
-                Content="Создать"/>
+                Content="Создать"
+                CommandParameter="{
+                Binding RelativeSource={
+                RelativeSource AncestorType=local:UserCreationForm}}">
+                <Button.Command>
+                    <cmd:UsersCreator/>
+                </Button.Command>
+            </Button>
             <Button 
                 Margin="15" 
                 Width="100" 

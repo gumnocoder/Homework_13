@@ -1,16 +1,17 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Linq;
 using System.Windows;
 using Homework_13.Model;
 using Homework_13.Service.Interfaces;
 using Homework_13.View;
 using Homework_13.View.UserControls;
-using Homework_13.ViewModel;
 
 namespace Homework_13.Service
 {
     class UserDialogService : IUserDialogService
     {
+        private static Window _owner = 
+            Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive);
+
         public bool Confirm(string Message, string Tittle, bool Choice = false) =>
             MessageBox.Show(Message, Tittle, MessageBoxButton.YesNo) == MessageBoxResult.Yes;
 
@@ -18,9 +19,10 @@ namespace Homework_13.Service
         {
             switch (o)
             {
-                case (User user):
+                case User user:
                     return OpenLoginForm(user);
-                case (UserCreationForm window):
+
+                case UserCreationForm window:
                     return OpenUserCreationForm(window);
             }
 
@@ -29,54 +31,37 @@ namespace Homework_13.Service
 
         public void ShowError(string Message, string Tittle)
         {
-            MessageBox.Show(Message, Tittle, MessageBoxButton.OK);
+            MessageBox.Show(
+                Message, 
+                Tittle,
+                MessageBoxButton.OK);
         }
 
         public void ShowInformation(string Message, string Tittle)
         {
-            MessageBox.Show(Message, Tittle, MessageBoxButton.OK);
+            MessageBox.Show(
+                Message, 
+                Tittle, 
+                MessageBoxButton.OK);
         }
 
         public static bool OpenLoginForm(User user)
         {
-            /*            LoginFormWindow loginForm = new();
-                        loginForm.ShowDialog();
-                        loginForm.loginFieldValue.Text = user.Login;
-                        loginForm.uuu.Text = user.Pass;
-                        if (loginForm.ShowDialog() != true) { Debug.WriteLine("asdsdsdsdsds"); return false; }*/
-
-            var dlg = new LoginFormWindow();
-
-            if (dlg.ShowDialog() != true) return false;
-            //string login = dlg.loginFieldValue.Text; string pass = dlg.uuu.Text;
-
-/*            while (true)
+            var dlg = new LoginFormWindow()
             {
-                bool flag = false;
-
-                foreach (User u in UserList<User>.UsersList)
-                {
-                    if (u.Login == login && u.Pass == pass)
-                    {
-                        MainWindowViewModel.CurrentUser = u;
-                        flag = true;
-                        break;
-                    }
-                    else
-                    {
-                        Debug.WriteLine("User not found!");
-                    }
-                }
-
-                if (flag) break;
-            }*/
-
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            };
+            if (dlg.ShowDialog() != true) return false;
             return true;
         }
 
         private static bool OpenUserCreationForm(UserCreationForm window)
         {
-            var dlg = new UserCreationForm();
+            var dlg = new UserCreationForm()
+            {
+                Owner = _owner,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
             if (dlg.ShowDialog() != true) return false;
             return true;
         }
