@@ -47,6 +47,8 @@ namespace Homework_13.Model.bankModel
         }
         public DateTime ActivationDate { get => _activationDate; }
 
+        public int ExpirationDuration { get => GetTotalMonthsCount(); }
+
         public override void SetId() => ID = ++ThisBank.CurrentDepositID;
 
         public bool Expired()
@@ -60,6 +62,17 @@ namespace Homework_13.Model.bankModel
             if (client.Reputation == 10) return _maxPercent;
             double clientReputation = (double)client.Reputation;
             return _maxPercent / 10.0 * clientReputation;
+        }
+
+        public int GetTotalMonthsCount()
+        {
+            DateTime now = DateTime.Now;
+            DateTime start = ActivationDate;
+
+            return (int)(((now.Year - start.Year) * 12) +
+                now.Month - start.Month +
+                (start.Day >= now.Day - 1 ? 0 : -1) +
+                ((start.Day == 1 && DateTime.DaysInMonth(now.Year, now.Month) == now.Day) ? 1 : 0));
         }
     }
 }

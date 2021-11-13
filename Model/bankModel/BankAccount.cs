@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using Homework_13.ViewModel;
 
 namespace Homework_13.Model.bankModel
 {
-    public abstract class BankAccount
+    abstract class BankAccount : BaseViewModel
     {
         #region Поля
 

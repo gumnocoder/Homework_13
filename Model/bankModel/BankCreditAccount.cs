@@ -40,9 +40,16 @@ namespace Homework_13.Model.bankModel
             get => _percent; 
             set =>_percent = value;
         }
-        public int Expiration { get => _expiration; set { if (value > _minExpiration) _expiration = value; } }
+        public int Expiration
+        { 
+            get => _expiration; 
+            set 
+            { 
+                if (value > _minExpiration) _expiration = value;
+            } 
+        }
         public DateTime ActivationDate { get => _activationDate; }
-
+        public int ExpirationDuration { get => GetTotalMonthsCount(); }
 
         #endregion
 
@@ -67,9 +74,15 @@ namespace Homework_13.Model.bankModel
             return 16.0 - (double)(reputation * 2);
         }
 
-        bool IExpiring.Expired()
+        public int GetTotalMonthsCount()
         {
-            throw new NotImplementedException();
+            DateTime now = DateTime.Now;
+            DateTime start = ActivationDate;
+
+            return (int)(((now.Year - start.Year) * 12) +
+                now.Month - start.Month +
+                (start.Day >= now.Day - 1 ? 0 : -1) +
+                ((start.Day == 1 && DateTime.DaysInMonth(now.Year, now.Month) == now.Day) ? 1 : 0));
         }
     }
 }

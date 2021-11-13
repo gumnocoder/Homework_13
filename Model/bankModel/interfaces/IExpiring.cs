@@ -4,10 +4,14 @@ namespace Homework_13.Model.bankModel.interfaces
 {
     interface IExpiring
     {
-        public int Expiration { get; set; }
+        int Expiration { get; set; }
+
+        int ExpirationDuration { get; }
 
         DateTime ActivationDate { get; }
 
         bool Expired();
+
+        public int GetTotalMonthsCount();
     }
 }
