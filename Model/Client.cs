@@ -5,18 +5,13 @@ namespace Homework_13.Model
 {
     class Client : Person
     {
-        private bool _creditIsActive;
-        private bool _debitIsActive;
-        private bool _depositIsActive;
-        private bool _accountFreezed = false;
+        private bool _creditIsActive, _debitIsActive, _depositIsActive, _accountsFreezed = false;
         private BankCreditAccount _clientsCreditAccount;
         private BankDebitAccount _clientsDebitAccount;
         private BankDepositAccount _clientsDepositAccount;
         private string _type;
         private int _reputation;
         private long _clientId;
-
-
 
         public bool CreditIsActive
         {
@@ -48,12 +43,12 @@ namespace Homework_13.Model
             }
         }
 
-        public bool AccountFreezed
+        public bool AccountsFreezed
         {
-            get => _accountFreezed;
+            get => _accountsFreezed;
             set
             {
-                _accountFreezed = value;
+                _accountsFreezed = value;
                 OnPropertyChanged();
             }
         }

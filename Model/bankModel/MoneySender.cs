@@ -6,7 +6,7 @@ namespace Homework_13.Model.bankModel
     {
         private bool CanSendMoney(Client client)
         {
-            if (!client.AccountFreezed) return true;
+            if (!client.AccountsFreezed) return true;
             else return false;
         }
         public void SendMoney(Client clientSender, long sum, T sender, T reciever)

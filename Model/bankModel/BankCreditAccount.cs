@@ -10,12 +10,13 @@ namespace Homework_13.Model.bankModel
         #region Конструктор
         public BankCreditAccount(long CreditAmount, Client client)
         {
-            if (!client.CreditIsActive)
+            if (!client.CreditIsActive && client.Reputation > 5)
             {
                 AccountAmount = -CreditAmount;
                 SetId();
                 client.CreditIsActive = true;
                 client.ClientsCreditAccount = this;
+                Percent = SetPercent(client);
             }
             else Debug.WriteLine("кредит недоступен для этой персоны");
         }
@@ -32,7 +33,11 @@ namespace Homework_13.Model.bankModel
         #endregion
 
         #region Свойства
-        public double Percent { get => _percent; set { if (value > _minPercent) _percent = value; } }
+        public double Percent 
+        {
+            get => _percent; 
+            set =>_percent = value;
+        }
         public int Expiration { get => _expiration; set { if (value > _minExpiration) _expiration = value; } }
 
         #endregion
@@ -49,6 +54,12 @@ namespace Homework_13.Model.bankModel
         {
             if (Expiration == 0) return true;
             else return false;
+        }
+
+        public double SetPercent(Client client)
+        {
+            int reputation = client.Reputation - 5;
+            return 16.0 - (double)(reputation * 2);
         }
     }
 }

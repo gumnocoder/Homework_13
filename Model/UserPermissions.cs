@@ -3,15 +3,16 @@
     public abstract class UserPermissions : BaseModel
     {
         #region Поля
-        private bool _canCreateUsers = false;
-        private bool _canCreateClients = false;
-        private bool _canRemoveUsers = false;
-        private bool _canRemoveClients = false;
-        private bool _haveUserEditRights = false;
-        private bool _canCloseAccounts = false;
-        private bool _canOpenDebitAccounts = false;
-        private bool _canOpenCreditAccounts = false;
-        private bool _haveAccessToAppSettings = false;
+        private bool
+            _canCreateUsers = false,
+            _canCreateClients = false,
+            _canRemoveUsers = false,
+            _canRemoveClients = false,
+            _haveUserEditRights = false,
+            _canCloseAccounts = false,
+            _canOpenDebitAccounts = false,
+            _canOpenCreditAccounts = false,
+            _haveAccessToAppSettings = false;
         #endregion
 
         #region Свойства

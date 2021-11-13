@@ -54,7 +54,7 @@ namespace Homework_13.Model.bankModel
             if (_account.Expired() && _account.AccountAmount < 0)
             {
                 _client.Reputation -= _client.Reputation;
-                _client.AccountFreezed = true;
+                _client.AccountsFreezed = true;
             }
         }
 
