@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace Homework_13.Model.bankModel
 {
@@ -6,9 +7,8 @@ namespace Homework_13.Model.bankModel
     {
         #region Поля
 
-        long _id;
+        long _id, _accountAmount = 0;
         bool _isActive = true;
-        long _accountAmount = 0;
 
         #endregion
 
@@ -70,7 +70,7 @@ namespace Homework_13.Model.bankModel
         {
             return $"Тип: {GetType()}, " +
                 $" ID - {_id}, " +
-                $"Состояние - {AccountAmount}";
+                $"Состояние - {AccountAmount}$";
         }
         #endregion
     }

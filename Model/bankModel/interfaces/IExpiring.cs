@@ -1,8 +1,12 @@
-﻿namespace Homework_13.Model.bankModel.interfaces
+﻿using System;
+
+namespace Homework_13.Model.bankModel.interfaces
 {
     interface IExpiring
     {
-        int Expiration { get; set; }
+        public int Expiration { get; set; }
+
+        DateTime ActivationDate { get; }
 
         bool Expired();
     }

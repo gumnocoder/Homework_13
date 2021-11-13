@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Homework_13.Model.bankModel.interfaces;
 using static Homework_13.Model.bankModel.Bank;
 
@@ -16,6 +17,7 @@ namespace Homework_13.Model.bankModel
                 client.CreditIsActive = true;
                 client.ClientsCreditAccount = this;
                 Percent = SetPercent(client);
+                _activationDate = DateTime.Now;
             }
             else Debug.WriteLine("кредит недоступен для этой персоны");
         }
@@ -28,6 +30,7 @@ namespace Homework_13.Model.bankModel
         private int _expiration;
         private const double _minPercent = 10;
         private const int _minExpiration = 6;
+        private DateTime _activationDate;
 
         #endregion
 
@@ -38,6 +41,8 @@ namespace Homework_13.Model.bankModel
             set =>_percent = value;
         }
         public int Expiration { get => _expiration; set { if (value > _minExpiration) _expiration = value; } }
+        public DateTime ActivationDate { get => _activationDate; }
+
 
         #endregion
 
@@ -60,6 +65,11 @@ namespace Homework_13.Model.bankModel
             if (client.Reputation == 10) return _minPercent;
             int reputation = client.Reputation - 5;
             return 16.0 - (double)(reputation * 2);
+        }
+
+        bool IExpiring.Expired()
+        {
+            throw new NotImplementedException();
         }
     }
 }

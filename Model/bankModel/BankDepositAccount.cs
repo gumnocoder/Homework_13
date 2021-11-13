@@ -1,4 +1,5 @@
-﻿using Homework_13.Model.bankModel.interfaces;
+﻿using System;
+using Homework_13.Model.bankModel.interfaces;
 using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.Model.bankModel
@@ -15,6 +16,7 @@ namespace Homework_13.Model.bankModel
                 client.DepositIsActive = true;
                 client.ClientsDepositAccount = this;
                 Percent = SetPercent(client);
+                _activationDate = DateTime.Now;
             }
         }
 
@@ -22,6 +24,7 @@ namespace Homework_13.Model.bankModel
         private int _expiration;
         private const double  _maxPercent = 12;
         private const int _minExpiration = 12;
+        private DateTime _activationDate;
         public double Percent 
         { 
             get => _percent;
@@ -42,6 +45,7 @@ namespace Homework_13.Model.bankModel
                 }
             }
         }
+        public DateTime ActivationDate { get => _activationDate; }
 
         public override void SetId() => ID = ++ThisBank.CurrentDepositID;
 
