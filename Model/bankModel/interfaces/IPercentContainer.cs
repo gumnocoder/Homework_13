@@ -9,6 +9,7 @@ namespace Homework_13.Model.bankModel.interfaces
     interface IPercentContainer
     {
         double Percent { get; set; }
+        double SetPercent(Client client);
         int Expiration { get; set; }
     }
 }
