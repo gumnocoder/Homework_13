@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Homework_13.Model.bankModel.interfaces;
 using static Homework_13.Model.bankModel.Bank;
 
@@ -58,6 +57,7 @@ namespace Homework_13.Model.bankModel
 
         public double SetPercent(Client client)
         {
+            if (client.Reputation == 10) return _minPercent;
             int reputation = client.Reputation - 5;
             return 16.0 - (double)(reputation * 2);
         }
