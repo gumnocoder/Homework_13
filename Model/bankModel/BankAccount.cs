@@ -52,6 +52,19 @@ namespace Homework_13.Model.bankModel
                 AccountAmount += value;
                 Debug.WriteLine($"клиент внёс {value}$ на счёт. Текущее состояние счёта: {this}");
             }
+            else
+            {
+                Debug.WriteLine($"На счету {this} недостаточно средств!");
+            }
+        }
+
+        public void RemoveMoneyFromAccount(long value)
+        {
+            if (value <= AccountAmount)
+            {
+                AccountAmount -= value;
+                Debug.WriteLine($"клиент снял {value}$ со счёта. Текущее состояние счёта: {this}");
+            }
         }
         public override string ToString()
         {
