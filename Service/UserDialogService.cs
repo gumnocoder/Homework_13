@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Windows;
+using Homework_13.Model;
 using Homework_13.Service.Interfaces;
 using Homework_13.View;
 using Homework_13.View.UserControls;
@@ -16,8 +17,13 @@ namespace Homework_13.Service
 
         public bool Edit(object o)
         {
-            if (o.GetType() == typeof(Window)) 
-            { GenericWindowOpenerMethod(o as Window); }
+            switch (o)
+            {
+                case User user:
+                    return LoginFormOpen(user);
+                case Window window:
+                    return GenericWindowOpenerMethod(window);
+            }
             return true;
         }
         public void ShowError(string Message, string Tittle)
@@ -34,16 +40,24 @@ namespace Homework_13.Service
                 Tittle,
                 MessageBoxButton.OK);
         }
+
+        private static bool LoginFormOpen(User u)
+        {
+            var dlg = new LoginFormWindow();
+
+            dlg.Owner = _owner;
+            dlg.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            if (dlg.ShowDialog() != true) return false;
+            return true;
+
+        }
         private static bool GenericWindowOpenerMethod(Window window)
         {
             var dlg = new Window();
 
             switch (window)
             {
-                case LoginFormWindow:
-                    dlg = new LoginFormWindow();
-                    break;
-
                 case UserCreationForm:
                     dlg = new UserCreationForm();
                     break;

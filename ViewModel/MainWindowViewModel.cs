@@ -17,7 +17,7 @@ namespace Homework_13.ViewModel
         {
             DataLoader<User>.LoadFromJson(UserList<User>.UsersList, "users.json");
             //DataSaver<User>.JsonSeralize(UserList<User>.UsersList, "users.json");
-            _dialogService.Edit(new LoginFormWindow());
+            _dialogService.Edit(CurrentUser);
             Tittle = "Банк";
             new BankSettingsLoader(ThisBank);
             new BankSettingsSaver(ThisBank);
