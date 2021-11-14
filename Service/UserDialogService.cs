@@ -16,23 +16,10 @@ namespace Homework_13.Service
 
         public bool Edit(object o)
         {
-            switch (o)
-            {
-                case LoginFormWindow window:
-                    return GenericWindowOpenerMethod(window);
-
-                case UserCreationForm window:
-                    return GenericWindowOpenerMethod(window);
-
-                case UserListView window:
-                    return GenericWindowOpenerMethod(window);
-
-                case ClientListView window:
-                    return GenericWindowOpenerMethod(window);
-            }
+            if (o.GetType() == typeof(Window)) 
+            { GenericWindowOpenerMethod(o as Window); }
             return true;
         }
-
         public void ShowError(string Message, string Tittle)
         {
             MessageBox.Show(
@@ -40,15 +27,13 @@ namespace Homework_13.Service
                 Tittle,
                 MessageBoxButton.OK);
         }
-
         public void ShowInformation(string Message, string Tittle)
         {
             MessageBox.Show(
-                Message, 
-                Tittle, 
+                Message,
+                Tittle,
                 MessageBoxButton.OK);
         }
-
         private static bool GenericWindowOpenerMethod(Window window)
         {
             var dlg = new Window();
