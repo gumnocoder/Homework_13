@@ -15,6 +15,7 @@ namespace Homework_13.ViewModel
         public MainWindowViewModel()
         {
             DataLoader<User>.LoadFromJson(UserList<User>.UsersList, "users.json");
+            //DataSaver<User>.JsonSeralize(UserList<User>.UsersList, "users.json");
             _dialogService.Edit(CurrentUser);
             Tittle = "Банк";
             new BankSettingsLoader(ThisBank);
@@ -73,6 +74,7 @@ namespace Homework_13.ViewModel
                 else return string.Empty; 
             }
         }
+
         #endregion
 
         #region Команда загрузки данных в синглтон банка
@@ -106,6 +108,32 @@ namespace Homework_13.ViewModel
         public void CreateUserCommand(object s)
         {
             _dialogService.Edit(new UserCreationForm());
+        }
+
+        #endregion
+
+        #region Команда вызова окна списка пользователей
+
+        private RelayCommand _viewUserDB;
+
+        public RelayCommand ViewUserDB =>
+            _viewUserDB ??= new(ShowUserDB);
+        public void ShowUserDB(object s)
+        {
+            _dialogService.Edit(new UserListView());
+        }
+
+        #endregion
+
+        #region Команда вызова окна списка клиентов
+
+        private RelayCommand _viewClientDB;
+
+        public RelayCommand ViewClientDB =>
+            _viewClientDB ??= new(ShowClientDB);
+        public void ShowClientDB(object s)
+        {
+            _dialogService.Edit(new ClientListView());
         }
 
         #endregion

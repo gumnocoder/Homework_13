@@ -41,6 +41,5 @@ namespace Homework_13.Model
                 return u;
             }
         }
-        public ClientList() { }
     }
 }

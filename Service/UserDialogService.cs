@@ -24,10 +24,17 @@ namespace Homework_13.Service
 
                 case UserCreationForm window:
                     return OpenUserCreationForm(window);
-            }
 
+                case UserListView window:
+                    return OpenUserList(window);
+
+                case ClientListView window:
+                    return OpenClientList(window);
+            }
             return true;
         }
+
+
 
         public void ShowError(string Message, string Tittle)
         {
@@ -61,6 +68,28 @@ namespace Homework_13.Service
             {
                 Owner = _owner,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+            if (dlg.ShowDialog() != true) return false;
+            return true;
+        }
+
+        private static bool OpenUserList(UserListView window)
+        {
+            var dlg = new UserListView()
+            {
+                Owner = _owner,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            };
+            if (dlg.ShowDialog() != true) return false;
+            return true;
+        }
+
+        private static bool OpenClientList(ClientListView window)
+        {
+            var dlg = new ClientListView()
+            {
+                Owner = _owner,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
             };
             if (dlg.ShowDialog() != true) return false;
             return true;

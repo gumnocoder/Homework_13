@@ -1,6 +1,6 @@
 ﻿namespace Homework_13.Model
 {
-    public abstract class UserPermissions : BaseModel
+    abstract class BasicUserWithPermissions : Person
     {
         #region Поля
         private bool
@@ -12,7 +12,9 @@
             _canCloseAccounts = false,
             _canOpenDebitAccounts = false,
             _canOpenCreditAccounts = false,
-            _haveAccessToAppSettings = false;
+            _haveAccessToAppSettings = false,
+            _haveAccessToClientsDB = false;
+
         #endregion
 
         #region Свойства
@@ -64,6 +66,12 @@
         {
             get => _canRemoveClients;
             set { _canRemoveClients = value; OnPropertyChanged(); }
+        }
+
+        public bool HaveAccessToClientsDB
+        {
+            get => _haveAccessToClientsDB;
+            set { _haveAccessToClientsDB = value; OnPropertyChanged(); }
         }
         #endregion
         public void Turn(bool property) => property = !property;

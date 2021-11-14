@@ -1,1 +1,18 @@
-[{"ID":1,"Login":"admin","Pass":"admin","Type":"администратор","Name":"Админ"}]
+[
+    {
+        "ID": 0,
+        "Login": "admin",
+        "Pass": "admin",
+        "Type": "администратор",
+        "HaveAccessToAppSettings": true,
+        "CanOpenCreditAccounts": true,
+        "CanOpenDebitAccounts": true,
+        "CanCloseAccounts": true,
+        "HaveUserEditRights": true,
+        "CanCreateUsers": true,
+        "CanCreateClients": true,
+        "CanRemoveUsers": true,
+        "CanRemoveClients": true,
+        "Name": "Админ"
+    }
+]

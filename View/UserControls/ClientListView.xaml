@@ -1,0 +1,34 @@
+﻿<Window x:Class="Homework_13.View.UserControls.ClientListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModel="clr-namespace:Homework_13.ViewModel"
+             xmlns:local="clr-namespace:Homework_13.View.UserControls"
+             mc:Ignorable="d" Height="300" Width="500">
+    <Window.DataContext>
+        <viewModel:ClientListViewModel/>
+    </Window.DataContext>
+    <DataGrid
+        AutoGenerateColumns="False"
+        ItemsSource="{Binding Clients}">
+        <DataGrid.Columns>
+            <DataGridTextColumn 
+                Header="ID" 
+                Binding="{Binding ClientID}" 
+                Width="40"/>
+            <DataGridTextColumn 
+                Header="Имя" 
+                Binding="{Binding Name}" 
+                Width="100"/>
+            <DataGridTextColumn 
+                Header="Репутация" 
+                Binding="{Binding Reputation}" 
+                Width="70"/>
+            <DataGridTextColumn 
+                Header="Тип" 
+                Binding="{Binding Type}" 
+                Width="100"/>
+        </DataGrid.Columns>
+    </DataGrid>
+</Window>

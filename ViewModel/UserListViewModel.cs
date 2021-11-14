@@ -3,8 +3,9 @@ using Homework_13.Model;
 
 namespace Homework_13.ViewModel
 {
-    class UserListViewModel
+    class UserListViewModel : BaseViewModel
     {
+
         /// <summary>
         /// Ссылка на лист содержащий
         /// зарегистрированные экземпляры 
@@ -14,5 +15,6 @@ namespace Homework_13.ViewModel
         { get => UserList<User>.UsersList; }
 
         public UserListViewModel() { }
+
     }
 }
