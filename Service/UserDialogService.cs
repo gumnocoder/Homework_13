@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Windows;
-using Homework_13.Model;
 using Homework_13.Service.Interfaces;
 using Homework_13.View;
 using Homework_13.View.UserControls;
@@ -19,22 +18,20 @@ namespace Homework_13.Service
         {
             switch (o)
             {
-                case User user:
-                    return OpenLoginForm(user);
+                case LoginFormWindow window:
+                    return GenericWindowOpenerMethod(window);
 
                 case UserCreationForm window:
-                    return OpenUserCreationForm(window);
+                    return GenericWindowOpenerMethod(window);
 
                 case UserListView window:
-                    return OpenUserList(window);
+                    return GenericWindowOpenerMethod(window);
 
                 case ClientListView window:
-                    return OpenClientList(window);
+                    return GenericWindowOpenerMethod(window);
             }
             return true;
         }
-
-
 
         public void ShowError(string Message, string Tittle)
         {
@@ -52,45 +49,32 @@ namespace Homework_13.Service
                 MessageBoxButton.OK);
         }
 
-        public static bool OpenLoginForm(User user)
+        private static bool GenericWindowOpenerMethod(Window window)
         {
-            var dlg = new LoginFormWindow()
-            {
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
-            };
-            if (dlg.ShowDialog() != true) return false;
-            return true;
-        }
+            var dlg = new Window();
 
-        private static bool OpenUserCreationForm(UserCreationForm window)
-        {
-            var dlg = new UserCreationForm()
+            switch (window)
             {
-                Owner = _owner,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
-            if (dlg.ShowDialog() != true) return false;
-            return true;
-        }
+                case LoginFormWindow:
+                    dlg = new LoginFormWindow();
+                    break;
 
-        private static bool OpenUserList(UserListView window)
-        {
-            var dlg = new UserListView()
-            {
-                Owner = _owner,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
-            };
-            if (dlg.ShowDialog() != true) return false;
-            return true;
-        }
+                case UserCreationForm:
+                    dlg = new UserCreationForm();
+                    break;
 
-        private static bool OpenClientList(ClientListView window)
-        {
-            var dlg = new ClientListView()
-            {
-                Owner = _owner,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen
-            };
+                case UserListView:
+                    dlg = new UserListView();
+                    break;
+
+                case ClientListView:
+                    dlg = new ClientListView();
+                    break;
+            }
+
+            dlg.Owner = _owner;
+            dlg.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             if (dlg.ShowDialog() != true) return false;
             return true;
         }
