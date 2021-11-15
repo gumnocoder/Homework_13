@@ -38,7 +38,7 @@
                 </MenuItem>
                 <MenuItem
                     Header="Создать клиента"
-                    Command="{Binding CreateUser}"
+                    Command="{Binding CreateClient}"
                     IsEnabled="{Binding CurrentUser.CanCreateClients}">
                 </MenuItem>
                 <Separator/>

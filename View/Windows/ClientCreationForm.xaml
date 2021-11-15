@@ -1,0 +1,132 @@
+﻿<Window x:Class="Homework_13.View.Windows.ClientCreationForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:Homework_13.ViewModel"
+        xmlns:local="clr-namespace:Homework_13.View.Windows"
+        mc:Ignorable="d"
+        Title="ClientCreationForm" 
+        Height="350" 
+        Width="360"
+        ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewModel:ClientCreationFormViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="25"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel 
+            Orientation="Horizontal"
+            Grid.Row="7" 
+            Grid.Column="3" 
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom">
+            <Button
+                Content="Далее"
+                Height="30" 
+                Width="100"
+                Margin="10,5,0,5"/>
+            <Button
+                Content="Отмена"
+                Height="30" 
+                Width="100"
+                Margin="10,5,0,5"/>
+        </StackPanel>
+        <TextBlock 
+            Grid.Row="1"
+            Grid.ColumnSpan="4" 
+            HorizontalAlignment="Center"
+            FontWeight="Bold"
+            FontSize="16">
+            Введите данные нового клиента
+        </TextBlock>
+        <TextBlock 
+            Grid.Column="1" 
+            HorizontalAlignment="Right"
+                   Margin="0,0,0,0"
+            Grid.Row="2" 
+            TextWrapping="Wrap"
+            VerticalAlignment="Top">
+            Фамилия
+        </TextBlock>
+        <TextBlock 
+            Grid.Column="1" 
+            HorizontalAlignment="Right" 
+                   Margin="0,0,0,0" 
+            Grid.Row="3" 
+            Text="Имя"
+            TextWrapping="Wrap"
+            VerticalAlignment="Top"/>
+        <TextBlock 
+            Grid.Column="1" 
+            HorizontalAlignment="Right" 
+                   Grid.Row="4" 
+            Text="Отчество" 
+            TextWrapping="Wrap"
+            VerticalAlignment="Top"/>
+        <TextBox 
+            x:Name="surnameField"
+            Grid.Column="3" 
+            HorizontalAlignment="Left" 
+            Margin="0,0,0,0"
+            Grid.Row="2" 
+            Text="{Binding Surname}"
+            TextWrapping="Wrap"
+            VerticalAlignment="Top" 
+            Width="210"/>
+        <TextBox
+            x:Name="nameField"
+            Grid.Column="3"
+            HorizontalAlignment="Left"
+            Margin="0,0,0,0" 
+            Grid.Row="3"
+            Text="{Binding Name}"
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"
+            Width="210"/>
+        <TextBox 
+            x:Name="patronimField"
+            Grid.Column="3" 
+            HorizontalAlignment="Left"
+            Margin="0,0,0,0" 
+            Grid.Row="4"
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Text="{Binding Patronim}"
+            Width="210"/>
+        <ComboBox 
+            x:Name="clientTypeField"
+            Grid.Column="3" 
+            HorizontalAlignment="Left" 
+            Margin="0,0,0,0" 
+            Grid.Row="5" 
+            VerticalAlignment="Top"
+            ItemsSource="{Binding ClientTypes}"
+            Width="210"/>
+        <TextBlock 
+            Grid.Column="1"
+            HorizontalAlignment="Right"
+            Margin="0,0,0,0"
+            Grid.Row="5" 
+            Text="Выберите тип клиента" 
+            TextWrapping="Wrap"
+            VerticalAlignment="Top"/>
+    </Grid>
+</Window>

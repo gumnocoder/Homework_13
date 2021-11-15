@@ -4,6 +4,7 @@ using Homework_13.Service;
 using Homework_13.Service.Command;
 using Homework_13.View;
 using Homework_13.View.UserControls;
+using Homework_13.View.Windows;
 using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.ViewModel
@@ -108,7 +109,20 @@ namespace Homework_13.ViewModel
             _createUser ??= new(CreateUserCommand);
         public void CreateUserCommand(object s)
         {
-            _dialogService.Edit(new UserCreationForm());
+            _dialogService.Edit(new UserCreationFormViewModel());
+        }
+
+        #endregion
+
+        #region Команда вызова окна создания клиента
+
+        private RelayCommand _createClient;
+
+        public RelayCommand CreateClient =>
+            _createClient ??= new(CreateClientCommand);
+        public void CreateClientCommand(object s)
+        {
+            _dialogService.Edit(new ClientCreationFormViewModel());
         }
 
         #endregion
@@ -121,7 +135,7 @@ namespace Homework_13.ViewModel
             _viewUserDB ??= new(ShowUserDB);
         public void ShowUserDB(object s)
         {
-            _dialogService.Edit(new UserListView());
+            _dialogService.Edit(new UserListViewModel());
         }
 
         #endregion
@@ -134,7 +148,7 @@ namespace Homework_13.ViewModel
             _viewClientDB ??= new(ShowClientDB);
         public void ShowClientDB(object s)
         {
-            _dialogService.Edit(new ClientListView());
+            _dialogService.Edit(new ClientListViewModel());
         }
 
         #endregion

@@ -4,6 +4,8 @@ using Homework_13.Model;
 using Homework_13.Service.Interfaces;
 using Homework_13.View;
 using Homework_13.View.UserControls;
+using Homework_13.View.Windows;
+using Homework_13.ViewModel;
 
 namespace Homework_13.Service
 {
@@ -21,7 +23,7 @@ namespace Homework_13.Service
             {
                 case User user:
                     return LoginFormOpen(user);
-                case Window window:
+                case object window:
                     return GenericWindowOpenerMethod(window);
             }
             return true;
@@ -52,21 +54,25 @@ namespace Homework_13.Service
             return true;
 
         }
-        private static bool GenericWindowOpenerMethod(Window window)
+        private static bool GenericWindowOpenerMethod(object o)
         {
             var dlg = new Window();
 
-            switch (window)
+            switch (o)
             {
-                case UserCreationForm:
+                case UserCreationFormViewModel:
                     dlg = new UserCreationForm();
                     break;
 
-                case UserListView:
+                case ClientCreationFormViewModel:
+                    dlg = new ClientCreationForm();
+                    break;
+
+                case UserListViewModel:
                     dlg = new UserListView();
                     break;
 
-                case ClientListView:
+                case ClientListViewModel:
                     dlg = new ClientListView();
                     break;
             }

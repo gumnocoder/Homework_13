@@ -13,6 +13,7 @@
         "CanCreateClients": true,
         "CanRemoveUsers": true,
         "CanRemoveClients": true,
+        "HaveAccessToClientsDB": true,
         "Name": "Админ"
     }
 ]
