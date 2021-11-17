@@ -252,7 +252,7 @@
                 Binding RelativeSource={
                 RelativeSource AncestorType=local:UserCreationForm}}">
                         <Button.Command>
-                            <cmd:UsersCreator/>
+                            <cmd:PersonsCreator/>
                         </Button.Command>
                     </Button>
                 </StackPanel>
