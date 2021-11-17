@@ -86,7 +86,7 @@
             <Button 
                 Margin="15,15,0,15" 
                 Width="100" 
-                Content="Создать"
+                Content="Далее"
                 Command="{Binding ShowUserPermissions}">
             </Button>
             <Button 
@@ -103,8 +103,8 @@
         </StackPanel>
         <Border 
             Visibility="{
-            Binding PermissionsVisible, 
-            Converter={StaticResource BooleanToVisibilityConverter}}"
+            Binding PermissionsVisible, Converter={
+            StaticResource BooleanToVisibilityConverter}}"
             Background="GhostWhite" 
             Grid.RowSpan="2">
             <Grid>
@@ -244,6 +244,12 @@
             Grid.Row="2" 
             Orientation="Horizontal" 
             HorizontalAlignment="Right">
+                    <Button
+                        Margin="0,15,0,15"
+                        Width="100"
+                        Content="Назад"
+                        Command="{Binding ShowUserPermissions}">
+                    </Button>
                     <Button 
                 Margin="15" 
                 Width="100" 

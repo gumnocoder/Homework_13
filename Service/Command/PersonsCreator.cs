@@ -35,30 +35,28 @@ namespace Homework_13.Service.Command
                 MessageBox.Show("Введите имя!", "отсутствие данных", MessageBoxButton.OK);
                 return false;
             }
-            if (!Check(_pass) && _pass != "*****")
+            else if (!Check(_pass) || _pass == "*****")
             {
                 MessageBox.Show("Введите пароль!", "отсутствие данных", MessageBoxButton.OK);
                 return false;
             }
-            if (!Check(_login))
+            else if (!Check(_login))
             {
                 MessageBox.Show("Укажите логин!", "отсутствие данных", MessageBoxButton.OK);
                 return false;
             }
-            if (!Check(_type))
+            else if (!Check(_type))
             {
                 MessageBox.Show("Выберите тип пользователя!", "отсутствие данных", MessageBoxButton.OK);
                 return false;
             }
-
-            CreateUser(window, _name, _pass, _login, _type);
-            return true;
+            else { CreateUser(window, _name, _pass, _login, _type); return true; }
         }
 
         public void CreateUser(UserCreationForm window, string Name, string Pass, string Login, string Type)
         {
 
-            User user = new(Name, Pass, Login, Type);
+            User user = new(Name, Login, Pass, Type);
 
             user.CanCreateUsers = (bool)window.canCreateUsers.IsChecked;
             user.CanRemoveUsers = (bool)window.canRemoveUsers.IsChecked;
@@ -79,6 +77,7 @@ namespace Homework_13.Service.Command
                 "Пользователь успешно создан!",
                 "Отчёт",
                 MessageBoxButton.OK);
+            window.Close();
         }
         public override void Execute(object parameter)
         {
@@ -95,7 +94,6 @@ namespace Homework_13.Service.Command
                     window = parameter as ClientCreationForm;
                     break;
             }
-            window.Close();
         }
     }
 }
