@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows;
 using Homework_13.Model;
+using Homework_13.Model.bankModel;
 using Homework_13.View.UserControls;
 using Homework_13.View.Windows;
 
@@ -19,6 +20,52 @@ namespace Homework_13.Service.Command
             return (parameter as Window) != null;
         }
 
+        private bool CreateClientFieldsCheck(ClientCreationForm window)
+        {
+            string _surname = window.surnameField.Text;
+            string _name = window.nameField.Text;
+            string _patronim = window.patronimField.Text;
+            string _type = window.clientTypeField.Text;
+
+            if (!Check(_surname))
+            {
+                MessageBox.Show("Введите фамилию!", "отсутствие данных", MessageBoxButton.OK);
+                return false;
+            }
+            else if (!Check(_name))
+            {
+                MessageBox.Show("Введите имя!", "отсутствие данных", MessageBoxButton.OK);
+                return false;
+            }
+            else if (!Check(_type))
+            {
+                MessageBox.Show("Выберите тип клиента!", "отсутствие данных", MessageBoxButton.OK);
+                return false;
+            }
+            else
+            {
+                string name = $"{_surname.Trim()} {_name.Trim()}";
+                if (Check(_patronim)) name += $" {_patronim.Trim()}";
+                CreateClient(window, name, _type);
+                return true;
+            }
+        }
+        public void CreateClient(ClientCreationForm window, string name, string type)
+        {
+            bool createAccount = (bool)window.CreateDebitAccountFlag.IsChecked;
+            Client client = new(name, type);
+
+            if (createAccount) new BankDebitAccount(client);
+
+            ListsOperator<Client> oper = new();
+            oper.AddToList(ClientList<Client>.ClientsList, client);
+
+            MessageBox.Show(
+                "Клиент успешно создан!",
+                "Отчёт",
+                MessageBoxButton.OK);
+            window.Close();
+        }
         public bool CreateUserFieldsCheck(UserCreationForm window)
         {
             string _name =
@@ -92,6 +139,7 @@ namespace Homework_13.Service.Command
                     break;
                 case ClientCreationForm:
                     window = parameter as ClientCreationForm;
+                    CreateClientFieldsCheck(window as ClientCreationForm);
                     break;
             }
         }

@@ -44,8 +44,15 @@
                 Content="Создать"
                 Height="30" 
                 Width="100"
-                Margin="10,5,0,5"/>
-            <Button
+                Margin="10,5,0,5"
+                 CommandParameter="{
+                Binding RelativeSource={
+                RelativeSource AncestorType=local:ClientCreationForm}}">
+                <Button.Command>
+                    <cmd:PersonsCreator/>
+                </Button.Command>
+                </Button>
+                <Button
                 Content="Отмена"
                 Height="30" 
                 Width="100"
@@ -146,6 +153,7 @@
             TextWrapping="Wrap"
             VerticalAlignment="Center"/>
         <CheckBox
+            x:Name="CreateDebitAccountFlag"
             IsChecked="{Binding CreateDebitAccountFlag}"
             Grid.Row="6"
             Grid.Column="1"
