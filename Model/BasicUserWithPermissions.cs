@@ -13,7 +13,8 @@
             _canOpenDebitAccounts = false,
             _canOpenCreditAccounts = false,
             _haveAccessToAppSettings = false,
-            _haveAccessToClientsDB = false;
+            _haveAccessToClientsDB = false,
+            _canOpenDepositAccounts = false;
 
         #endregion
 
@@ -72,6 +73,16 @@
         {
             get => _haveAccessToClientsDB;
             set { _haveAccessToClientsDB = value; OnPropertyChanged(); }
+        }
+
+        public bool CanOpenDepositAccounts
+        {
+            get => _canOpenDepositAccounts;
+            set
+            {
+                _canOpenDepositAccounts = value;
+                OnPropertyChanged();
+            }
         }
         #endregion
         public void Turn(bool property) => property = !property;

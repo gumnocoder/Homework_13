@@ -4,12 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:Homework_13.ViewModel"
+        xmlns:cmd="clr-namespace:Homework_13.Service.Command"
         xmlns:local="clr-namespace:Homework_13.View.Windows"
         mc:Ignorable="d"
         Title="ClientCreationForm" 
         Height="350" 
-        Width="360"
-        ResizeMode="NoResize">
+        Width="370"
+        ResizeMode="NoResize"
+        WindowStyle="None">
     <Window.DataContext>
         <viewModel:ClientCreationFormViewModel/>
     </Window.DataContext>
@@ -39,7 +41,7 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom">
             <Button
-                Content="Далее"
+                Content="Создать"
                 Height="30" 
                 Width="100"
                 Margin="10,5,0,5"/>
@@ -47,7 +49,14 @@
                 Content="Отмена"
                 Height="30" 
                 Width="100"
-                Margin="10,5,0,5"/>
+                Margin="10,5,0,5"
+                CommandParameter="{
+                Binding RelativeSource={
+                RelativeSource AncestorType=local:ClientCreationForm}}">
+                <Button.Command>
+                    <cmd:CloseWindowCommand ExitApp="False"/>
+                </Button.Command>
+            </Button>
         </StackPanel>
         <TextBlock 
             Grid.Row="1"
@@ -128,5 +137,19 @@
             Text="Выберите тип клиента" 
             TextWrapping="Wrap"
             VerticalAlignment="Top"/>
+        <TextBlock 
+            Grid.Column="3"
+            HorizontalAlignment="Left"
+            Margin="0,0,0,0"
+            Grid.Row="6" 
+            Text="Открыть дебетовый счёт для нового клиента?" 
+            TextWrapping="Wrap"
+            VerticalAlignment="Center"/>
+        <CheckBox
+            IsChecked="{Binding CreateDebitAccountFlag}"
+            Grid.Row="6"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"/>
     </Grid>
 </Window>

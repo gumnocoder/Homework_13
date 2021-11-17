@@ -1,9 +1,11 @@
-﻿namespace Homework_13.ViewModel
+﻿using Homework_13.Service.Command;
+
+namespace Homework_13.ViewModel
 {
     class UserCreationFormViewModel : BaseViewModel
     {
-        private string _login;
-        private string _name;
+/*        private string _login;
+        private string _name;*/
         private string _pass = "*****";
         private string[] _types = new string[] {
             "администратор",
@@ -13,27 +15,48 @@
             "специалист по компаниям",
         };
 
+        private bool _permissionsVisible = false;
 
-        public string Login
+        public bool PermissionsVisible
         {
-            get => _login;
+            get => _permissionsVisible;
             set
             {
-                if (_login == value) return;
-                _login = value;
+                _permissionsVisible = value;
                 OnPropertyChanged();
             }
         }
-        public string Name
+
+        private RelayCommand _showUserPermissions;
+
+        public RelayCommand ShowUserPermissions
         {
-            get => _name;
-            set
-            {
-                if (_name == value) return;
-                _name = value;
-                OnPropertyChanged();
-            }
+            get => _showUserPermissions ??= new(ShowPermissions);
         }
+        private void ShowPermissions(object s)
+        {
+            PermissionsVisible = true;
+        }
+        /*        public string Login
+                {
+                    get => _login;
+                    set
+                    {
+                        if (_login == value) return;
+                        _login = value;
+                        OnPropertyChanged();
+                    }
+                }
+                public string Name
+                {
+                    get => _name;
+                    set
+                    {
+                        if (_name == value) return;
+                        _name = value;
+                        OnPropertyChanged();
+                    }
+                }*/
         public string Pass
         {
             get => _pass;
