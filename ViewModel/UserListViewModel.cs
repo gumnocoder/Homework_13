@@ -3,7 +3,7 @@ using Homework_13.Model;
 
 namespace Homework_13.ViewModel
 {
-    class UserListViewModel : BaseViewModel
+    class UserListViewModel : WindowsBasicFuncs
     {
 
         /// <summary>

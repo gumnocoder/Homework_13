@@ -45,10 +45,8 @@
             Margin="3,3,25,3"
             CommandParameter="{
             Binding RelativeSource={
-            RelativeSource AncestorType=local:ClientListView}}">
-            <Button.Command>
-                <cmd:CloseWindowCommand ExitApp="False"/>
-            </Button.Command>
+            RelativeSource AncestorType=local:UserListView}}"
+            Command="{Binding Maximize}">
             <Button.Content>
                 <TextBlock
                     Text="1"
