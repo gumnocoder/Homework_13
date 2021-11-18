@@ -3,32 +3,130 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cmd="clr-namespace:Homework_13.Service.Command"
+             xmlns:model="clr-namespace:Homework_13.Model"
              xmlns:viewModel="clr-namespace:Homework_13.ViewModel"
              xmlns:local="clr-namespace:Homework_13.View.UserControls"
-             mc:Ignorable="d" Height="300" Width="500">
+             mc:Ignorable="d" Height="640" Width="800"
+             WindowStyle="None">
     <Window.DataContext>
         <viewModel:ClientListViewModel/>
     </Window.DataContext>
-    <DataGrid
-        AutoGenerateColumns="False"
-        ItemsSource="{Binding Clients}">
-        <DataGrid.Columns>
-            <DataGridTextColumn 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <DataGrid
+            IsReadOnly="True"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Grid.RowSpan="2"
+            x:Name="ClientsListView"
+            AutoGenerateColumns="False"
+            ItemsSource="{Binding Clients}">
+            <DataGrid.Columns>
+                <DataGridTextColumn 
                 Header="ID" 
                 Binding="{Binding ClientID}" 
                 Width="40"/>
-            <DataGridTextColumn 
+                <DataGridTextColumn 
                 Header="Имя" 
                 Binding="{Binding Name}" 
-                Width="100"/>
-            <DataGridTextColumn 
+                Width="120"/>
+                <DataGridTextColumn 
                 Header="Репутация" 
                 Binding="{Binding Reputation}" 
                 Width="70"/>
-            <DataGridTextColumn 
+                <DataGridTextColumn 
                 Header="Тип" 
                 Binding="{Binding Type}" 
                 Width="100"/>
-        </DataGrid.Columns>
-    </DataGrid>
+                <DataGridTextColumn 
+                Header="Дебетовый" 
+                Binding="{Binding DebitIsActive}" 
+                Width="80"/>
+                <DataGridTextColumn 
+                Header="Депозитный" 
+                Binding="{Binding DepositIsActive}" 
+                Width="80"/>
+                <DataGridTextColumn 
+                Header="Кредитный" 
+                Binding="{Binding CreditIsActive}" 
+                Width="80"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox
+            Grid.Row="0"
+            HorizontalAlignment="Right"
+            Width="150"
+            Margin="3,3,48,3"
+
+            Padding="2,-1,0,0"
+            FontStyle="Italic"
+            Foreground="Gray">
+        </TextBox>
+        <Button
+            Grid.Row="0"
+            HorizontalAlignment="Right"
+            Width="19"
+            Height="19"
+            Margin="3,3,25,3"
+            CommandParameter="{
+            Binding RelativeSource={
+            RelativeSource AncestorType=local:ClientListView}}">
+            <Button.Command>
+                <cmd:CloseWindowCommand ExitApp="False"/>
+            </Button.Command>
+            <Button.Content>
+                <TextBlock
+                    Text="1"
+                    Foreground="Red"
+                    FontSize="19"
+                    Padding="0,0,0,2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="Webdings"/>
+            </Button.Content>
+        </Button>
+        <Button
+            Grid.Row="0"
+            HorizontalAlignment="Right"
+            Width="19"
+            Height="19"
+            Margin="3,0,48,0">
+            <Button.Content>
+                <TextBlock
+                    Text="L"
+                    Foreground="Blue"
+                    FontSize="13"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="Webdings"/>
+            </Button.Content>
+        </Button>
+        <Button
+            Grid.Row="0"
+            HorizontalAlignment="Right"
+            Width="19"
+            Height="19"
+            Margin="3"
+            CommandParameter="{
+            Binding RelativeSource={
+            RelativeSource AncestorType=local:ClientListView}}">
+            <Button.Command>
+                <cmd:CloseWindowCommand ExitApp="False"/>
+            </Button.Command>
+            <Button.Content>
+                <TextBlock
+                    Text="Ï"
+                    Foreground="Red"
+                    FontSize="19"
+                    Padding="0,1,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="Wingdings 2"/>
+            </Button.Content>
+        </Button>
+    </Grid>
 </Window>

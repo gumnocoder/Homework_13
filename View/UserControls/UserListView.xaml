@@ -4,25 +4,84 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Homework_13.View.UserControls"
-             xmlns:viewModel="clr-namespace:Homework_13.ViewModel"
+             xmlns:cmd="clr-namespace:Homework_13.Service.Command"
+        xmlns:viewModel="clr-namespace:Homework_13.ViewModel"
              xmlns:model="clr-namespace:Homework_13.Model"
-             mc:Ignorable="d" Height="500" Width="800">
+             mc:Ignorable="d" 
+        Height="500" 
+        Width="800"
+        WindowStyle="None"
+        ResizeMode="NoResize">
     <Window.DataContext>
         <viewModel:UserListViewModel/>
     </Window.DataContext>
-    <DataGrid
-        AutoGenerateColumns="False"
-        HorizontalAlignment="Stretch"
-        VerticalAlignment="Stretch"
-        x:Name="UsersListView"
-        ItemsSource="{
-        Binding Users}">
-        <DataGrid.Columns>
-            <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
-            <DataGridTextColumn Header="Логин" Binding="{Binding Login}"/>
-            <DataGridTextColumn Header="Пароль" Binding="{Binding Pass}"/>
-            <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
-            <DataGridTextColumn Header="Тип" Binding="{Binding Type}"/>
-        </DataGrid.Columns>
-    </DataGrid>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <DataGrid
+            Grid.RowSpan="2"
+            IsReadOnly="True"
+            AutoGenerateColumns="False"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            x:Name="UsersListView"
+            ItemsSource="{
+            Binding Users}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="50"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="120"/>
+                <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="100"/>
+                <DataGridTextColumn Header="Пароль" Binding="{Binding Pass}" Width="100"/>
+                <DataGridTextColumn Header="Тип" Binding="{Binding Type}" Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button
+            Grid.Row="0"
+            HorizontalAlignment="Right"
+            Width="19"
+            Height="19"
+            Margin="3,3,25,3"
+            CommandParameter="{
+            Binding RelativeSource={
+            RelativeSource AncestorType=local:ClientListView}}">
+            <Button.Command>
+                <cmd:CloseWindowCommand ExitApp="False"/>
+            </Button.Command>
+            <Button.Content>
+                <TextBlock
+                    Text="1"
+                    Foreground="Red"
+                    FontSize="19"
+                    Padding="0,0,0,2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="Webdings"/>
+            </Button.Content>
+        </Button>
+        <Button
+            Grid.Row="0"
+            HorizontalAlignment="Right"
+            Width="19"
+            Height="19"
+            Margin="3"
+            CommandParameter="{
+            Binding RelativeSource={
+            RelativeSource AncestorType=local:UserListView}}">
+            <Button.Command>
+                <cmd:CloseWindowCommand ExitApp="False"/>
+            </Button.Command>
+            <Button.Content>
+                <TextBlock
+                    Text="Ï"
+                    Foreground="Red"
+                    FontSize="21"
+                    Padding="0,1,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="Wingdings 2"/>
+            </Button.Content>
+        </Button>
+    </Grid>
 </Window>

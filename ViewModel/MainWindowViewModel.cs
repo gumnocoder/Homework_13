@@ -16,6 +16,10 @@ namespace Homework_13.ViewModel
         /// </summary>
         public MainWindowViewModel()
         {
+            Client client = new("Test Client");
+            ListsOperator<Client> oper = new();
+            oper.AddToList(ClientListViewModel.Clients, client);
+
             DataLoader<User>.LoadFromJson(UserList<User>.UsersList, "users.json");
             //DataSaver<User>.JsonSeralize(UserList<User>.UsersList, "users.json");
             _dialogService.Edit(CurrentUser);

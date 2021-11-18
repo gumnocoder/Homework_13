@@ -44,6 +44,7 @@ namespace Homework_13.Service.Command
             }
             else
             {
+                
                 string name = $"{_surname.Trim()} {_name.Trim()}";
                 if (Check(_patronim)) name += $" {_patronim.Trim()}";
                 CreateClient(window, name, _type);
@@ -64,6 +65,8 @@ namespace Homework_13.Service.Command
                 "Клиент успешно создан!",
                 "Отчёт",
                 MessageBoxButton.OK);
+            Debug.WriteLine(client);
+            foreach (var e in ClientList<Client>.ClientsList) Debug.WriteLine(e);
             window.Close();
         }
         public bool CreateUserFieldsCheck(UserCreationForm window)

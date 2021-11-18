@@ -103,7 +103,6 @@
             HorizontalAlignment="Left" 
             Margin="0,0,0,0"
             Grid.Row="2" 
-            Text="{Binding Surname}"
             TextWrapping="Wrap"
             VerticalAlignment="Top" 
             Width="210"/>
@@ -113,7 +112,6 @@
             HorizontalAlignment="Left"
             Margin="0,0,0,0" 
             Grid.Row="3"
-            Text="{Binding Name}"
             TextWrapping="Wrap" 
             VerticalAlignment="Top"
             Width="210"/>
@@ -125,7 +123,6 @@
             Grid.Row="4"
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
-            Text="{Binding Patronim}"
             Width="210"/>
         <ComboBox 
             x:Name="clientTypeField"
@@ -154,7 +151,6 @@
             VerticalAlignment="Center"/>
         <CheckBox
             x:Name="CreateDebitAccountFlag"
-            IsChecked="{Binding CreateDebitAccountFlag}"
             Grid.Row="6"
             Grid.Column="1"
             VerticalAlignment="Center"
