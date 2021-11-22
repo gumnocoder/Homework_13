@@ -15,7 +15,9 @@
     <Window.InputBindings>
         <KeyBinding 
             Key="Return" 
-            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=local:LoginFormWindow}}"
+            CommandParameter="{
+            Binding RelativeSource={
+            RelativeSource AncestorType=local:LoginFormWindow}}"
             >
             <KeyBinding.Command>
                 <cmd:AutorizationCommand DialogResult="True"/>

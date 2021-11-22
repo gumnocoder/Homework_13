@@ -1,13 +1,30 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 
 using Homework_13.Model;
+using Homework_13.Service;
 using Homework_13.Service.Command;
 
 namespace Homework_13.ViewModel
 {
     class ClientListViewModel : WindowsBasicFuncs
     {
+        private static  Client _selectedClient;
+
+        private UserDialogService _dialogService = new();
+        public static Client SelectedClient
+        {
+            get => _selectedClient;
+            set
+            {
+                if (value.GetType() == typeof(Client))
+                {
+                    _selectedClient = value;
+                }
+                else Debug.WriteLine("Передаваемое значение должно иметь тип Client");
+            }
+        }
         public static ObservableCollection<Client> Clients
         { get => ClientList<Client>.ClientsList; }
         public ClientListViewModel() { }
@@ -21,6 +38,21 @@ namespace Homework_13.ViewModel
             {
                 _findText = value;
                 OnPropertyChanged();
+            }
+        }
+
+        private RelayCommand _editClient;
+
+        public RelayCommand EditClient
+        {
+            get => _editClient ??= new(EditClientCommand);
+        }
+
+        private void EditClientCommand(object s)
+        {
+            if (SelectedClient != null)
+            {
+                _dialogService.Edit(SelectedClient);
             }
         }
     }

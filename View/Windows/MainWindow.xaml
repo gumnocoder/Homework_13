@@ -15,8 +15,9 @@
         Height="450"
         Width="800"
         WindowStyle="None"
-        ResizeMode="CanResizeWithGrip">
-
+        ResizeMode="CanResizeWithGrip"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+    >
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
@@ -25,7 +26,10 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Width="400" HorizontalAlignment="Left" >
+        <Menu 
+            Grid.Row="0" 
+            Width="400" 
+            HorizontalAlignment="Left">
             <MenuItem 
                 Header="Файл" 
                 Height="30"

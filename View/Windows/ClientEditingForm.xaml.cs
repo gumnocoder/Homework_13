@@ -10,18 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Homework_13.ViewModel;
 
-namespace Homework_13.View.UserControls
+namespace Homework_13.View.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для ClientListView.xaml
+    /// Логика взаимодействия для ClientEditingForm.xaml
     /// </summary>
-    public partial class ClientListView
+    public partial class ClientEditingForm : Window
     {
-        public ClientListView()
+        public ClientEditingForm()
         {
             InitializeComponent();
         }

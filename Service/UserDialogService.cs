@@ -6,6 +6,8 @@ using Homework_13.View;
 using Homework_13.View.UserControls;
 using Homework_13.View.Windows;
 using Homework_13.ViewModel;
+using static Homework_13.ViewModel.ClientEditingFormViewModel;
+using static Homework_13.View.UserControls.UserCreationForm;
 
 namespace Homework_13.Service
 {
@@ -21,6 +23,8 @@ namespace Homework_13.Service
         {
             switch (o)
             {
+                case Client client:
+                    return EditSelectedClient(client);
                 case User user:
                     return LoginFormOpen(user);
                 case object window:
@@ -43,6 +47,18 @@ namespace Homework_13.Service
                 MessageBoxButton.OK);
         }
 
+        private static bool EditSelectedClient(Client client)
+        {
+            ClientEditingForm dlg = new();
+            dlg.DataContext = new ClientEditingFormViewModel(client);
+            dlg.Owner = _owner;
+            dlg.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            if (dlg.ShowDialog() != true) return false;
+
+            return true;
+        }
+
         private static bool LoginFormOpen(User u)
         {
             var dlg = new LoginFormWindow();
@@ -60,6 +76,7 @@ namespace Homework_13.Service
 
             switch (o)
             {
+
                 case UserCreationFormViewModel:
                     dlg = new UserCreationForm();
                     break;
