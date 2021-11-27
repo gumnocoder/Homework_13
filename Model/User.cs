@@ -23,6 +23,28 @@ namespace Homework_13.Model
             this.Type = Type;
         }
 
+        public User(User user)
+        {
+            Name = user.Name;
+            Login = user.Login;
+            Pass = user.Pass;
+            Type = user.Type;
+
+            CanCreateUsers = user.CanCreateUsers;
+            CanRemoveUsers = user.CanRemoveUsers;
+            HaveUserEditRights = user.HaveUserEditRights;
+
+            CanOpenDebitAccounts = user.CanOpenDebitAccounts;
+            CanOpenDepositAccounts = user.CanOpenDepositAccounts;
+            CanOpenCreditAccounts = user.CanOpenCreditAccounts;
+            CanCloseAccounts = user.CanCloseAccounts;
+            CanCreateClients = user.CanCreateClients;
+            HaveAccessToClientsDB = user.HaveAccessToClientsDB;
+            CanRemoveClients = user.CanRemoveClients;
+
+            HaveAccessToAppSettings = user.HaveAccessToAppSettings;
+        }
+
         public override string ToString()
         {
             return $"{ID}, {Name} [{Type}]";

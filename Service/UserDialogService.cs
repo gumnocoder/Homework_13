@@ -8,6 +8,7 @@ using Homework_13.View.Windows;
 using Homework_13.ViewModel;
 using static Homework_13.ViewModel.ClientEditingFormViewModel;
 using static Homework_13.View.UserControls.UserCreationForm;
+using System.Diagnostics;
 
 namespace Homework_13.Service
 {
@@ -30,6 +31,20 @@ namespace Homework_13.Service
                 case object window:
                     return GenericWindowOpenerMethod(window);
             }
+            return true;
+        }
+
+        public bool EditUser(User user)
+        {
+            Debug.WriteLine("1");
+            UserEditingForm dlg = new();
+            Debug.WriteLine("2");
+            dlg.DataContext = new UserEditingFormViewModel(user);
+            dlg.Owner = _owner;
+            dlg.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            if (dlg.ShowDialog() != true) return false;
+
             return true;
         }
         public void ShowError(string Message, string Tittle)

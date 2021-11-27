@@ -4,16 +4,16 @@
     {
         #region Поля
         private bool
-            _canCreateUsers = false,
-            _canCreateClients = false,
-            _canRemoveUsers = false,
+            _canCreateUsers = false,//
+            _canCreateClients = false,//
+            _canRemoveUsers = false,//
             _canRemoveClients = false,
-            _haveUserEditRights = false,
+            _haveUserEditRights = false,//
             _canCloseAccounts = false,
             _canOpenDebitAccounts = false,
             _canOpenCreditAccounts = false,
             _haveAccessToAppSettings = false,
-            _haveAccessToClientsDB = false,
+            _haveAccessToClientsDB = false,//
             _canOpenDepositAccounts = false;
 
         #endregion

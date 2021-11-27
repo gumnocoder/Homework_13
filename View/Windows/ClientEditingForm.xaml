@@ -41,7 +41,7 @@
             RelativeSource AncestorType=local:ClientEditingForm}}"
                     >
                     <Button.Command>
-                        <cmd:PersonsEditor/>
+                        <cmd:ClientsEditor/>
                     </Button.Command>
                 </Button>
                 <Button

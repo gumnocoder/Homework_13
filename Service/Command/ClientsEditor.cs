@@ -9,9 +9,8 @@ using Homework_13.ViewModel;
 
 namespace Homework_13.Service.Command
 {
-    class PersonsEditor : Command
+    class ClientsEditor : Command
     {
-        //public bool? DialogResult { get; set; }
 
         public override bool CanExecute(object parameter)
         {
@@ -21,8 +20,6 @@ namespace Homework_13.Service.Command
 
         public override void Execute(object parameter)
         {
-            var window = (Window)parameter;
-            //window.DialogResult = DialogResult;
             ClientEditingForm dlg = parameter as ClientEditingForm;
             /// в случае успешной авторизации закрывает окно
             if (CanExecute(parameter))
@@ -32,7 +29,7 @@ namespace Homework_13.Service.Command
                 if (dlg.TypesList.Text != string.Empty)
                     ClientListViewModel.SelectedClient.Type = dlg.TypesList.Text;
 
-                window.Close();
+                dlg.Close();
             }
         }
     }

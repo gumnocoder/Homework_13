@@ -1,0 +1,281 @@
+﻿<Window x:Class="Homework_13.View.Windows.UserEditingForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:Homework_13.ViewModel"
+        xmlns:cmd="clr-namespace:Homework_13.Service.Command"
+        xmlns:local="clr-namespace:Homework_13.View.Windows"
+        mc:Ignorable="d"
+        Title="UserEditingForm" 
+        Height="450"
+        Width="600"
+        WindowStyle="None"
+        ResizeMode="NoResize">
+    <Window.DataContext>
+        <views:UserEditingFormViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <Border Grid.ColumnSpan="2" Background="DodgerBlue">
+            <TextBlock Margin="10,2,2,2" FontWeight="Bold">
+                Редактирование пользователя
+            </TextBlock>
+        </Border>
+        <StackPanel 
+            Width="250"
+            HorizontalAlignment="Left"
+            Grid.Row="1" 
+            Grid.Column="0"
+            Margin="10">
+            <TextBlock
+
+                x:Name="userLoginField" 
+                Text="{Binding}"/>
+            <TextBlock 
+                Margin="0,10,0,0"
+                Text="Имя"/>
+            <TextBox
+                x:Name="userNameField" 
+                Height="25"
+                Width="200"
+                Text="{Binding EditableUser.Name}"
+                Margin="-45,10,0,0"/>
+            <TextBlock 
+                Margin="0,20,0,0"
+                Text="Пароль"/>
+            <Grid>
+                <PasswordBox
+                    Grid.Column="0"
+                    Grid.Row="0"
+                x:Name="userPassField" 
+                Height="25"
+                Width="200"
+                Margin="-45,10,0,0"
+                views:PasswordHelper.Attach ="true"
+                views:PasswordHelper.Password="{
+                    Binding Text, 
+                    ElementName=userPassFieldHelper, 
+                    Mode=TwoWay}"/>
+                <TextBlock
+                    Visibility="Collapsed"
+                    x:Name="userPassFieldHelper"
+                    Text="{Binding Pass, Mode=TwoWay}"/>
+                <Image 
+                    x:Name="firstPassYes"
+                    Source="/yes.png"
+                    Grid.Column="0" 
+                    Grid.Row="0" 
+                    Width="25" 
+                    Height="25"
+                    Margin="200,10,0,0"/>
+                <Image 
+                    x:Name="firstPassNo"
+                    Source="/no.png"
+                    Grid.Column="0" 
+                    Grid.Row="0" 
+                    Width="25" 
+                    Height="25"
+                    Margin="200,10,0,0"/>
+            </Grid>
+            <TextBlock 
+                Margin="0,10,0,0">
+                Для изменения пароля
+                <LineBreak/>
+                введите подтверждение
+            </TextBlock>
+            <Grid>
+                <PasswordBox
+                    Grid.Column="0"
+                    Grid.Row="0"
+                x:Name="userPassConfirmField" 
+                Height="25"
+                Width="200"
+                Margin="-45,10,0,0"
+                views:PasswordHelper.Attach ="true"
+                views:PasswordHelper.Password="{
+                    Binding Text, 
+                    ElementName=userSecondPassFieldHelper, 
+                    Mode=TwoWay}"/>
+                <TextBlock
+                    Visibility="Collapsed"
+                    x:Name="userSecondPassFieldHelper"
+                    Text="{Binding PassConfirm, Mode=TwoWay}"/>
+                <Image 
+                    x:Name="secondPassYes"
+                    Source="/yes.png"
+                    Grid.Column="0" 
+                    Grid.Row="0" 
+                    Width="25" 
+                    Height="25"
+                    Margin="200,10,0,0"/>
+                <Image 
+                    x:Name="secondPassNo"
+                    Source="/no.png"
+                    Grid.Column="0" 
+                    Grid.Row="0" 
+                    Width="25" 
+                    Height="25"
+                    Margin="200,10,0,0"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel 
+            Grid.Row="2" 
+            Grid.Column="1" 
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+            <Button
+                Height="35"
+                Width="100" 
+                Content="Принять"
+                Margin="10,10,5,10"
+                CommandParameter="{
+                Binding RelativeSource={
+                RelativeSource AncestorType=local:UserEditingForm}}"
+                >
+                <Button.Command>
+                    <cmd:UsersEditor/>
+                </Button.Command>
+            </Button>
+            <Button
+                Height="35"
+                Width="100" 
+                Content="Отмена"
+                Margin="5,10,10,10"
+                CommandParameter="{
+                Binding RelativeSource={
+                RelativeSource AncestorType=local:UserEditingForm}}">
+                <Button.Command>
+                    <cmd:CloseWindowCommand ExitApp="False"/>
+                </Button.Command>
+            </Button>
+            
+        </StackPanel>
+        <StackPanel 
+            Grid.Row="1" 
+            Grid.Column="1">
+            <TextBlock Text="Операции с пользователями приложения" Margin="10"/>
+            <Grid>
+                <CheckBox 
+                    x:Name="createUsers"
+                    Grid.Column="0" 
+                    IsChecked="{Binding EditableUser.CanCreateUsers}"/>
+                <TextBlock 
+                    Grid.Column="1"
+                    Width="200" 
+                    Text="Создание пользователей"/>
+            </Grid>
+            <Grid>
+                <CheckBox 
+                    x:Name="userEdit"
+                    Grid.Column="0"
+                    IsChecked="{Binding EditableUser.HaveUserEditRights}"/>
+                <TextBlock 
+                    Grid.Column="1"
+                    Width="200" 
+                    Text="Редактирование пользователей"/>
+            </Grid>
+            <Grid>
+                <CheckBox 
+                    x:Name="removeUsers"
+                    Grid.Column="0"
+                    IsChecked="{Binding EditableUser.CanRemoveUsers}"/>
+                <TextBlock 
+                    Grid.Column="1"
+                    Width="200" 
+                    Text="Удаление учётных записей"/>
+            </Grid>
+            <TextBlock Text="Операции с клиентами" Margin="10"/>
+            <Grid>
+                <CheckBox 
+                    x:Name="accessClientsDB"
+                    Grid.Column="0"
+                    IsChecked="{Binding EditableUser.HaveAccessToClientsDB}"/>
+                <TextBlock 
+                    Grid.Column="1"
+                    Width="200" 
+                    Text="Доступ к базе данных клиентов"/>
+            </Grid>
+            <Grid>
+                <CheckBox 
+                    x:Name="createClients"
+                    Grid.Column="0"
+                    IsChecked="{Binding EditableUser.CanCreateClients}"/>
+                <TextBlock 
+                    Grid.Column="1"
+                    Width="200" 
+                    Text="Создание новых клиентов"/>
+            </Grid>
+            <Grid>
+                <CheckBox 
+                    x:Name="debit"
+                    Grid.Column="0"
+                    IsChecked="{Binding EditableUser.CanOpenDebitAccounts}"/>
+                <TextBlock 
+                    Grid.Column="1"
+                    Width="200" 
+                    Text="Открытие дебетовых счетов"/>
+            </Grid>
+            <Grid>
+                <CheckBox 
+                    x:Name="deposit"
+                    Grid.Column="0"
+                    IsChecked="{Binding EditableUser.CanOpenDepositAccounts}"/>
+                <TextBlock 
+                    Grid.Column="1"
+                    Width="200" 
+                    Text="Открытие депозитных счетов"/>
+            </Grid>
+            <Grid>
+                <CheckBox 
+                    x:Name="credit"
+                    Grid.Column="0"
+                    IsChecked="{Binding EditableUser.CanOpenCreditAccounts}"/>
+                <TextBlock 
+                    Grid.Column="1"
+                    Width="200" 
+                    Text="Выдача кредитов"/>
+            </Grid>
+            <Grid>
+                <CheckBox 
+                    x:Name="closeAccs"
+                    Grid.Column="0"
+                    IsChecked="{Binding EditableUser.CanCloseAccounts}"/>
+                <TextBlock 
+                    Grid.Column="1"
+                    Width="200" 
+                    Text="Закрытие счетов"/>
+            </Grid>
+            <Grid>
+                <CheckBox 
+                    x:Name="removeClients"
+                    Grid.Column="0"
+                    IsChecked="{Binding EditableUser.CanRemoveClients}"/>
+                <TextBlock 
+                    Grid.Column="1"
+                    Width="200" 
+                    Text="Удаление клиентов"/>
+            </Grid>
+            <TextBlock Text="Прочие операции" Margin="10"/>
+            <Grid>
+                <CheckBox 
+                    x:Name="appSettings"
+                    Grid.Column="0"
+                    IsChecked="{Binding EditableUser.HaveAccessToAppSettings}"/>
+                <TextBlock 
+                    Grid.Column="1"
+                    Width="200" 
+                    Text="Доступ к  настройкам приложения"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

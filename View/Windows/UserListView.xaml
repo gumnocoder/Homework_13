@@ -28,7 +28,13 @@
             VerticalAlignment="Stretch"
             x:Name="UsersListView"
             ItemsSource="{
-            Binding Users}">
+            Binding Users}"
+            SelectedItem="{Binding Path=SelectedUser, Mode=TwoWay}">
+            <DataGrid.InputBindings>
+                <MouseBinding
+            MouseAction="LeftDoubleClick"
+            Command="{Binding EditUser}"/>
+            </DataGrid.InputBindings>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="50"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="120"/>
@@ -38,6 +44,8 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button
+                        Background="Transparent"
+            BorderThickness="0"
             Grid.Row="0"
             HorizontalAlignment="Right"
             Width="19"
@@ -51,7 +59,7 @@
                 <TextBlock
                     Text="1"
                     Foreground="Red"
-                    FontSize="19"
+                    FontSize="13"
                     Padding="0,0,0,2"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -59,10 +67,12 @@
             </Button.Content>
         </Button>
         <Button
+            Background="Transparent"
+            BorderThickness="0"
             Grid.Row="0"
             HorizontalAlignment="Right"
             Width="19"
-            Height="19"
+            Height="10"
             Margin="3"
             CommandParameter="{
             Binding RelativeSource={
