@@ -12,7 +12,7 @@ using System.Diagnostics;
 
 namespace Homework_13.Service
 {
-    class UserDialogService : IUserDialogService
+    class UserDialogService : IUserDialogService, IInformationDialogService
     {
         private static Window _owner = 
             Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive);
@@ -47,11 +47,11 @@ namespace Homework_13.Service
 
             return true;
         }
-        public void ShowError(string Message, string Tittle)
+        public void ShowError(string Message)
         {
             MessageBox.Show(
                 Message, 
-                Tittle,
+                "Ошибка!",
                 MessageBoxButton.OK);
         }
         public void ShowInformation(string Message, string Tittle)

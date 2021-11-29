@@ -13,6 +13,9 @@ namespace Homework_13.ViewModel
         private static  Client _selectedClient;
 
         private UserDialogService _dialogService = new();
+
+        private InformationDialogService _informDialogService = new();
+
         public static Client SelectedClient
         {
             get => _selectedClient;
@@ -65,10 +68,13 @@ namespace Homework_13.ViewModel
 
         private void OpenDebitCommand(object s)
         {
-            if (SelectedClient != null)
+            if (SelectedClient != null && SelectedClient.DebitIsActive == false)
             {
                 SelectedClient.ClientsDebitAccount = new(SelectedClient);
+                _informDialogService.ShowInformation("Дебетовый счёт успешно открыт!", "Операция завершена");
             }
+            else if (SelectedClient == null) _informDialogService.ShowError("Выберите клиента!");
+            else if (SelectedClient != null && SelectedClient.DebitIsActive == true) _informDialogService.ShowError("Дебетовый счёт уже открыт");
         }
     }
 }

@@ -9,7 +9,8 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:Homework_13.View.UserControls"
              mc:Ignorable="d" Height="640" Width="800"
-             WindowStyle="None">
+             WindowStyle="None"
+        ResizeMode="NoResize">
     <Window.DataContext>
         <viewModel:ClientListViewModel/>
     </Window.DataContext>

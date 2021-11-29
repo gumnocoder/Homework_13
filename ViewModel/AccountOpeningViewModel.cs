@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Homework_13.Service;
+using Homework_13.Service.Command;
 
 namespace Homework_13.ViewModel
 {
     class AccountOpeningViewModel
     {
+
     }
 }
