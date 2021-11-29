@@ -34,6 +34,19 @@
                     <i:InvokeCommandAction Command="{Binding EditClient}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Открыть дебетовый счёт" Command="{Binding OpenDebit}"/>
+                    <MenuItem Header="Открыть депозитный счёт"/>
+                    <MenuItem Header="Выдача кредита"/>
+                    <MenuItem Header="Внести сумму"/>
+                    <MenuItem Header="Закрыть счёт"/>
+                    <Separator/>
+                    <MenuItem Header="Выполнить перевод"/>
+                    <MenuItem Header="Создать клиента"/>
+                    <MenuItem Header="Удалить клиента"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Columns>
                 <DataGridTextColumn 
                 Header="ID" 
@@ -76,6 +89,8 @@
             Foreground="Gray">
         </TextBox>
         <Button
+            Background="Transparent"
+            BorderThickness="0"
             Grid.Row="0"
             HorizontalAlignment="Right"
             Width="19"
@@ -89,7 +104,7 @@
                 <TextBlock
                     Text="1"
                     Foreground="Red"
-                    FontSize="19"
+                    FontSize="11"
                     Padding="0,0,0,2"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -97,6 +112,8 @@
             </Button.Content>
         </Button>
         <Button
+            Background="Transparent"
+            BorderThickness="0"
             Grid.Row="0"
             HorizontalAlignment="Right"
             Width="19"
@@ -113,6 +130,8 @@
             </Button.Content>
         </Button>
         <Button
+            Background="Transparent"
+            BorderThickness="0"
             Grid.Row="0"
             HorizontalAlignment="Right"
             Width="19"
@@ -128,7 +147,7 @@
                 <TextBlock
                     Text="Ï"
                     Foreground="Red"
-                    FontSize="19"
+                    FontSize="13"
                     Padding="0,1,0,0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"

@@ -55,5 +55,20 @@ namespace Homework_13.ViewModel
                 _dialogService.Edit(SelectedClient);
             }
         }
+
+        private RelayCommand _openDebit;
+
+        public RelayCommand OpenDebit
+        {
+            get => _openDebit ??= new(OpenDebitCommand);
+        }
+
+        private void OpenDebitCommand(object s)
+        {
+            if (SelectedClient != null)
+            {
+                SelectedClient.ClientsDebitAccount = new(SelectedClient);
+            }
+        }
     }
 }

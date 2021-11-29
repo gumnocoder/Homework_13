@@ -1,0 +1,46 @@
+﻿<Window x:Class="Homework_13.View.Windows.AccountOpening"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="clr-namespace:Homework_13.Service.Command"
+        xmlns:local="clr-namespace:Homework_13.View.Windows"
+        xmlns:viewModel="clr-namespace:Homework_13.ViewModel"
+        mc:Ignorable="d"
+        Title="AccountOpening" Height="150" Width="300"
+        WindowStyle="None"
+        ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewModel:AccountOpeningViewModel/>
+    </Window.DataContext>
+    <Grid
+        x:Name="DepositGrid" 
+        Visibility="Visible">
+        <Canvas>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock Text="Стартовый депозит" Height="25" Width="120" HorizontalAlignment="Left" Margin="10,15,0,0"/>
+                    <TextBox Height="25" Width="150" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock Text="Процент по вкладу" Height="25" Width="120" HorizontalAlignment="Left" Margin="10,15,0,0"/>
+                    <TextBox Height="25" Width="150" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                </StackPanel>
+            </StackPanel>
+        </Canvas>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,0,20,10">
+            <Button Height="35" Width="100"  Content="Открыть" Margin="0,0,5,0"/>
+            <Button 
+                Height="35" Width="100"  
+                Content="Отмена"
+                Margin="5,0,0,0"
+                CommandParameter="{
+                Binding RelativeSource={
+                RelativeSource AncestorType=local:AccountOpening}}">
+                <Button.Command>
+                    <cmd:CloseWindowCommand ExitApp="False"/>
+                </Button.Command>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

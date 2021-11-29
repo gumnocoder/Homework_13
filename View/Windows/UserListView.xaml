@@ -44,7 +44,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button
-                        Background="Transparent"
+            Background="Transparent"
             BorderThickness="0"
             Grid.Row="0"
             HorizontalAlignment="Right"
@@ -59,7 +59,7 @@
                 <TextBlock
                     Text="1"
                     Foreground="Red"
-                    FontSize="13"
+                    FontSize="11"
                     Padding="0,0,0,2"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -84,7 +84,7 @@
                 <TextBlock
                     Text="Ï"
                     Foreground="Red"
-                    FontSize="21"
+                    FontSize="13"
                     Padding="0,1,0,0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
