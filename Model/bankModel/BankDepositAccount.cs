@@ -20,6 +20,8 @@ namespace Homework_13.Model.bankModel
             }
         }
 
+        public BankDepositAccount() { }
+
         private double _percent;
         private int _expiration;
         private const double  _maxPercent = 12;

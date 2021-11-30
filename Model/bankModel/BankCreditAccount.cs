@@ -22,6 +22,8 @@ namespace Homework_13.Model.bankModel
             else Debug.WriteLine("кредит недоступен для этой персоны");
         }
 
+        public BankCreditAccount() { }
+
         #endregion
 
         #region Поля

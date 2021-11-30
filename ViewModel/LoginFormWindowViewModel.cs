@@ -4,9 +4,9 @@
     {
         #region Поля
 
-        private string _login = "логин";
+        private string _login = "admin";
 
-        private string _pass = "*****";
+        private string _pass = "admin";
 
         #endregion
 

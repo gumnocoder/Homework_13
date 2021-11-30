@@ -21,7 +21,7 @@ namespace Homework_13.ViewModel
             get => _selectedClient;
             set
             {
-                if (value.GetType() == typeof(Client))
+                if (value != null && value.GetType() == typeof(Client))
                 {
                     _selectedClient = value;
                 }

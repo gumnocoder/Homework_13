@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:cmd="clr-namespace:Homework_13.Service.Command"
              xmlns:model="clr-namespace:Homework_13.Model"
+             xmlns:view="clr-namespace:Homework_13.View.Windows"
              xmlns:viewModel="clr-namespace:Homework_13.ViewModel"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:Homework_13.View.UserControls"
@@ -38,14 +39,45 @@
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Открыть дебетовый счёт" Command="{Binding OpenDebit}"/>
-                    <MenuItem Header="Открыть депозитный счёт"/>
-                    <MenuItem Header="Выдача кредита"/>
+                    <MenuItem 
+                        IsEnabled="True"
+                        Header="Открыть депозитный счёт"
+                        CommandParameter="{
+                            Binding RelativeSource={
+                            RelativeSource FindAncestor, AncestorType={
+                            x:Type ContextMenu}}, 
+                            Path=PlacementTarget.SelectedItem}">
+                        <MenuItem.Command>
+                            <cmd:AccountOpener Deposit="True" Credit="False"/>
+                        </MenuItem.Command>
+                    </MenuItem>
+                    <MenuItem 
+                        Header="Выдача кредита"
+                        CommandParameter="{
+                            Binding RelativeSource={
+                            RelativeSource FindAncestor, AncestorType={
+                            x:Type ContextMenu}}, 
+                            Path=PlacementTarget.SelectedItem}">
+                        <MenuItem.Command>
+                            <cmd:AccountOpener Deposit="False" Credit="True"/>
+                        </MenuItem.Command>
+                    </MenuItem>
                     <MenuItem Header="Внести сумму"/>
                     <MenuItem Header="Закрыть счёт"/>
                     <Separator/>
                     <MenuItem Header="Выполнить перевод"/>
                     <MenuItem Header="Создать клиента"/>
-                    <MenuItem Header="Удалить клиента"/>
+                    <MenuItem
+                        CommandParameter="{
+                        Binding RelativeSource={
+                        RelativeSource FindAncestor, AncestorType={
+                        x:Type ContextMenu}}, 
+                        Path=PlacementTarget.SelectedItem}"
+                        Header="Удалить клиента">
+                        <MenuItem.Command>
+                            <cmd:ClientRemover/>
+                        </MenuItem.Command>
+                    </MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
