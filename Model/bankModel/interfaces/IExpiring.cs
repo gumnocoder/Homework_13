@@ -2,14 +2,31 @@
 
 namespace Homework_13.Model.bankModel.interfaces
 {
+    /// <summary>
+    /// Для реализации в классах, экземпляры которых
+    /// должны иметь срок истечения
+    /// </summary>
     interface IExpiring
     {
+        /// <summary>
+        /// срок в месяцах
+        /// </summary>
         int Expiration { get; set; }
 
+        /// <summary>
+        /// остаток срока
+        /// </summary>
         int ExpirationDuration { get; }
 
+        /// <summary>
+        /// Дата активации
+        /// </summary>
         DateTime ActivationDate { get; }
 
+        /// <summary>
+        /// Активность
+        /// </summary>
+        /// <returns></returns>
         bool Expired();
 
         public int GetTotalMonthsCount();

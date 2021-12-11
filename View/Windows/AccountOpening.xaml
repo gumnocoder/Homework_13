@@ -7,7 +7,9 @@
         xmlns:local="clr-namespace:Homework_13.View.Windows"
         xmlns:viewModel="clr-namespace:Homework_13.ViewModel"
         mc:Ignorable="d"
-        Title="AccountOpening" Height="150" Width="300"
+        Title="AccountOpening" 
+        Height="200" 
+        Width="300"
         WindowStyle="None"
         ResizeMode="NoResize">
     <Window.DataContext>
@@ -20,19 +22,65 @@
         Binding Deposit, Converter={
         StaticResource BooleanToVisibilityConverter}}">
             <Canvas>
-                <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <TextBlock Text="Стартовый депозит" Height="25" Width="120" HorizontalAlignment="Left" Margin="10,15,0,0"/>
-                        <TextBox Height="25" Width="150" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                <StackPanel 
+                    Orientation="Vertical">
+                    <StackPanel 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Left">
+                        <TextBlock 
+                            Text="Стартовый депозит"
+                            Height="25"
+                            Width="120"
+                            HorizontalAlignment="Left" 
+                            Margin="10,15,0,0"/>
+                        <TextBox 
+                            Height="25"
+                            Width="150"
+                            HorizontalAlignment="Left" 
+                            Margin="0,10,0,0"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <TextBlock Text="Процент по вкладу" Height="25" Width="120" HorizontalAlignment="Left" Margin="10,15,0,0"/>
-                        <TextBox Height="25" Width="150" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                    <StackPanel 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Left">
+                        <TextBlock 
+                            Text="Процент по вкладу"
+                            Height="25" 
+                            Width="120"
+                            HorizontalAlignment="Left" 
+                            Margin="10,15,0,0"/>
+                        <TextBox
+                            Height="25"
+                            Width="150" 
+                            HorizontalAlignment="Left"
+                            Margin="0,10,0,0"/>
+                    </StackPanel>
+                    <StackPanel
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Left">
+                        <TextBlock 
+                            Text="Срок вклада" 
+                            Height="25" 
+                            Width="120" 
+                            HorizontalAlignment="Left"
+                            Margin="10,15,0,0"/>
+                        <TextBox 
+                            Height="25"
+                            Width="150" 
+                            HorizontalAlignment="Left"
+                            Margin="0,10,0,0"/>
                     </StackPanel>
                 </StackPanel>
             </Canvas>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,0,20,10">
-                <Button Height="35" Width="100"  Content="Открыть" Margin="0,0,5,0"/>
+            <StackPanel 
+                Orientation="Horizontal" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom"
+                Margin="10,0,20,10">
+                <Button 
+                    Height="35" 
+                    Width="100"  
+                    Content="Открыть"
+                    Margin="0,0,5,0"/>
                 <Button 
                 Height="35" Width="100"  
                 Content="Отмена"
@@ -52,26 +100,71 @@
         Binding Credit, Converter={
         StaticResource BooleanToVisibilityConverter}}">
             <Canvas>
-                <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <TextBlock Text="Сумма кредита" Height="25" Width="120" HorizontalAlignment="Left" Margin="10,15,0,0"/>
-                        <TextBox Height="25" Width="150" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                <StackPanel 
+                    Orientation="Vertical">
+                    <StackPanel 
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left">
+                        <TextBlock 
+                            Text="Сумма кредита"
+                            Height="25" 
+                            Width="120" 
+                            HorizontalAlignment="Left"
+                            Margin="10,15,0,0"/>
+                        <TextBox 
+                            Height="25" Width="150" 
+                            HorizontalAlignment="Left"
+                            Margin="0,10,0,0"/>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <TextBlock Text="Процент по кредиту" Height="25" Width="120" HorizontalAlignment="Left" Margin="10,15,0,0"/>
-                        <TextBox Height="25" Width="150" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                    <StackPanel 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Left">
+                        <TextBlock 
+                            Text="Процент по кредиту" 
+                            Height="25" 
+                            Width="120"
+                            HorizontalAlignment="Left" 
+                            Margin="10,15,0,0"/>
+                        <TextBox 
+                            Height="25" 
+                            Width="150"
+                            HorizontalAlignment="Left" 
+                            Margin="0,10,0,0"/>
+                    </StackPanel>
+                    <StackPanel
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Left">
+                        <TextBlock 
+                            Text="Срок кредита" 
+                            Height="25" 
+                            Width="120" 
+                            HorizontalAlignment="Left"
+                            Margin="10,15,0,0"/>
+                        <TextBox 
+                            Height="25"
+                            Width="150" 
+                            HorizontalAlignment="Left"
+                            Margin="0,10,0,0"/>
                     </StackPanel>
                 </StackPanel>
             </Canvas>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,0,20,10">
-                <Button Height="35" Width="100"  Content="Выдать" Margin="0,0,5,0"/>
+            <StackPanel 
+                Orientation="Horizontal" 
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom" 
+                Margin="10,0,20,10">
                 <Button 
-                Height="35" Width="100"  
-                Content="Отмена"
-                Margin="5,0,0,0"
-                CommandParameter="{
-                Binding RelativeSource={
-                RelativeSource AncestorType=local:AccountOpening}}">
+                    Height="35" 
+                    Width="100"  
+                    Content="Выдать" 
+                    Margin="0,0,5,0"/>
+                <Button 
+                    Height="35" Width="100"  
+                    Content="Отмена"
+                    Margin="5,0,0,0"
+                    CommandParameter="{
+                    Binding RelativeSource={
+                    RelativeSource AncestorType=local:AccountOpening}}">
                     <Button.Command>
                         <cmd:CloseWindowCommand ExitApp="False"/>
                     </Button.Command>
