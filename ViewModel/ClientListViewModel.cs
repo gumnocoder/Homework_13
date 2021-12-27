@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 
 using Homework_13.Model;
+using Homework_13.Model.bankModel;
 using Homework_13.Service;
 using Homework_13.Service.Command;
 
@@ -76,5 +77,49 @@ namespace Homework_13.ViewModel
             else if (SelectedClient == null) _informDialogService.ShowError("Выберите клиента!");
             else if (SelectedClient != null && SelectedClient.DebitIsActive == true) _informDialogService.ShowError("Дебетовый счёт уже открыт");
         }
+
+        #region Команда повышеия репутации
+        private RelayCommand _increaseRep;
+
+        public RelayCommand IncreaseRep
+        {
+            get => _increaseRep ??= new(IncreaseReputation);
+        }
+
+        private void IncreaseReputation(object s)
+        {
+            if (SelectedClient != null)
+            {
+                ReputationIncreaser increaser = new(SelectedClient);
+                increaser.Execute();
+            }
+            else
+            {
+                _informDialogService.ShowError("Выберите клиента!");
+            }
+        }
+        #endregion
+
+        #region Команда понижения репутации
+        private RelayCommand _decreaseRep;
+
+        public RelayCommand DecreaseRep
+        {
+            get => _decreaseRep ??= new(DecreaseReputation);
+        }
+
+        private void DecreaseReputation(object s)
+        {
+            if (SelectedClient != null)
+            {
+                ReputationDecreaser decreaser = new(SelectedClient);
+                decreaser.Execute();
+            }
+            else
+            {
+                _informDialogService.ShowError("Выберите клиента!");
+            }
+        }
+        #endregion
     }
 }

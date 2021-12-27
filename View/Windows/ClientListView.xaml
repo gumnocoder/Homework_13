@@ -38,7 +38,15 @@
             </i:Interaction.Triggers>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Открыть дебетовый счёт" Command="{Binding OpenDebit}"/>
+                    <MenuItem 
+                        Header="Повысить репутацию" 
+                        Command="{Binding IncreaseRep}"/>
+                    <MenuItem 
+                        Header="Понизить репутацию" 
+                        Command="{Binding DecreaseRep}"/>
+                    <MenuItem 
+                        Header="Открыть дебетовый счёт" 
+                        Command="{Binding OpenDebit}"/>
                     <MenuItem 
                         IsEnabled="True"
                         Header="Открыть депозитный счёт"
