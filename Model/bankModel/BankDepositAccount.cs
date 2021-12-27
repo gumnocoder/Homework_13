@@ -6,6 +6,7 @@ namespace Homework_13.Model.bankModel
 {
     class BankDepositAccount : BankAccount, IPercentContainer, IExpiring
     {
+        #region Конструкторы
         public BankDepositAccount(Client client, long DepositStartAmount)
         {
             if (!client.DepositIsActive)
@@ -21,12 +22,20 @@ namespace Homework_13.Model.bankModel
         }
 
         public BankDepositAccount() { }
+        #endregion
 
+        #region Поля
         private double _percent;
         private int _expiration;
         private const double  _maxPercent = 12;
         private const int _minExpiration = 12;
         private DateTime _activationDate;
+        #endregion
+
+        #region Свойства
+        /// <summary>
+        /// Процент по вкладу
+        /// </summary>
         public double Percent 
         { 
             get => _percent;
@@ -34,6 +43,9 @@ namespace Homework_13.Model.bankModel
                 else _percent = 5; 
             } 
         }
+        /// <summary>
+        /// Срок истечения вклада
+        /// </summary>
         public int Expiration 
         { 
             get => _expiration; 
@@ -47,18 +59,35 @@ namespace Homework_13.Model.bankModel
                 }
             }
         }
+        /// <summary>
+        /// Дата открытия счёта
+        /// </summary>
         public DateTime ActivationDate { get => _activationDate; }
 
+        /// <summary>
+        /// Остаток единиц исчисления до конца срока истечения вклада 
+        /// </summary>
         public int ExpirationDuration { get => GetTotalMonthsCount(); }
 
+        #endregion
+
+        #region Методы
+        /// <summary>
+        /// Назначает ID
+        /// </summary>
         public override void SetId() => ID = ++ThisBank.CurrentDepositID;
 
-        public bool Expired()
-        {
-            if (Expiration == 0) return true;
-            else return false;
-        }
+        /// <summary>
+        /// Проверяет истёк ли срок вклада
+        /// </summary>
+        /// <returns></returns>
+        public bool Expired() => GetTotalMonthsCount() == 0;
 
+        /// <summary>
+        /// Назначает процент по вкладу
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
         public double SetPercent(Client client)
         {
             if (client.Reputation == 10) return _maxPercent;
@@ -66,6 +95,10 @@ namespace Homework_13.Model.bankModel
             return _maxPercent / 10.0 * clientReputation;
         }
 
+        /// <summary>
+        /// Возвращает остаток дней до истечения срока вклада
+        /// </summary>
+        /// <returns></returns>
         public int GetTotalMonthsCount()
         {
             DateTime now = DateTime.Now;
@@ -76,5 +109,6 @@ namespace Homework_13.Model.bankModel
                 (start.Day >= now.Day - 1 ? 0 : -1) +
                 ((start.Day == 1 && DateTime.DaysInMonth(now.Year, now.Month) == now.Day) ? 1 : 0));
         }
+        #endregion
     }
 }

@@ -13,6 +13,6 @@
         /// <param name="sum">Сумма</param>
         /// <param name="sender">Счёт отправителя</param>
         /// <param name="reciever">Счёт получателя</param>
-        void SendMoney(Client clientSender, long sum, T sender, T reciever);
+        static void SendMoney(Client clientSender, long sum, T sender, T reciever) { }
     }
 }

@@ -63,11 +63,7 @@ namespace Homework_13.Model.bankModel
             ID = ++ThisBank.CurrentCreditID;
         }
 
-        public bool Expired()
-        {
-            if (Expiration == 0) return true;
-            else return false;
-        }
+        public bool Expired() => GetTotalMonthsCount() == 0;
 
         public double SetPercent(Client client)
         {
