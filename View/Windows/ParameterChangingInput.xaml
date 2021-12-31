@@ -1,0 +1,47 @@
+﻿<Window x:Class="Homework_13.View.Windows.ParameterChangingInput"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Homework_13.View.Windows"
+        xmlns:viewModel="clr-namespace:Homework_13.ViewModel"
+        mc:Ignorable="d"
+        Title="ParameterChangingInput" 
+        Height="140"
+        Width="200"
+        WindowStyle="None"
+        ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewModel:ParameterChangingInputVM/>
+    </Window.DataContext>
+    <Grid>
+        <StackPanel Orientation="Vertical" Margin="5">
+            <TextBlock 
+                Height="55"
+                TextWrapping="Wrap" 
+                Text="Введите число на которое 
+                требуется изменить параметр 
+                (от 1 до 10 включительно)" 
+                Margin="10,0,0,0"/>
+            <TextBox 
+                x:Name="NumberField"
+                Height="25" 
+                Width="180"
+                Margin="3"/>
+            <UniformGrid>
+                <Button 
+                    Margin="5,10,0,0" 
+                    Height="30" 
+                    Width="85"
+                    Content="Принять">
+                </Button>
+                <Button
+                    Margin="0,10,5,0"
+                    Height="30" 
+                    Width="85" 
+                    Content="Отмена">
+                </Button>
+            </UniformGrid>
+        </StackPanel>
+    </Grid>
+</Window>

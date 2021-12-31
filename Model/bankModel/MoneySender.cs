@@ -6,7 +6,7 @@ namespace Homework_13.Model.bankModel
     /// <summary>
     /// отвечает за перевод средств между счетами
     /// </summary>
-    /// <typeparam name="T">BankAccount ковариантно</typeparam>
+    /// <typeparam name="T">BankAccount контрвариантно</typeparam>
     class MoneySender<T> : IMoneySender<T> where T : BankAccount
     {
         /// <summary>
