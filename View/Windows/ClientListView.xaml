@@ -40,10 +40,11 @@
                 <ContextMenu>
                     <MenuItem 
                         Header="Повысить репутацию" 
-                        Command="{Binding IncreaseRep}"/>
+                        Command="{Binding ParameterIncrease}"/>
                     <MenuItem 
                         Header="Понизить репутацию" 
-                        Command="{Binding DecreaseRep}"/>
+                        Command="{Binding ParameterDecrease}">
+                    </MenuItem>
                     <MenuItem 
                         Header="Открыть дебетовый счёт" 
                         Command="{Binding OpenDebit}"/>

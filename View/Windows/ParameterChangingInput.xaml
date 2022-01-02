@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_13.View.Windows"
         xmlns:viewModel="clr-namespace:Homework_13.ViewModel"
+        xmlns:cmd="clr-namespace:Homework_13.Service.Command"
         mc:Ignorable="d"
         Title="ParameterChangingInput" 
         Height="140"
@@ -33,7 +34,13 @@
                     Margin="5,10,0,0" 
                     Height="30" 
                     Width="85"
-                    Content="Принять">
+                    Content="Принять"
+                    CommandParameter="{
+                    Binding RelativeSource={
+                    RelativeSource AncestorType=local:ParameterChangingInput}}">
+                    <Button.Command>
+                        <cmd:ParameterChanger/>
+                    </Button.Command>
                 </Button>
                 <Button
                     Margin="0,10,5,0"

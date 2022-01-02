@@ -6,6 +6,7 @@ using Homework_13.Model;
 using Homework_13.Model.bankModel;
 using Homework_13.Service;
 using Homework_13.Service.Command;
+using static Homework_13.ViewModel.ParameterChangingInputVM;
 
 namespace Homework_13.ViewModel
 {
@@ -121,5 +122,41 @@ namespace Homework_13.ViewModel
             }
         }
         #endregion
+
+        private RelayCommand _parameterIncrease;
+
+        public RelayCommand ParameterIncrease =>
+            _parameterIncrease ??= new(ShowParameterChangerIncrease);
+
+        public void ShowParameterChangerIncrease(object s)
+        {
+            if (SelectedClient != null)
+            {
+                incr = true;
+                _dialogService.Edit(new ParameterChangingInputVM());
+            }
+            else
+            {
+                _informDialogService.ShowError("Выберите клиента!");
+            }
+        }
+
+        private RelayCommand _parameterDecrease;
+
+        public RelayCommand ParameterDecrease =>
+            _parameterDecrease ??= new(ShowParameterChangerDecrease);
+
+        public void ShowParameterChangerDecrease(object s)
+        {
+            if (SelectedClient != null)
+            {
+                decr = true;
+                _dialogService.Edit(new ParameterChangingInputVM());
+            }
+            else
+            {
+                _informDialogService.ShowError("Выберите клиента!");
+            }
+        }
     }
 }

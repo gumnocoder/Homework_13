@@ -65,6 +65,9 @@ namespace Homework_13.Service
 
             switch (o)
             {
+                case ParameterChangingInputVM:
+                    dlg = new ParameterChangingInput();
+                    break;
                 /// создание пользователя
                 case UserCreationFormViewModel:
                     dlg = new UserCreationForm();
