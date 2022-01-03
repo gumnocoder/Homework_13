@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cmd="clr-namespace:Homework_13.Service.Command"
-        xmlns:views="clr-namespace:Homework_13.ViewModel"
+        xmlns:vm="clr-namespace:Homework_13.ViewModel"
         xmlns:local="clr-namespace:Homework_13.View"
         mc:Ignorable="d"
         Height="220" Width="350"
@@ -25,7 +25,7 @@
         </KeyBinding>
     </Window.InputBindings>
     <Window.DataContext>
-        <views:LoginFormWindowViewModel/>
+        <vm:LoginFormWindowViewModel/>
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -120,8 +120,8 @@
                            FontSize="16"
                            Margin="5"/>
             <PasswordBox Height="30" 
-                         views:PasswordHelper.Attach ="true"
-                         views:PasswordHelper.Password="{
+                         vm:PasswordHelper.Attach ="true"
+                         vm:PasswordHelper.Password="{
                     Binding Text, 
                     ElementName=uuu, 
                     Mode=TwoWay}"
