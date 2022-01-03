@@ -5,15 +5,19 @@ namespace Homework_13.Model
 {
     class User : BasicUserWithPermissions, IPasswordHolder
     {
-        private long _id;
-        private string _login, _pass, _type;
-        public long ID { get => _id; protected set { _id = value; OnPropertyChanged(); } }
-        public string Login { get => _login; set { _login = value; OnPropertyChanged(); } }
-        public string Pass { get => _pass; set { _pass = value; OnPropertyChanged(); } }
-        public string Type { get => _type; set { _type = value; OnPropertyChanged(); } }
-
+        #region Конструкторы
+        /// <summary>
+        /// Конструктор по умолчанию
+        /// </summary>
         public User() { }
 
+        /// <summary>
+        /// Конструктор 4 параметра
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Login"></param>
+        /// <param name="Pass"></param>
+        /// <param name="Type"></param>
         public User(string Name, string Login, string Pass, string Type)
         {
             ID = ++ThisBank.CurrentUserID;
@@ -23,6 +27,10 @@ namespace Homework_13.Model
             this.Type = Type;
         }
 
+        /// <summary>
+        /// конструктор копирования
+        /// </summary>
+        /// <param name="user">копируемый экземпляр</param>
         public User(User user)
         {
             Name = user.Name;
@@ -44,10 +52,69 @@ namespace Homework_13.Model
 
             HaveAccessToAppSettings = user.HaveAccessToAppSettings;
         }
+        #endregion
 
+        #region Поля
+        private long _id;
+        private string _login, _pass, _type;
+        #endregion
+
+        #region Свойства
+        /// <summary>
+        /// ID
+        /// </summary>
+        public long ID 
+        { 
+            get => _id; 
+            protected set 
+            { 
+                _id = value; 
+                OnPropertyChanged();
+            } 
+        }
+        /// <summary>
+        /// Логин
+        /// </summary>
+        public string Login
+        { 
+            get => _login; 
+            set
+            {
+                _login = value; 
+                OnPropertyChanged(); 
+            } 
+        }
+        /// <summary>
+        /// Пароль
+        /// </summary>
+        public string Pass
+        { 
+            get => _pass; 
+            set
+            { 
+                _pass = value;
+                OnPropertyChanged(); 
+            } 
+        }
+        /// <summary>
+        /// Тип пользователя
+        /// </summary>
+        public string Type
+        {
+            get => _type; 
+            set
+            { 
+                _type = value; 
+                OnPropertyChanged(); 
+            }
+        }
+        #endregion
+
+        #region Методы
         public override string ToString()
         {
             return $"{ID}, {Name} [{Type}]";
         }
+        #endregion
     }
 }

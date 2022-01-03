@@ -2,9 +2,6 @@
 using Homework_13.Model;
 using Homework_13.Service;
 using Homework_13.Service.Command;
-using Homework_13.View;
-using Homework_13.View.UserControls;
-using Homework_13.View.Windows;
 using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.ViewModel
