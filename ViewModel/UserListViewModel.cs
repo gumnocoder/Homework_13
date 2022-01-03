@@ -5,6 +5,9 @@ using Homework_13.Service.Command;
 
 namespace Homework_13.ViewModel
 {
+    /// <summary>
+    /// Логика взаимодействия для UserListView.xaml
+    /// </summary>
     class UserListViewModel : WindowsBasicFuncs
     {
         /// <summary>
