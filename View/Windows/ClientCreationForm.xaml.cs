@@ -7,9 +7,6 @@ namespace Homework_13.View.Windows
     /// </summary>
     public partial class ClientCreationForm : Window
     {
-        public ClientCreationForm()
-        {
-            InitializeComponent();
-        }
+        public ClientCreationForm()=> InitializeComponent();
     }
 }
