@@ -1,23 +1,51 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Windows;
-
 using Homework_13.Model;
-using Homework_13.Model.bankModel;
 using Homework_13.Service;
 using Homework_13.Service.Command;
 using static Homework_13.ViewModel.ParameterChangingInputVM;
 
 namespace Homework_13.ViewModel
 {
+    /// <summary>
+    /// Логика взаимодействия с ClientListView.xaml
+    /// </summary>
     class ClientListViewModel : WindowsBasicFuncs
     {
+        /// <summary>
+        /// Безпараметрический конструктор
+        /// </summary>
+        public ClientListViewModel() { }
+
+        #region Поля
+
+        /// <summary>
+        /// выбранный клиент
+        /// </summary>
         private static  Client _selectedClient;
 
+        /// <summary>
+        /// прокси для открытия диалоговых окон во избежание нарушения концепции mvvm 
+        /// </summary>
         private UserDialogService _dialogService = new();
 
+        /// <summary>
+        /// прокси для открытия информационных окон
+        /// </summary>
         private InformationDialogService _informDialogService = new();
 
+        /// <summary>
+        /// текст в окошке поиска
+        /// </summary>
+        private string _findText = "поиск";
+
+        #endregion
+
+        #region Свойства
+
+        /// <summary>
+        /// Выбранный из списка Clients клиент
+        /// </summary>
         public static Client SelectedClient
         {
             get => _selectedClient;
@@ -30,12 +58,17 @@ namespace Homework_13.ViewModel
                 else Debug.WriteLine("Передаваемое значение должно иметь тип Client");
             }
         }
+
+        /// <summary>
+        /// Передает ссылку на ClientsList для вывода списка клиентов
+        /// </summary>
         public static ObservableCollection<Client> Clients
         { get => ClientList<Client>.ClientsList; }
-        public ClientListViewModel() { }
 
-        private string _findText = "поиск";
-
+        //// TODO
+        /// <summary>
+        /// Поиск
+        /// </summary>
         public string FindText
         {
             get => _findText;
@@ -46,6 +79,10 @@ namespace Homework_13.ViewModel
             }
         }
 
+        #endregion
+
+        #region Команда редактирования клиента
+
         private RelayCommand _editClient;
 
         public RelayCommand EditClient
@@ -53,6 +90,9 @@ namespace Homework_13.ViewModel
             get => _editClient ??= new(EditClientCommand);
         }
 
+        /// <summary>
+        /// Запускает  сценарий редактирования клиента
+        /// </summary>
         private void EditClientCommand(object s)
         {
             if (SelectedClient != null)
@@ -61,6 +101,10 @@ namespace Homework_13.ViewModel
             }
         }
 
+        #endregion
+
+        #region Команда для открытия дебетового счёта
+
         private RelayCommand _openDebit;
 
         public RelayCommand OpenDebit
@@ -68,60 +112,29 @@ namespace Homework_13.ViewModel
             get => _openDebit ??= new(OpenDebitCommand);
         }
 
+        /// <summary>
+        /// открывает дебетовый счёт для выбранного клиента
+        /// </summary>
+        /// <param name="s"></param>
         private void OpenDebitCommand(object s)
         {
             if (SelectedClient != null && SelectedClient.DebitIsActive == false)
             {
                 SelectedClient.ClientsDebitAccount = new(SelectedClient);
-                _informDialogService.ShowInformation("Дебетовый счёт успешно открыт!", "Операция завершена");
+                _informDialogService.ShowInformation(
+                    "Дебетовый счёт успешно открыт!", 
+                    "Операция завершена");
             }
-            else if (SelectedClient == null) _informDialogService.ShowError("Выберите клиента!");
-            else if (SelectedClient != null && SelectedClient.DebitIsActive == true) _informDialogService.ShowError("Дебетовый счёт уже открыт");
+            else if (SelectedClient == null)
+            { _informDialogService.ShowError("Выберите клиента!"); }
+
+            else if (SelectedClient != null && SelectedClient.DebitIsActive == true) 
+            { _informDialogService.ShowError("Дебетовый счёт уже открыт"); }
         }
 
-        #region Команда повышеия репутации
-        private RelayCommand _increaseRep;
-
-        public RelayCommand IncreaseRep
-        {
-            get => _increaseRep ??= new(IncreaseReputation);
-        }
-
-        private void IncreaseReputation(object s)
-        {
-            if (SelectedClient != null)
-            {
-                ReputationIncreaser increaser = new(SelectedClient);
-                increaser.Execute();
-            }
-            else
-            {
-                _informDialogService.ShowError("Выберите клиента!");
-            }
-        }
         #endregion
 
-        #region Команда понижения репутации
-        private RelayCommand _decreaseRep;
-
-        public RelayCommand DecreaseRep
-        {
-            get => _decreaseRep ??= new(DecreaseReputation);
-        }
-
-        private void DecreaseReputation(object s)
-        {
-            if (SelectedClient != null)
-            {
-                ReputationDecreaser decreaser = new(SelectedClient);
-                decreaser.Execute();
-            }
-            else
-            {
-                _informDialogService.ShowError("Выберите клиента!");
-            }
-        }
-        #endregion
+        #region Команда повышения репутации
 
         private RelayCommand _parameterIncrease;
 
@@ -141,6 +154,10 @@ namespace Homework_13.ViewModel
             }
         }
 
+        #endregion
+
+        #region Команда понижения репутации
+
         private RelayCommand _parameterDecrease;
 
         public RelayCommand ParameterDecrease =>
@@ -158,5 +175,7 @@ namespace Homework_13.ViewModel
                 _informDialogService.ShowError("Выберите клиента!");
             }
         }
+
+        #endregion
     }
 }
