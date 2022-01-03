@@ -8,17 +8,23 @@ namespace Homework_13.ViewModel
     {
         private bool _maximized = false;
 
+        private double _width;
+        private double _height;
+        private double _top;
+        private double _left;
+
+        #region Команда для развёртывания окна на весь экран
+
         private RelayCommand _maximize;
         public RelayCommand Maximize
         {
             get => _maximize ??= new(MaximizeCommand);
         }
 
-        private double _width;
-        private double _height;
-        private double _top;
-        private double _left;
-
+        /// <summary>
+        /// Разворачивает окно на весь экран
+        /// </summary>
+        /// <param name="s"></param>
         private void MaximizeCommand(object s)
         {
             var window = (Window)s;
@@ -47,5 +53,7 @@ namespace Homework_13.ViewModel
                 _maximized = false;
             }
         }
+
+        #endregion
     }
 }
