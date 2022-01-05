@@ -9,13 +9,5 @@
         /// установленный процент
         /// </summary>
         double Percent { get; set; }
-
-        /// <summary>
-        /// метод позволябщий установить процент
-        /// </summary>
-        /// <param name="client"></param>
-        /// <returns></returns>
-        double SetPercent(Client client);
-
     }
 }

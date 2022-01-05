@@ -9,9 +9,9 @@ namespace Homework_13.Service.Command
 {
     class AccountOpener : Command
     {
+        public static Client SelectedClient;
         public bool? DialogResult { get; set; }
         public bool Deposit { get; set; } = false;
-        public bool Credit { get; set; } = false;
 
         public double Percent { get; set; }
 
@@ -24,31 +24,11 @@ namespace Homework_13.Service.Command
         {
             if (CanExecute(parameter))
             {
-                Client client = parameter as Client;
-                if (Deposit)
-                {
-                    Debug.WriteLine("deposit");
-                    BankDepositAccount account = new();
-                    AccountOpening dlg = new();
-
-                    dlg.DataContext = new AccountOpeningViewModel(
-                        account.SetPercent(ClientListViewModel.SelectedClient),
-                        false,
-                        true);
-                    dlg.ShowDialog();
-                }
-                else if (Credit)
-                {
-                    Debug.WriteLine("credit");
-                    BankCreditAccount account = new();
-                    AccountOpening dlg = new();
-
-                    dlg.DataContext = new AccountOpeningViewModel(
-                        account.SetPercent(ClientListViewModel.SelectedClient),
-                        true,
-                        false);
-                    dlg.ShowDialog();
-                }
+                //Debug.WriteLine(parameter);
+                SelectedClient = (Client)parameter;
+                AccountOpening dlg = new();
+                dlg.DataContext = new AccountOpeningViewModel((Client)parameter, Deposit);
+                dlg.ShowDialog();
             }
         }
     }

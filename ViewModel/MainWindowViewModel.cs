@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Homework_13.Model;
 using Homework_13.Service;
 using Homework_13.Service.Command;
@@ -23,6 +24,10 @@ namespace Homework_13.ViewModel
             Tittle = "Банк";
             new BankSettingsLoader(ThisBank);
             new BankSettingsSaver(ThisBank);
+            foreach (var e in ClientListViewModel.Clients)
+            {
+                Debug.WriteLine(e);
+            }
         }
 
         #region Поля

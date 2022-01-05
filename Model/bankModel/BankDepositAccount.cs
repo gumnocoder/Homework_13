@@ -17,9 +17,22 @@ namespace Homework_13.Model.bankModel
                 SetId();
                 client.DepositIsActive = true;
                 client.ClientsDepositAccount = this;
-                Percent = SetPercent(client);
+                AddLinkToAccountInBank();
+                Percent = DepositPercentSetter.SetDepositPercent(client);
                 _activationDate = DateTime.Now;
             }
+        }
+
+        public BankDepositAccount(Client client, long DepositStartAmount, double PersonalPercent)
+        {
+            new ReputationIncreaser(client, 3);
+            AccountAmount += DepositStartAmount;
+            SetId();
+            client.DepositIsActive = true;
+            client.ClientsDepositAccount = this;
+            AddLinkToAccountInBank();
+            Percent = PersonalPercent;
+            _activationDate = DateTime.Now;
         }
 
         public BankDepositAccount() { }
@@ -28,7 +41,6 @@ namespace Homework_13.Model.bankModel
         #region Поля
         private double _percent;
         private int _expiration;
-        private const double  _maxPercent = 12;
         private const int _minExpiration = 12;
         private DateTime _activationDate;
         #endregion
@@ -40,9 +52,7 @@ namespace Homework_13.Model.bankModel
         public double Percent 
         { 
             get => _percent;
-            set { if (value <= _maxPercent) _percent = value;
-                else _percent = 5; 
-            } 
+            set => _percent = value;
         }
         /// <summary>
         /// Срок истечения вклада
@@ -84,17 +94,6 @@ namespace Homework_13.Model.bankModel
         /// <returns></returns>
         public bool Expired() => GetTotalMonthsCount() == 0;
 
-        /// <summary>
-        /// Назначает процент по вкладу
-        /// </summary>
-        /// <param name="client"></param>
-        /// <returns></returns>
-        public double SetPercent(Client client)
-        {
-            if (client.Reputation == 10) return _maxPercent;
-            double clientReputation = (double)client.Reputation;
-            return _maxPercent / 10.0 * clientReputation;
-        }
 
         /// <summary>
         /// Возвращает остаток дней до истечения срока вклада

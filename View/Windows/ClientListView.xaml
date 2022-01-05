@@ -57,7 +57,7 @@
                             x:Type ContextMenu}}, 
                             Path=PlacementTarget.SelectedItem}">
                         <MenuItem.Command>
-                            <cmd:AccountOpener Deposit="True" Credit="False"/>
+                            <cmd:AccountOpener Deposit="True"/>
                         </MenuItem.Command>
                     </MenuItem>
                     <MenuItem 
@@ -68,7 +68,7 @@
                             x:Type ContextMenu}}, 
                             Path=PlacementTarget.SelectedItem}">
                         <MenuItem.Command>
-                            <cmd:AccountOpener Deposit="False" Credit="True"/>
+                            <cmd:AccountOpener Deposit="False"/>
                         </MenuItem.Command>
                     </MenuItem>
                     <MenuItem Header="Внести сумму"/>

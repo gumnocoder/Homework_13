@@ -16,7 +16,23 @@ namespace Homework_13.Model.bankModel
                 SetId();
                 client.CreditIsActive = true;
                 client.ClientsCreditAccount = this;
-                Percent = SetPercent(client);
+                AddLinkToAccountInBank();
+                Percent = CreditPercentSetter.SetCreditPercent(client);
+                _activationDate = DateTime.Now;
+            }
+            else Debug.WriteLine("кредит недоступен для этой персоны");
+        }
+
+        public BankCreditAccount(Client client, double PersonalPercent, long CreditAmount)
+        {
+            if (!client.CreditIsActive && client.Reputation > 5)
+            {
+                AccountAmount = -CreditAmount;
+                SetId();
+                client.CreditIsActive = true;
+                client.ClientsCreditAccount = this;
+                AddLinkToAccountInBank();
+                Percent = PersonalPercent;
                 _activationDate = DateTime.Now;
             }
             else Debug.WriteLine("кредит недоступен для этой персоны");
@@ -30,7 +46,6 @@ namespace Homework_13.Model.bankModel
 
         private double _percent;
         private int _expiration;
-        private const double _minPercent = 10;
         private const int _minExpiration = 6;
         private DateTime _activationDate;
 
@@ -64,13 +79,6 @@ namespace Homework_13.Model.bankModel
         }
 
         public bool Expired() => GetTotalMonthsCount() == 0;
-
-        public double SetPercent(Client client)
-        {
-            if (client.Reputation == 10) return _minPercent;
-            int reputation = client.Reputation - 5;
-            return 16.0 - (double)(reputation * 2);
-        }
 
         public int GetTotalMonthsCount()
         {
