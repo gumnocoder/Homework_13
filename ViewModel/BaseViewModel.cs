@@ -7,7 +7,7 @@ namespace Homework_13.ViewModel
     /// <summary>
     /// базовая логика для viewmodels
     /// </summary>
-    class BaseViewModel : DependencyObject, INotifyPropertyChanged
+    public class BaseViewModel : DependencyObject, INotifyPropertyChanged
     {
 
         public event PropertyChangedEventHandler PropertyChanged;

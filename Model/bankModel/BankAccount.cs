@@ -4,7 +4,7 @@ using Homework_13.ViewModel;
 
 namespace Homework_13.Model.bankModel
 {
-    abstract class BankAccount : BaseViewModel
+    public abstract class BankAccount : BaseViewModel
     {
         #region Поля
 
@@ -41,6 +41,8 @@ namespace Homework_13.Model.bankModel
         /// назначает ID
         /// </summary>
         public abstract void SetId();
+
+        public abstract void AddLinkToAccountInBank();
 
         /// <summary>
         /// Добавить положительную сумму на баланс

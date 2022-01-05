@@ -1,35 +1,84 @@
-﻿namespace Homework_13.Model.bankModel
+﻿using System.Collections.ObjectModel;
+
+namespace Homework_13.Model.bankModel
 {
     public sealed class Bank
     {
         #region Поля
-        public long currentCreditID;
+        /// <summary>
+        /// Идентификатор экземпляра
+        /// </summary>
+        public long currentCreditID, currentDebitID, currentDepositID, currentClientID, currentUserID;
 
-        public long currentDebitID;
+        /// <summary>
+        /// Коллекция всех счетов банка, соответствующего типа
+        /// </summary>
+        private ObservableCollection<BankAccount> _debits, _credits, _deposits;
 
-        public long currentDepositID;
-
-        public long currentClientID;
-
-        public long currentUserID;
         #endregion
 
         #region Свойства
+        /// <summary>
+        /// 
+        /// </summary>
         public long CurrentCreditID
         { get => currentCreditID; set => currentCreditID = value; }
-
-
+        /// <summary>
+        /// 
+        /// </summary>
         public long CurrentDebitID
         { get => currentDebitID; set => currentDebitID = value; }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public long CurrentDepositID
         { get => currentDepositID; set => currentDepositID = value; }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public long CurrentClientID
         { get => currentClientID; set => currentClientID = value; }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public long CurrentUserID
         { get => currentUserID; set => currentUserID = value; }
+        /// <summary>
+        /// Коллекция дебетовых счетов
+        /// </summary>
+        public ObservableCollection<BankAccount> Debits
+        {
+            get
+            {
+                if (_debits == null) { _debits = new(); }
+                return _debits;
+            }
+            set => _debits = value;
+        }
+        /// <summary>
+        /// Коллекция кредитных счетов
+        /// </summary>
+        public ObservableCollection<BankAccount> Credits
+        {
+            get
+            {
+                if (_credits == null) { _credits = new(); }
+                return _credits;
+            }
+            set => _credits = value;
+        }
+        /// <summary>
+        /// Коллекция депозитных счетов
+        /// </summary>
+        public ObservableCollection<BankAccount> Deposits
+        {
+            get
+            {
+                if (_deposits == null) { _deposits = new(); }
+                return _deposits;
+            }
+            set => _deposits = value;
+        }
         #endregion
 
         #region Синглтон Bank

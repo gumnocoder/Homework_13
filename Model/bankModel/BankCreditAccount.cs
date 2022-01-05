@@ -82,5 +82,11 @@ namespace Homework_13.Model.bankModel
                 (start.Day >= now.Day - 1 ? 0 : -1) +
                 ((start.Day == 1 && DateTime.DaysInMonth(now.Year, now.Month) == now.Day) ? 1 : 0));
         }
+
+        public override void AddLinkToAccountInBank()
+        {
+            ThisBank.Credits.Add(this);
+            Debug.WriteLine($"{this} added to bank credits");
+        }
     }
 }

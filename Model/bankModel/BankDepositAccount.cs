@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Homework_13.Model.bankModel.interfaces;
 using static Homework_13.Model.bankModel.Bank;
 
@@ -108,6 +109,12 @@ namespace Homework_13.Model.bankModel
                 now.Month - start.Month +
                 (start.Day >= now.Day - 1 ? 0 : -1) +
                 ((start.Day == 1 && DateTime.DaysInMonth(now.Year, now.Month) == now.Day) ? 1 : 0));
+        }
+
+        public override void AddLinkToAccountInBank()
+        {
+            ThisBank.Deposits.Add(this);
+            Debug.WriteLine(this);
         }
         #endregion
     }
