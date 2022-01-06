@@ -93,6 +93,7 @@ namespace Homework_13.Service.Command
         {
             AccountOpening window = parameter as AccountOpening;
 
+            /// Открывает депозитный счёт
             if (AccountOpeningViewModel.Deposit)
             {
                 if (ParameterParsing<double>(window.depPercent.Text))
@@ -116,6 +117,7 @@ namespace Homework_13.Service.Command
                     }
                 }
             }
+            /// открывает кредитный счёт
             else
             {
                 if (ParameterParsing<double>(window.credPercent.Text))

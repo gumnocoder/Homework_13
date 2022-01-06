@@ -10,10 +10,24 @@ namespace Homework_13.Service.Command
 {
     class ParameterChanger : Command
     {
+        /// <summary>
+        /// Флаг повышения параметра
+        /// </summary>
         public bool Increase { get; set; } = false;
+        /// <summary>
+        /// Флаг понижения параметра
+        /// </summary>
         public bool Decrease { get; set; } = false;
-
+        /// <summary>
+        /// число для оперирования
+        /// </summary>
         private int _number;
+
+        /// <summary>
+        /// Выполняет парсинг
+        /// </summary>
+        /// <param name="input">текст для парсинга</param>
+        /// <returns></returns>
         private bool Check(string input)
         {
             if (int.TryParse(input, out int tmp))
@@ -44,6 +58,10 @@ namespace Homework_13.Service.Command
         public override bool CanExecute(object parameter) => 
             (parameter as Window) != null;
 
+        /// <summary>
+        /// Инициализирует проверки и выполняет изменение параметра, в соответствии с выбранным флагом
+        /// </summary>
+        /// <param name="parameter">окно ParameterChangingInput</param>
         public override void Execute(object parameter)
         {
             if (!CanExecute(parameter)) return;
@@ -64,7 +82,7 @@ namespace Homework_13.Service.Command
                 if (incr) { ReputationIncreaser incr = new(client, _number); incr.Execute(); }
                 incr = false;
 
-                if (decr) { new ReputationDecreaser(client, _number).Execute();/* ReputationDecreaser decr = new(client, _number); decr.Execute();*/ }
+                if (decr) { new ReputationDecreaser(client, _number).Execute(); }
                 decr = false;
 
                 window.Close();
