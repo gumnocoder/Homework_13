@@ -6,40 +6,20 @@ namespace Homework_13.Model
     class ClientList<T> : ICollectionContainer<T> where T : Client
     {
         public static ObservableCollection<T> ClientsList = new();
-        public T this[int ID]
+
+        public Client SearchByName(string Name)
         {
-            get
+            Client t = default;
+
+            if (ClientsList != null && ClientsList.Count > 0)
             {
-                T t = null;
-                if (ClientsList != null && ClientsList.Count > 0)
+                foreach (Client client in ClientsList)
                 {
-                    foreach (T c in ClientsList)
-                    {
-                        if (c.ClientID == ID)
-                        { t = c; break; }
-                    }
+                    if (client.Name.ToLower() == Name.ToLower())
+                    { t = client; break; }
                 }
-                return t;
             }
-        }
-
-        public T this[string Name]
-        {
-            get
-            {
-                T u = default;
-
-                if (ClientsList != null && ClientsList.Count > 0)
-                {
-                    foreach (T t in ClientsList)
-                    {
-                        if (t.Name.ToLower() == Name.ToLower())
-                        { u = t; break; }
-                    }
-                }
-
-                return u;
-            }
+            return t;
         }
     }
 }

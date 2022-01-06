@@ -111,7 +111,7 @@ namespace Homework_13.Service.Command
                             MessageBox.Show(
                                 info, "Депозитный счёт успешно открыт!",
                                 MessageBoxButton.OK);
-                            SelectedClient = null;
+                            //SelectedClient = null;
                             window.Close();
                         }
                     }
@@ -135,7 +135,7 @@ namespace Homework_13.Service.Command
                             MessageBox.Show(
                                 info, "Кредит успешно выдан!",
                                 MessageBoxButton.OK);
-                            SelectedClient = null;
+                            //SelectedClient = null;
                             window.Close();
                         }
                     }

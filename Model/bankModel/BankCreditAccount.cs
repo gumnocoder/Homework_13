@@ -2,26 +2,13 @@
 using System.Diagnostics;
 using Homework_13.Model.bankModel.interfaces;
 using static Homework_13.Model.bankModel.Bank;
+using static Homework_13.ViewModel.ClientListViewModel;
 
 namespace Homework_13.Model.bankModel
 {
     class BankCreditAccount : BankAccount, IPercentContainer, IExpiring
     {
         #region Конструктор
-        public BankCreditAccount(Client client, long CreditAmount)
-        {
-            if (!client.CreditIsActive && client.Reputation > 5)
-            {
-                AccountAmount = -CreditAmount;
-                SetId();
-                client.CreditIsActive = true;
-                client.ClientsCreditAccount = this;
-                AddLinkToAccountInBank();
-                Percent = CreditPercentSetter.SetCreditPercent(client);
-                _activationDate = DateTime.Now;
-            }
-            else Debug.WriteLine("кредит недоступен для этой персоны");
-        }
 
         public BankCreditAccount(Client client, double PersonalPercent, long CreditAmount)
         {
@@ -30,10 +17,11 @@ namespace Homework_13.Model.bankModel
                 AccountAmount = -CreditAmount;
                 SetId();
                 client.CreditIsActive = true;
-                client.ClientsCreditAccount = this;
-                AddLinkToAccountInBank();
                 Percent = PersonalPercent;
                 _activationDate = DateTime.Now;
+                AddLinkToAccountInBank();
+                SelectedClient.CreditAccountID = ID;
+                client.ClientsCreditAccount = client.bсa();
             }
             else Debug.WriteLine("кредит недоступен для этой персоны");
         }
@@ -75,7 +63,11 @@ namespace Homework_13.Model.bankModel
         /// </summary>
         public override void SetId()
         {
-            ID = ++ThisBank.CurrentCreditID;
+            Debug.WriteLine($"ID - {ThisBank.CurrentCreditID}");
+            ThisBank.CurrentCreditID++;
+            Debug.WriteLine($"ID - {ThisBank.CurrentCreditID}");
+            ID = ThisBank.CurrentCreditID;
+            Debug.WriteLine($"account ID - {ID}");
         }
 
         public bool Expired() => GetTotalMonthsCount() == 0;
@@ -95,6 +87,11 @@ namespace Homework_13.Model.bankModel
         {
             ThisBank.Credits.Add(this);
             Debug.WriteLine($"{this} added to bank credits");
+        }
+
+        public override string ToString()
+        {
+            return $"{(typeof(BankCreditAccount).ToString())} {AccountAmount}$ ID - {ID} {ActivationDate} {Percent}%";
         }
     }
 }

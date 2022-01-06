@@ -71,6 +71,13 @@
                             <cmd:AccountOpener Deposit="False"/>
                         </MenuItem.Command>
                     </MenuItem>
+                    <MenuItem
+                        Header="Информация о кредитном счёте"
+                        IsEnabled="{Binding CreditEnabled, Mode=TwoWay}"
+                        Command="{Binding CheckCreditInfoCommand}"
+                        >
+                        
+                    </MenuItem>
                     <MenuItem Header="Внести сумму"/>
                     <MenuItem Header="Закрыть счёт"/>
                     <Separator/>

@@ -4,6 +4,7 @@ using Homework_13.Model;
 using Homework_13.Service;
 using Homework_13.Service.Command;
 using static Homework_13.Model.bankModel.Bank;
+using static Homework_13.Model.ClientList<Homework_13.Model.Client>;
 
 namespace Homework_13.ViewModel
 {

@@ -17,7 +17,11 @@ namespace Homework_13.Service.Command
 
         public override bool CanExecute(object parameter) 
         {
-            return (parameter as Client) != null; 
+            if ((parameter as Client) != null)
+            {
+                if (!Deposit && (parameter as Client).CreditIsActive) return false;
+            }
+            return true;
         }
 
         public override void Execute(object parameter)

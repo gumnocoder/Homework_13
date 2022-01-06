@@ -1,4 +1,5 @@
-﻿using Homework_13.Model.bankModel;
+﻿using System.Diagnostics;
+using Homework_13.Model.bankModel;
 using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.Model
@@ -15,11 +16,11 @@ namespace Homework_13.Model
 
         public bool CreditIsActive
         {
-            get => _creditIsActive; 
-            set 
-            { 
-                _creditIsActive = value; 
-                OnPropertyChanged(); 
+            get => _creditIsActive;
+            set
+            {
+                _creditIsActive = value;
+                OnPropertyChanged();
             }
         }
 
@@ -52,15 +53,8 @@ namespace Homework_13.Model
                 OnPropertyChanged();
             }
         }
-        public BankCreditAccount ClientsCreditAccount
-        {
-            get => _clientsCreditAccount;
-            set
-            {
-                _clientsCreditAccount = value;
-                OnPropertyChanged();
-            }
-        }
+
+
 
         public BankDebitAccount ClientsDebitAccount
         {
@@ -116,6 +110,44 @@ namespace Homework_13.Model
         {
             ClientID = ++ThisBank.currentClientID;
         }
+
+        public BankCreditAccount ClientsCreditAccount
+        {
+            get => _clientsCreditAccount;
+            set
+            {
+                _clientsCreditAccount = bсa();
+                OnPropertyChanged();
+            }
+        }
+
+        public long CreditAccountID;
+
+        /// <summary>
+        /// Выполняет поиск в ThisBank.Credits
+        /// по кредитному идентификатору
+        /// (SelectedClient.CreditAccountID)
+        /// и возращает BankCreditAccount в случае успеха
+        /// или null в противном случае
+        /// </summary>
+        /// <returns></returns>
+        public BankCreditAccount bсa()
+        {
+            BankCreditAccount tmp = default;
+            if (!this.CreditIsActive) return tmp;
+            foreach (var e in ThisBank.Credits)
+            {
+                Debug.WriteLine(e);
+                if (e.ID == CreditAccountID)
+                {
+                    Debug.WriteLine(e.ID);
+                    _clientsCreditAccount = (BankCreditAccount)e;
+                    return (BankCreditAccount)e;
+                }
+            }
+            return tmp;
+        }
+
         public Client(string Name, string Type = "Частный клиент", int Reputation = 6)
         {
             SetID();

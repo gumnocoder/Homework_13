@@ -4,6 +4,7 @@ using Homework_13.Model;
 using Homework_13.Service;
 using Homework_13.Service.Command;
 using static Homework_13.ViewModel.ParameterChangingInputVM;
+using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.ViewModel
 {
@@ -79,6 +80,13 @@ namespace Homework_13.ViewModel
             }
         }
 
+        private bool _creditEnabled;
+        public bool CreditEnabled
+        {
+            get => SelectedClient.CreditIsActive;
+            set => _creditEnabled = SelectedClient.CreditIsActive;
+        }
+
         #endregion
 
         #region Команда редактирования клиента
@@ -130,6 +138,25 @@ namespace Homework_13.ViewModel
 
             else if (SelectedClient != null && SelectedClient.DebitIsActive == true) 
             { _informDialogService.ShowError("Дебетовый счёт уже открыт"); }
+        }
+
+        #endregion
+
+        #region Просмотр информации по кредиту
+
+        private RelayCommand _checkCreditInfoCommand;
+
+        public RelayCommand CheckCreditInfoCommand =>
+            _checkCreditInfoCommand ??= new(ShowCreditInfo);
+        public void ShowCreditInfo(object s)
+        {
+            if (SelectedClient != null)
+            {
+                Debug.WriteLine($"" +
+                    $"{SelectedClient.ClientsCreditAccount} " +
+                    $"{SelectedClient.ClientID} " +
+                    $"{SelectedClient.CreditAccountID}");
+            }
         }
 
         #endregion
