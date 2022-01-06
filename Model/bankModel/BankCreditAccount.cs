@@ -8,7 +8,7 @@ namespace Homework_13.Model.bankModel
     class BankCreditAccount : BankAccount, IPercentContainer, IExpiring
     {
         #region Конструктор
-        public BankCreditAccount(long CreditAmount, Client client)
+        public BankCreditAccount(Client client, long CreditAmount)
         {
             if (!client.CreditIsActive && client.Reputation > 5)
             {

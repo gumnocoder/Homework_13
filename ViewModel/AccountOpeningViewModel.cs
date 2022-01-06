@@ -26,7 +26,7 @@ namespace Homework_13.ViewModel
         #region Поля
         private static bool _deposit = false;
         private Client _client;
-        private double _personalPercent;
+        private static double _personalPercent;
         #endregion
 
         #region Свойства
@@ -50,7 +50,7 @@ namespace Homework_13.ViewModel
             get => !Deposit;
         }
 
-        public double PersonalPercent
+        public static double PersonalPercent
         {
             get => _personalPercent;
             set => _personalPercent = value;
