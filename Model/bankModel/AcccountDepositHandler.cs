@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Homework_13.Model.Interfaces;
+using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.Model.bankModel
 {
@@ -9,9 +10,19 @@ namespace Homework_13.Model.bankModel
     /// в виде реализации паттерна "Команда"
     /// </summary>
     /// <typeparam name="T">Депозитный счет</typeparam>
-    class AcccountDepositHandler<T> : ICommandAction
-        where T : BankDepositAccount
+    class AcccountDepositHandler : ICommandAction
     {
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="client">Клиент-владелец депозитного счета</param>
+        /// <param name="account">счет</param>
+        public AcccountDepositHandler(Client client, BankDepositAccount account)
+        {
+            _account = account;
+            _client = client;
+        }
+
         #region Поля
         private readonly BankDepositAccount _account;
         private readonly Client _client;
@@ -29,7 +40,7 @@ namespace Homework_13.Model.bankModel
 
         #region Методы
         /// <summary>
-        /// вынести за пределы класса
+        /// Выполняет расчёт процентов на сумму остатка
         /// </summary>
         public long CalculatePercentage()
         {
@@ -38,6 +49,10 @@ namespace Homework_13.Model.bankModel
                     Math.Round(
                         (double)(_account.AccountAmount * _account.Percent / 100)));
         }
+
+        /// <summary>
+        /// Выполняет пересчёт суммы при окончании месяца
+        /// </summary>
         public void SkipMonth()
         {
             --_client.ClientsDepositAccount.Expiration;
@@ -50,16 +65,38 @@ namespace Homework_13.Model.bankModel
                 $"expires: {_account.Expiration}");
         }
 
+        /// <summary>
+        /// Выполнить при окончании срока вклада - 
+        /// переводит накопления на дебетовый счёт 
+        /// (создаёт при необходимости) и закрывает депозитный счёт
+        /// </summary>
         void OnExpired()
         {
             if (_account.Expiration == 0)
             {
+                if (!_client.DebitIsActive)  _client.DebitIsActive = true; 
+                BankDebitAccount a = new(_client, _account.AccountAmount);
+
                 _account.AccountAmount = 0;
+                foreach (var e in ThisBank.Deposits)
+                {
+                    if (e == _account)
+                    {
+                        ThisBank.Deposits.Remove(e);
+                        break;
+                    }
+                }
+                _client.ClientsDepositAccount = null;
                 _account.IsActive = false;
                 new ReputationIncreaser(_client, 5).Execute();
                 Execute();
             }
         }
+
+        /// <summary>
+        /// расширяет депозитный счёт
+        /// </summary>
+        /// <param name="ExtensionAmount"></param>
         void DepositExtension(long ExtensionAmount)
         {
             if (ExtensionAmount > _minDepositExtension)
@@ -74,16 +111,5 @@ namespace Homework_13.Model.bankModel
             Executed = true;
         }
         #endregion
-
-        /// <summary>
-        /// Конструктор
-        /// </summary>
-        /// <param name="client">Клиент-владелец счета</param>
-        /// <param name="account">счет</param>
-        public AcccountDepositHandler(Client client, T account)
-        {
-            _account = account;
-            _client = client;
-        }
     }
 }
