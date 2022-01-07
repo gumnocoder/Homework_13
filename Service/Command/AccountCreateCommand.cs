@@ -41,6 +41,14 @@ namespace Homework_13.Service.Command
                     if (double.TryParse(Text, out double tmp))
                     {
                         percent = tmp;
+                        if (percent < CreditPercentSetter.minPercent)
+                        {
+                            percent = CreditPercentSetter.minPercent;
+                            MessageBox.Show(
+                            "Выбран процент ниже минимального, установлено минимальное значение",
+                            "Ставка меньше минимальной!",
+                            MessageBoxButton.OK);
+                        }
                         return true;
                     }
                     else
@@ -74,6 +82,14 @@ namespace Homework_13.Service.Command
                     if (int.TryParse(Text, out int tmp)) 
                     { 
                         expiration = tmp; 
+                        if (expiration < BankCreditAccount.minExpiration)
+                        {
+                            expiration = BankCreditAccount.minExpiration;
+                            MessageBox.Show(
+                            "Срок кредита меньше минимального, установлено минимальное значение.", 
+                            "Срок меньше минимального!",
+                            MessageBoxButton.OK);
+                        }
                         return true; 
                     }
                     else
@@ -102,7 +118,7 @@ namespace Homework_13.Service.Command
                     {
                         if (ParameterParsing<int>(window.depExp.Text))
                         {
-                            BankDepositAccount a = new(SelectedClient, amount, percent);
+                            BankDepositAccount a = new(SelectedClient, amount, percent, expiration);
                             string info = $"Открыт депозитный счёт " +
                                 $"{amount}$ " +
                                 $"{percent}% " +
@@ -126,7 +142,7 @@ namespace Homework_13.Service.Command
                     {
                         if (ParameterParsing<int>(window.credExp.Text))
                         {
-                            BankCreditAccount a = new(SelectedClient, percent, amount);
+                            BankCreditAccount a = new(SelectedClient, percent, amount, expiration);
                             string info = $"Выдан кредит на " +
                                 $"{amount}$ " +
                                 $"под {percent}% " +

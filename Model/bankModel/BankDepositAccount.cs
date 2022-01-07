@@ -12,7 +12,7 @@ namespace Homework_13.Model.bankModel
     {
         #region Конструкторы
 
-        public BankDepositAccount(Client client, long DepositStartAmount, double PersonalPercent)
+        public BankDepositAccount(Client client, long DepositStartAmount, double PersonalPercent, int Expiration)
         {
             if (!client.DepositIsActive)
             {
@@ -21,6 +21,7 @@ namespace Homework_13.Model.bankModel
                 client.DepositIsActive = true;
                 Percent = PersonalPercent;
                 _activationDate = DateTime.Now;
+                this.Expiration = Expiration;
                 AddLinkToAccountInBank();
                 client.DepositAccountID = ID;
                 client.ClientsDepositAccount = 

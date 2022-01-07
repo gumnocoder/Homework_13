@@ -14,15 +14,20 @@ namespace Homework_13.Model.bankModel
     {
         #region Конструктор
 
-        public BankCreditAccount(Client client, double PersonalPercent, long CreditAmount)
+        public BankCreditAccount(Client client, double PersonalPercent, long CreditAmount, int Expiration)
         {
             if (!client.CreditIsActive && client.Reputation > 5)
             {
                 AccountAmount = -CreditAmount;
                 SetId();
                 client.CreditIsActive = true;
+
                 Percent = PersonalPercent;
+                if (Percent < CreditPercentSetter.minPercent) 
+                { Percent = CreditPercentSetter.minPercent; }
+
                 _activationDate = DateTime.Now;
+                this.Expiration = Expiration;
                 AddLinkToAccountInBank();
                 client.CreditAccountID = ID;
                 client.ClientsCreditAccount = (BankCreditAccount)client.ba<BankCreditAccount>(ref ThisBank.credits, client.CreditAccountID);
@@ -38,7 +43,7 @@ namespace Homework_13.Model.bankModel
 
         private double _percent;
         private int _expiration;
-        private const int _minExpiration = 6;
+        public const int minExpiration = 6;
         private DateTime _activationDate;
 
         #endregion
@@ -54,7 +59,7 @@ namespace Homework_13.Model.bankModel
             get => _expiration; 
             set 
             { 
-                if (value > _minExpiration) _expiration = value;
+                if (value > minExpiration) _expiration = value;
             } 
         }
         public DateTime ActivationDate { get => _activationDate; }
