@@ -7,6 +7,9 @@ using static Homework_13.ViewModel.ClientListViewModel;
 
 namespace Homework_13.Model.bankModel
 {
+    /// <summary>
+    /// Кредитный банковский счёт
+    /// </summary>
     class BankCreditAccount : BankAccount, IPercentContainer, IExpiring
     {
         #region Конструктор

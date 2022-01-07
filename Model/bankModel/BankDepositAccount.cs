@@ -5,6 +5,9 @@ using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.Model.bankModel
 {
+    /// <summary>
+    /// Депозитный банковский счёт
+    /// </summary>
     class BankDepositAccount : BankAccount, IPercentContainer, IExpiring
     {
         #region Конструкторы
@@ -20,7 +23,10 @@ namespace Homework_13.Model.bankModel
                 _activationDate = DateTime.Now;
                 AddLinkToAccountInBank();
                 client.DepositAccountID = ID;
-                client.ClientsDepositAccount = (BankDepositAccount)client.ba<BankDepositAccount>(ref ThisBank.deposits, client.DepositAccountID);
+                client.ClientsDepositAccount = 
+                    (BankDepositAccount)client.ba<BankDepositAccount>(
+                        ref ThisBank.deposits, 
+                        client.DepositAccountID);
                 new ReputationIncreaser(client, 3);
                 Debug.WriteLine(this);
             }
@@ -77,7 +83,8 @@ namespace Homework_13.Model.bankModel
         /// <summary>
         /// Назначает ID
         /// </summary>
-        public override void SetId() => ID = ++ThisBank.CurrentDepositID;
+        public override void SetId() => 
+            ID = ++ThisBank.CurrentDepositID;
 
         /// <summary>
         /// Проверяет истёк ли срок вклада
