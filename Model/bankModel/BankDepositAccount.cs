@@ -8,31 +8,22 @@ namespace Homework_13.Model.bankModel
     class BankDepositAccount : BankAccount, IPercentContainer, IExpiring
     {
         #region Конструкторы
-        public BankDepositAccount(Client client, long DepositStartAmount)
-        {
-            if (!client.DepositIsActive)
-            {
-                new ReputationIncreaser(client, 3);
-                AccountAmount += DepositStartAmount;
-                SetId();
-                client.DepositIsActive = true;
-                client.ClientsDepositAccount = this;
-                AddLinkToAccountInBank();
-                Percent = DepositPercentSetter.SetDepositPercent(client);
-                _activationDate = DateTime.Now;
-            }
-        }
 
         public BankDepositAccount(Client client, long DepositStartAmount, double PersonalPercent)
         {
-            new ReputationIncreaser(client, 3);
-            AccountAmount += DepositStartAmount;
-            SetId();
-            client.DepositIsActive = true;
-            client.ClientsDepositAccount = this;
-            AddLinkToAccountInBank();
-            Percent = PersonalPercent;
-            _activationDate = DateTime.Now;
+            if (!client.DepositIsActive)
+            {
+                AccountAmount += DepositStartAmount;
+                SetId();
+                client.DepositIsActive = true;
+                Percent = PersonalPercent;
+                _activationDate = DateTime.Now;
+                AddLinkToAccountInBank();
+                client.DepositAccountID = ID;
+                client.ClientsDepositAccount = (BankDepositAccount)client.ba<BankDepositAccount>(ref ThisBank.deposits, client.DepositAccountID);
+                new ReputationIncreaser(client, 3);
+                Debug.WriteLine(this);
+            }
         }
 
         public BankDepositAccount() { }
@@ -115,6 +106,11 @@ namespace Homework_13.Model.bankModel
             ThisBank.Deposits.Add(this);
             Debug.WriteLine(this);
         }
+        public override string ToString()
+        {
+            return $"{(typeof(BankDepositAccount).ToString())} {AccountAmount}$ ID - {ID} {ActivationDate} {Percent}%";
+        }
+
         #endregion
     }
 }

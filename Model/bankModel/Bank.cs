@@ -13,7 +13,7 @@ namespace Homework_13.Model.bankModel
         /// <summary>
         /// Коллекция всех счетов банка, соответствующего типа
         /// </summary>
-        private ObservableCollection<BankAccount> _debits, _credits, _deposits;
+        public ObservableCollection<BankAccount> debits, credits, deposits;
 
         #endregion
 
@@ -50,10 +50,10 @@ namespace Homework_13.Model.bankModel
         {
             get
             {
-                if (_debits == null) { _debits = new(); }
-                return _debits;
+                if (debits == null) { debits = new(); }
+                return debits;
             }
-            set => _debits = value;
+            set => debits = value;
         }
         /// <summary>
         /// Коллекция кредитных счетов
@@ -62,10 +62,10 @@ namespace Homework_13.Model.bankModel
         {
             get
             {
-                if (_credits == null) { _credits = new(); }
-                return _credits;
+                if (credits == null) { credits = new(); }
+                return credits;
             }
-            set => _credits = value;
+            set => credits = value;
         }
         /// <summary>
         /// Коллекция депозитных счетов
@@ -74,10 +74,10 @@ namespace Homework_13.Model.bankModel
         {
             get
             {
-                if (_deposits == null) { _deposits = new(); }
-                return _deposits;
+                if (deposits == null) { deposits = new(); }
+                return deposits;
             }
-            set => _deposits = value;
+            set => deposits = value;
         }
         #endregion
 

@@ -83,7 +83,11 @@ namespace Homework_13.ViewModel
         private bool _creditEnabled;
         public bool CreditEnabled
         {
-            get => SelectedClient.CreditIsActive;
+            get
+            {
+                if (SelectedClient == null) return false;
+                return SelectedClient.CreditIsActive;
+            }
             set => _creditEnabled = SelectedClient.CreditIsActive;
         }
 

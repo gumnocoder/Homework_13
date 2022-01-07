@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Homework_13.Model.bankModel.interfaces;
 using static Homework_13.Model.bankModel.Bank;
@@ -20,8 +21,8 @@ namespace Homework_13.Model.bankModel
                 Percent = PersonalPercent;
                 _activationDate = DateTime.Now;
                 AddLinkToAccountInBank();
-                SelectedClient.CreditAccountID = ID;
-                client.ClientsCreditAccount = client.bсa();
+                client.CreditAccountID = ID;
+                client.ClientsCreditAccount = (BankCreditAccount)client.ba<BankCreditAccount>(ref ThisBank.credits, client.CreditAccountID);
             }
             else Debug.WriteLine("кредит недоступен для этой персоны");
         }

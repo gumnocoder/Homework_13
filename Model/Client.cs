@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Homework_13.Model.bankModel;
 using static Homework_13.Model.bankModel.Bank;
 
@@ -6,54 +7,71 @@ namespace Homework_13.Model
 {
     class Client : Person
     {
-        private bool _creditIsActive, _debitIsActive, _depositIsActive, _accountsFreezed = false;
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="Name">Имя</param>
+        /// <param name="Type">Тип</param>
+        /// <param name="Reputation">Репутация</param>
+        public Client(string Name, string Type = "Частный клиент", int Reputation = 6)
+        {
+            SetID();
+            this.Name = Name;
+            this.Type = Type;
+            this.Reputation = Reputation;
+        }
+
+        #region Поля
+        private bool creditIsActive, debitIsActive, depositIsActive, accountsFreezed = false;
+        public long CreditAccountID, DepositAccountID, DebitAccountID;
         private BankCreditAccount _clientsCreditAccount;
         private BankDebitAccount _clientsDebitAccount;
         private BankDepositAccount _clientsDepositAccount;
         private string _type;
         private int _reputation;
         private long _clientId;
+        #endregion
 
+        #region Свойства
         public bool CreditIsActive
         {
-            get => _creditIsActive;
+            get => creditIsActive;
             set
             {
-                _creditIsActive = value;
+                creditIsActive = value;
                 OnPropertyChanged();
             }
         }
 
         public bool DebitIsActive
         {
-            get => _debitIsActive;
+            get => debitIsActive;
             set
             {
-                _debitIsActive = value;
+                debitIsActive = value;
                 OnPropertyChanged();
             }
         }
 
         public bool DepositIsActive
         {
-            get => _depositIsActive;
+            get => depositIsActive;
             set
             {
-                _depositIsActive = value;
+                depositIsActive = value;
                 OnPropertyChanged();
             }
         }
 
         public bool AccountsFreezed
         {
-            get => _accountsFreezed;
+            get => accountsFreezed;
             set
             {
-                _accountsFreezed = value;
+                accountsFreezed = value;
                 OnPropertyChanged();
             }
         }
-
 
 
         public BankDebitAccount ClientsDebitAccount
@@ -66,15 +84,6 @@ namespace Homework_13.Model
             }
         }
 
-        public BankDepositAccount ClientsDepositAccount
-        {
-            get => _clientsDepositAccount;
-            set
-            {
-                _clientsDepositAccount = value;
-                OnPropertyChanged();
-            }
-        }
         public string Type
         {
             get => _type;
@@ -116,53 +125,60 @@ namespace Homework_13.Model
             get => _clientsCreditAccount;
             set
             {
-                _clientsCreditAccount = bсa();
+                _clientsCreditAccount = 
+                    (BankCreditAccount)ba<BankCreditAccount>(
+                        ref ThisBank.credits, 
+                        CreditAccountID);
                 OnPropertyChanged();
             }
         }
 
-        public long CreditAccountID;
+        public BankDepositAccount ClientsDepositAccount
+        {
+            get => _clientsDepositAccount;
+            set
+            {
+                _clientsDepositAccount = (BankDepositAccount)ba<BankDepositAccount>(
+                        ref ThisBank.deposits,
+                        DepositAccountID); ;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
 
+        #region Методы
         /// <summary>
-        /// Выполняет поиск в ThisBank.Credits
-        /// по кредитному идентификатору
-        /// (SelectedClient.CreditAccountID)
-        /// и возращает BankCreditAccount в случае успеха
+        /// Выполняет поиск в ThisBank.[Credits или Deposits или Debits]
+        /// по соответствующему идентификатору счёта Client SelectedClient
+        /// и возращает требуемый тип-наследник BankAccount в случае успеха
         /// или null в противном случае
         /// </summary>
+        /// <typeparam name="T">Параметр типа наследника BankAccount</typeparam>
+        /// <param name="list">Соответствующий типу список в синглтоне Bank</param>
+        /// <param name="ID">Идентификатор счёта</param>
         /// <returns></returns>
-        public BankCreditAccount bсa()
+        public BankAccount ba<T>(ref ObservableCollection<BankAccount> list, long ID) 
+            where T : BankAccount
         {
-            BankCreditAccount tmp = default;
-            if (!this.CreditIsActive) return tmp;
-            foreach (var e in ThisBank.Credits)
+            T tmp = default;
+            if (typeof(T) == typeof(BankCreditAccount) && !CreditIsActive) return tmp;
+            else if (typeof(T) == typeof(BankDepositAccount) && !DepositIsActive) return tmp;
+            else if (typeof(T) == typeof(BankDebitAccount) && !DebitIsActive) return tmp;
+            foreach (var e in list)
             {
-                Debug.WriteLine(e);
-                if (e.ID == CreditAccountID)
+                if (e.ID == ID)
                 {
-                    Debug.WriteLine(e.ID);
-                    _clientsCreditAccount = (BankCreditAccount)e;
-                    return (BankCreditAccount)e;
+                    tmp = (T)e;
                 }
             }
             return tmp;
         }
 
-        public Client(string Name, string Type = "Частный клиент", int Reputation = 6)
-        {
-            SetID();
-            this.Name = Name;
-            this.Type = Type;
-            this.Reputation = Reputation;
-        }
-
-        #region TODO
-        //добавить депозитный счёт
-        #endregion
-
         public override string ToString()
         {
             return $"{ClientID} {Name} {Reputation}";
         }
+
+        #endregion
     }
 }
