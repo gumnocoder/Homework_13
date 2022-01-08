@@ -56,11 +56,8 @@ namespace Homework_13.Model.bankModel
         }
         public int Expiration
         { 
-            get => _expiration; 
-            set 
-            { 
-                if (value > minExpiration) _expiration = value;
-            } 
+            get => _expiration;
+            set => _expiration = value;
         }
         public DateTime ActivationDate { get => _activationDate; }
         public int ExpirationDuration { get => GetTotalMonthsCount(); }

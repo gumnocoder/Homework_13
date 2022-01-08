@@ -28,6 +28,7 @@ namespace Homework_13.Model.bankModel
                     (BankDepositAccount)client.ba<BankDepositAccount>(
                         ref ThisBank.deposits, 
                         client.DepositAccountID);
+                Debug.WriteLine($"Expired at: {Expiration}");
                 new ReputationIncreaser(client, 3);
                 Debug.WriteLine(this);
             }
@@ -57,16 +58,8 @@ namespace Homework_13.Model.bankModel
         /// </summary>
         public int Expiration 
         { 
-            get => _expiration; 
-            set 
-            {
-                if (value < _minExpiration) _expiration = 12;
-                else
-                {
-                    if (_expiration == 0) { _expiration = 0; return; }
-                    _expiration = value;
-                }
-            }
+            get => _expiration;
+            set => _expiration = value;
         }
         /// <summary>
         /// Дата открытия счёта

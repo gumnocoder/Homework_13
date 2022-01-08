@@ -78,6 +78,12 @@
                         >
                         
                     </MenuItem>
+                    <MenuItem
+                        Header="Информация о клиенте"
+                        IsEnabled="True"
+                        Command="{Binding ShowClientInfo}"
+                        >
+                    </MenuItem>
                     <MenuItem Header="Внести сумму"/>
                     <MenuItem Header="Закрыть счёт"/>
                     <Separator/>

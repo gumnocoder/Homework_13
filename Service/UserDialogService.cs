@@ -84,6 +84,9 @@ namespace Homework_13.Service
                 case ClientListViewModel:
                     dlg = new ClientListView();
                     break;
+                case ClientInformationViewModel:
+                    dlg = new ClientInfromation();
+                    break;
             }
 
             dlg.Owner = _owner;

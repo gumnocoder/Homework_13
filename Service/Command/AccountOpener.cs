@@ -20,6 +20,7 @@ namespace Homework_13.Service.Command
             if ((parameter as Client) != null)
             {
                 if (!Deposit && (parameter as Client).CreditIsActive) return false;
+                else if (Deposit && (parameter as Client).DepositIsActive) return false;
             }
             return true;
         }

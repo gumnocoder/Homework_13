@@ -115,6 +115,28 @@ namespace Homework_13.ViewModel
 
         #endregion
 
+        #region Команда открытия иинформационного окна для выбранного клиента
+
+        private RelayCommand _showClientInfo;
+
+        public RelayCommand ShowClientInfo
+        {
+            get => _showClientInfo ??= new(ShowClientInfoCommand);
+        }
+
+        /// <summary>
+        /// Запускает  сценарий редактирования клиента
+        /// </summary>
+        private void ShowClientInfoCommand(object s)
+        {
+            if (SelectedClient != null)
+            {
+                _dialogService.Edit(new ClientInformationViewModel());
+            }
+        }
+
+        #endregion
+
         #region Команда для открытия дебетового счёта
 
         private RelayCommand _openDebit;
