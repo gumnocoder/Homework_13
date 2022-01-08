@@ -22,7 +22,13 @@ namespace Homework_13.Model
         }
 
         #region Поля
+        /// <summary>
+        /// флаги активности счетов
+        /// </summary>
         private bool creditIsActive, debitIsActive, depositIsActive, accountsFreezed = false;
+        /// <summary>
+        /// Идентификатор счетов
+        /// </summary>
         public long CreditAccountID, DepositAccountID, DebitAccountID;
         private BankCreditAccount _clientsCreditAccount;
         private BankDebitAccount _clientsDebitAccount;
@@ -33,6 +39,10 @@ namespace Homework_13.Model
         #endregion
 
         #region Свойства
+
+        /// <summary>
+        /// Флаг наличия кредита
+        /// </summary>
         public bool CreditIsActive
         {
             get => creditIsActive;
@@ -43,6 +53,9 @@ namespace Homework_13.Model
             }
         }
 
+        /// <summary>
+        /// Флаг наличия дебетового счёта
+        /// </summary>
         public bool DebitIsActive
         {
             get => debitIsActive;
@@ -53,6 +66,9 @@ namespace Homework_13.Model
             }
         }
 
+        /// <summary>
+        /// Флаг наличия депозитного счёта
+        /// </summary>
         public bool DepositIsActive
         {
             get => depositIsActive;
@@ -63,6 +79,9 @@ namespace Homework_13.Model
             }
         }
 
+        /// <summary>
+        /// Активность заморозки счетов 
+        /// </summary>
         public bool AccountsFreezed
         {
             get => accountsFreezed;
@@ -73,17 +92,9 @@ namespace Homework_13.Model
             }
         }
 
-
-        public BankDebitAccount ClientsDebitAccount
-        {
-            get => _clientsDebitAccount;
-            set
-            {
-                _clientsDebitAccount = value;
-                OnPropertyChanged();
-            }
-        }
-
+        /// <summary>
+        /// Тип клиента
+        /// </summary>
         public string Type
         {
             get => _type;
@@ -94,6 +105,9 @@ namespace Homework_13.Model
             }
         }
 
+        /// <summary>
+        /// Рейтинг клиента
+        /// </summary>
         public int Reputation
         {
             get => _reputation;
@@ -106,6 +120,9 @@ namespace Homework_13.Model
             }
         }
 
+        /// <summary>
+        /// Идентификатор клиента
+        /// </summary>
         public long ClientID
         {
             get => _clientId;
@@ -115,11 +132,26 @@ namespace Homework_13.Model
                 OnPropertyChanged();
             }
         }
-        public void SetID()
+
+        /// <summary>
+        /// Возвращает ссылку на дебетовый счёт
+        /// </summary>
+        public BankDebitAccount ClientsDebitAccount
         {
-            ClientID = ++ThisBank.currentClientID;
+            get => _clientsDebitAccount;
+            set
+            {
+                _clientsDebitAccount =
+                    (BankDebitAccount)ba<BankDebitAccount>(
+                        ref ThisBank.debits,
+                        DebitAccountID);
+                OnPropertyChanged();
+            }
         }
 
+        /// <summary>
+        /// Возвращает ссылку на кредитный счёт
+        /// </summary>
         public BankCreditAccount ClientsCreditAccount
         {
             get => _clientsCreditAccount;
@@ -133,6 +165,9 @@ namespace Homework_13.Model
             }
         }
 
+        /// <summary>
+        /// Возвращает ссылку на депозитный счёт
+        /// </summary>
         public BankDepositAccount ClientsDepositAccount
         {
             get => _clientsDepositAccount;
@@ -175,6 +210,18 @@ namespace Homework_13.Model
             return tmp;
         }
 
+        /// <summary>
+        /// Назначает идентификатор клиента
+        /// </summary>
+        public void SetID()
+        {
+            ClientID = ++ThisBank.currentClientID;
+        }
+
+        /// <summary>
+        /// Строковое представление информации о клиенте
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"{ClientID} {Name} {Reputation}";

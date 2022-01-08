@@ -11,7 +11,7 @@ namespace Homework_13.Model.bankModel
         /// <summary>
         /// Конструктор
         /// </summary>
-        /// <param name="client">Клиент-владеле счёта</param>
+        /// <param name="client">Клиент-владелец счёта</param>
         /// <param name="DebitStartAmount">Сумма вносимая при открытии счёта, 0 по умолчанию</param>
         public BankDebitAccount(Client client, long DebitStartAmount = 0)
         {
