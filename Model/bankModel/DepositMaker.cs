@@ -1,4 +1,6 @@
-﻿namespace Homework_13.Model.bankModel
+﻿using System.Diagnostics;
+
+namespace Homework_13.Model.bankModel
 {
     /// <summary>
     /// Пополняет счёт
@@ -18,6 +20,7 @@
             if (CanMakeDeposit(client, account))
             {
                 account.AccountAmount += Amount;
+                Debug.WriteLine($" current account amount is: {account.AccountAmount}");
             }
         }
     }

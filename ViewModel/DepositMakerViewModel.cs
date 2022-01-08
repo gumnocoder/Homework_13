@@ -14,24 +14,24 @@ namespace Homework_13.ViewModel
     class DepositMakerViewModel
     {
 
-/*        public DepositMakerViewModel(BankAccount Account) 
+/*        public DepositMakerViewModel() 
         {
-            account = Account;
-        }*/
-
+            account = SelectedAccount;
+        }
+*/
         private int _amount = 0;
 
         public BankAccount account;
         public int Amount 
         {
             get => _amount;
-            set
-            {
+            set => _amount = value;
+/*            {
                 if (value.GetType() == typeof(string))
                 {
                     int.TryParse(value.ToString(), out _amount);
                 }
-            }
+            }*/
         }
 
         private RelayCommand _makeDeposit;
@@ -40,7 +40,7 @@ namespace Homework_13.ViewModel
 
         private void MakeDepositForClientsAccount(object s)
         {
-            MakeDeposit(SelectedClient, account, Amount);
+            MakeDeposit(SelectedClient, SelectedAccount, Amount);
         }
 
         private RelayCommand _selectAccountType;

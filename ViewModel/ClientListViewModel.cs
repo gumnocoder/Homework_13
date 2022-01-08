@@ -138,7 +138,7 @@ namespace Homework_13.ViewModel
 
         #endregion
 
-        public BankAccount SelectedAccount
+        public static BankAccount SelectedAccount
         {
             get;
             set;
@@ -149,8 +149,8 @@ namespace Homework_13.ViewModel
 
         private void MakeDepositOpenWindow(object s)
         {
-            BankAccount a = s as BankDebitAccount;
-            _dialogService.Edit(a);
+            SelectedAccount = SelectedClient.ClientsDebitAccount;
+            _dialogService.Edit(SelectedAccount);
         }
 
 
