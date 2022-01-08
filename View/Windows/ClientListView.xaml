@@ -84,7 +84,12 @@
                         Command="{Binding ShowClientInfo}"
                         >
                     </MenuItem>
-                    <MenuItem Header="Внести сумму"/>
+                    <MenuItem 
+                        CommandParameter="{Binding SelectedClient.ClientsDebitAccount}"
+                        Command="{Binding MakeDepositWindow}"
+                        Header="Внести сумму">
+                        
+                    </MenuItem>
                     <MenuItem Header="Закрыть счёт"/>
                     <Separator/>
                     <MenuItem Header="Выполнить перевод"/>

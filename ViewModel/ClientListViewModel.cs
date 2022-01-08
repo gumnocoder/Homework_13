@@ -5,6 +5,7 @@ using Homework_13.Service;
 using Homework_13.Service.Command;
 using static Homework_13.ViewModel.ParameterChangingInputVM;
 using static Homework_13.Model.bankModel.Bank;
+using Homework_13.Model.bankModel;
 
 namespace Homework_13.ViewModel
 {
@@ -136,6 +137,22 @@ namespace Homework_13.ViewModel
         }
 
         #endregion
+
+        public BankAccount SelectedAccount
+        {
+            get;
+            set;
+        }
+        private RelayCommand _makeDepositWindow;
+
+        public RelayCommand MakeDepositWindow => _makeDepositWindow ??= new(MakeDepositOpenWindow);
+
+        private void MakeDepositOpenWindow(object s)
+        {
+            BankAccount a = s as BankDebitAccount;
+            _dialogService.Edit(a);
+        }
+
 
         #region Команда для открытия дебетового счёта
 

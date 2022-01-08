@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows;
 using Homework_13.Model;
+using Homework_13.Model.bankModel;
 using Homework_13.Service.Interfaces;
 using Homework_13.View;
 using Homework_13.View.UserControls;
@@ -46,9 +47,38 @@ namespace Homework_13.Service
                     return EditSelectedClient(client);
                 case User user:
                     return LoginFormOpen(user);
+                case BankAccount account:
+                    return DepositMaker(account);
                 case object window:
                     return GenericWindowOpenerMethod(window);
             }
+            return true;
+        }
+
+        private static bool DepositMaker(BankAccount account)
+        {
+            var dlg = new Window();
+
+            switch (account)
+            {
+                case BankDebitAccount:
+                    dlg = new DepositMakerView();
+                    //dlg.DataContext = new DepositMakerViewModel(account as BankDebitAccount);
+                    break;
+
+                case BankCreditAccount:
+                    dlg = new UserCreationForm();
+                    break;
+
+                case BankDepositAccount:
+                    dlg = new ClientCreationForm();
+                    break;
+            }
+
+            dlg.Owner = _owner;
+            dlg.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            if (dlg.ShowDialog() != true) return false;
             return true;
         }
 
