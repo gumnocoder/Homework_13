@@ -19,6 +19,8 @@ namespace Homework_13.ViewModel
             else Debug.WriteLine("SelectedClient было null");
         }
 
+        #region Свойства
+
         /// <summary>
         /// Идентификатор
         /// </summary>
@@ -28,15 +30,27 @@ namespace Homework_13.ViewModel
         /// </summary>
         public string Reputation { get; set; }
 
-        public string DebitID { get => SelectedClient.DebitAccountID.ToString(); }
+        /// <summary>
+        /// Возвращает индентификатор дебетового счёта в string
+        /// </summary>
+        public string DebitID 
+        { get => SelectedClient.DebitIsActive ? SelectedClient.DebitAccountID.ToString() : string.Empty; }
 
+        /// <summary>
+        /// Возвращает индентификатор депозитного счёта в string
+        /// </summary>
         public string DepositID 
-        { 
-            get
-            {
-                return SelectedClient.DepositIsActive ? SelectedClient.DepositAccountID.ToString() : string.Empty;
-            }
-        }
+        { get => SelectedClient.DepositIsActive ? SelectedClient.DepositAccountID.ToString() : string.Empty; }
+
+        /// <summary>
+        /// Возвращает индентификатор кредитного счёта в string
+        /// </summary>
+        public string CreditID
+        { get => SelectedClient.CreditIsActive ? SelectedClient.CreditAccountID.ToString() : string.Empty; }
+
+        /// <summary>
+        /// Конвертирует процент депозита и возвращает строку
+        /// </summary>
         public string DepositPercent
         {
             get
@@ -47,6 +61,22 @@ namespace Homework_13.ViewModel
             }
         }
 
+        /// <summary>
+        /// Конвертирует процент кредита и возвращает строку
+        /// </summary>
+        public string CreditPercent
+        {
+            get
+            {
+                if (SelectedClient.CreditIsActive)
+                    return string.Format("{0:f1}%", SelectedClient.ClientsCreditAccount.Percent);
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Активность дебетового счёта в строковом формате
+        /// </summary>
         public string DebitActivity
         {
             get
@@ -56,6 +86,9 @@ namespace Homework_13.ViewModel
             }
         }
 
+        /// <summary>
+        /// Активность кредитного счёта в строковом формате
+        /// </summary>
         public string CreditActivity
         {
             get
@@ -65,6 +98,9 @@ namespace Homework_13.ViewModel
             }
         }
 
+        /// <summary>
+        /// Активность депозитного счёта в строковом формате
+        /// </summary>
         public string DepositActivity
         {
             get
@@ -74,6 +110,11 @@ namespace Homework_13.ViewModel
             }
         }
 
+        /// <summary>
+        /// предоставляет доступ к SelectedClient из ClientListViewModel
+        /// </summary>
         public Client Selected { get => SelectedClient; }
+
+        #endregion
     }
 }
