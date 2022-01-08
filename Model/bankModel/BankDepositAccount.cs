@@ -12,7 +12,18 @@ namespace Homework_13.Model.bankModel
     {
         #region Конструкторы
 
-        public BankDepositAccount(Client client, long DepositStartAmount, double PersonalPercent, int Expiration)
+        /// <summary>
+        /// Основной конструктор
+        /// </summary>
+        /// <param name="client">Клиент владелец депозитного счета</param>
+        /// <param name="DepositStartAmount">Стартовая сумма депозита</param>
+        /// <param name="PersonalPercent">Процент по вкладу</param>
+        /// <param name="Expiration">Срок вклада</param>
+        public BankDepositAccount(
+            Client client, 
+            long DepositStartAmount,
+            double PersonalPercent,
+            int Expiration)
         {
             if (!client.DepositIsActive)
             {
@@ -34,6 +45,9 @@ namespace Homework_13.Model.bankModel
             }
         }
 
+        /// <summary>
+        /// Конструктор по умолчанию
+        /// </summary>
         public BankDepositAccount() { }
         #endregion
 
@@ -102,14 +116,28 @@ namespace Homework_13.Model.bankModel
                 ((start.Day == 1 && DateTime.DaysInMonth(now.Year, now.Month) == now.Day) ? 1 : 0));
         }
 
+        /// <summary>
+        /// Добавляет экземпляр депозитного счёта 
+        /// в соответствующий списко в синглтоне ThisBank
+        /// </summary>
         public override void AddLinkToAccountInBank()
         {
             ThisBank.Deposits.Add(this);
             Debug.WriteLine(this);
         }
+
+        /// <summary>
+        /// Возвращает информацию о 
+        /// депозите в строковом формате
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
-            return $"{(typeof(BankDepositAccount).ToString())} {AccountAmount}$ ID - {ID} {ActivationDate} {Percent}%";
+            return $"{(typeof(BankDepositAccount).ToString())} " +
+                $"{AccountAmount}$ " +
+                $"ID - {ID} " +
+                $"{ActivationDate} " +
+                $"{Percent}%";
         }
 
         #endregion

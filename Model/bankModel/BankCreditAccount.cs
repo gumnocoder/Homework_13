@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Homework_13.Model.bankModel.interfaces;
 using static Homework_13.Model.bankModel.Bank;
-using static Homework_13.ViewModel.ClientListViewModel;
 
 namespace Homework_13.Model.bankModel
 {
@@ -49,21 +47,37 @@ namespace Homework_13.Model.bankModel
         #endregion
 
         #region Свойства
+        /// <summary>
+        /// Проентная ставка кредита
+        /// </summary>
         public double Percent 
         {
             get => _percent; 
             set =>_percent = value;
         }
+
+        /// <summary>
+        /// Срок кредита
+        /// </summary>
         public int Expiration
         { 
             get => _expiration;
             set => _expiration = value;
         }
+
+        /// <summary>
+        /// Дата выдачи кредита
+        /// </summary>
         public DateTime ActivationDate { get => _activationDate; }
+
+        /// <summary>
+        /// Возвращает остаточное значение до истечения срока кредита
+        /// </summary>
         public int ExpirationDuration { get => GetTotalMonthsCount(); }
 
         #endregion
 
+        #region Методы
         /// <summary>
         /// Назначает новый ID
         /// </summary>
@@ -76,8 +90,16 @@ namespace Homework_13.Model.bankModel
             Debug.WriteLine($"account ID - {ID}");
         }
 
+        /// <summary>
+        /// Проверяет истёк ли срок кредита
+        /// </summary>
+        /// <returns></returns>
         public bool Expired() => GetTotalMonthsCount() == 0;
 
+        /// <summary>
+        /// Выполняет расчёт остатка до истечения срока кредита
+        /// </summary>
+        /// <returns></returns>
         public int GetTotalMonthsCount()
         {
             DateTime now = DateTime.Now;
@@ -89,15 +111,28 @@ namespace Homework_13.Model.bankModel
                 ((start.Day == 1 && DateTime.DaysInMonth(now.Year, now.Month) == now.Day) ? 1 : 0));
         }
 
+        /// <summary>
+        /// Добавляет экземпляр кредитного счёта в 
+        /// соответствующий список в синглтоне ThisBank
+        /// </summary>
         public override void AddLinkToAccountInBank()
         {
             ThisBank.Credits.Add(this);
             Debug.WriteLine($"{this} added to bank credits");
         }
 
+        /// <summary>
+        /// Возвращает информацию о кредитном счёте
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
-            return $"{(typeof(BankCreditAccount).ToString())} {AccountAmount}$ ID - {ID} {ActivationDate} {Percent}%";
+            return $"{(typeof(BankCreditAccount).ToString())} " +
+                $"{AccountAmount}$ " +
+                $"ID - {ID} " +
+                $"{ActivationDate} " +
+                $"{Percent}%";
         }
+        #endregion
     }
 }
