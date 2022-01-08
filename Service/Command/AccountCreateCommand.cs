@@ -41,13 +41,27 @@ namespace Homework_13.Service.Command
                     if (double.TryParse(Text, out double tmp))
                     {
                         percent = tmp;
-                        if (percent < CreditPercentSetter.minPercent)
+                        if (AccountOpeningViewModel.Deposit)
                         {
-                            percent = CreditPercentSetter.minPercent;
-                            MessageBox.Show(
-                            "Выбран процент ниже минимального, установлено минимальное значение",
-                            "Ставка меньше минимальной!",
-                            MessageBoxButton.OK);
+                            if (percent > DepositPercentSetter.maxPercent)
+                            {
+                                percent = DepositPercentSetter.maxPercent;
+                                MessageBox.Show(
+                                "Выбран процент больше максимального! Установлено максимально допустимое значение.",
+                                "Процент по вкладу выше максимального!",
+                                MessageBoxButton.OK);
+                            }
+                        }
+                        else if (!AccountOpeningViewModel.Deposit)
+                        {
+                            if (percent < CreditPercentSetter.minPercent)
+                            {
+                                percent = CreditPercentSetter.minPercent;
+                                MessageBox.Show(
+                                "Выбран процент ниже минимального, установлено минимальное значение",
+                                "Ставка меньше минимальной!",
+                                MessageBoxButton.OK);
+                            }
                         }
                         return true;
                     }

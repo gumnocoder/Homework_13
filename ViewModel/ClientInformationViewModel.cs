@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
+using System.Windows;
 using Homework_13.Model;
+using Homework_13.Service.Command;
 using static Homework_13.ViewModel.ClientListViewModel;
 
 namespace Homework_13.ViewModel
@@ -114,6 +116,24 @@ namespace Homework_13.ViewModel
         /// предоставляет доступ к SelectedClient из ClientListViewModel
         /// </summary>
         public Client Selected { get => SelectedClient; }
+
+        #endregion
+
+        #region Команда копирования в буфер обмена
+
+        private RelayCommand _copy;
+
+        public RelayCommand Copy => _copy ??= new(CopyText);
+
+        private void CopyText(object text)
+        {
+            Clipboard.Clear();
+            Clipboard.SetText((string)text);
+            MessageBox.Show(
+                "Значение скопировано в буфер обмена.", 
+                "Выполнено",
+                MessageBoxButton.OK);
+        }
 
         #endregion
     }

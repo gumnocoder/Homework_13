@@ -9,6 +9,11 @@ namespace Homework_13.ViewModel
     class AccountOpeningViewModel : BaseViewModel
     {
         #region Конструкторы
+        /// <summary>
+        /// Основной конструктор
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="Deposit"></param>
         public AccountOpeningViewModel(Client client, bool Deposit)
         {
             AccountOpeningViewModel.Deposit = Deposit;
@@ -20,6 +25,9 @@ namespace Homework_13.ViewModel
             }
             else Debug.WriteLine("client == null");
         }
+        /// <summary>
+        /// Конструктор по умолчанию
+        /// </summary>
         public AccountOpeningViewModel() { }
         #endregion
 
@@ -31,11 +39,19 @@ namespace Homework_13.ViewModel
 
         #region Свойства
 
+        /// <summary>
+        /// Клиент для которого открывается счёт
+        /// </summary>
         public Client BankClient
         {
             get => _client;
             set => _client = value;
         }
+
+        /// <summary>
+        /// Флаг сигнализирующий о том что открывается депозитный счёт.
+        /// в случае false будет запущен сценарий кредитного счёта
+        /// </summary>
         public static bool Deposit
         {
             get => _deposit;
@@ -45,11 +61,17 @@ namespace Homework_13.ViewModel
             }
         }
 
+        /// <summary>
+        /// Флаг кредитного счёта
+        /// </summary>
         public bool Credit
         {
             get => !Deposit;
         }
 
+        /// <summary>
+        /// Процент для конкретного счёта
+        /// </summary>
         public static double PersonalPercent
         {
             get => _personalPercent;

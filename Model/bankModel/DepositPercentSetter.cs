@@ -8,7 +8,7 @@ namespace Homework_13.Model.bankModel
 {
     class DepositPercentSetter
     {
-        private const double _maxPercent = 12;
+        public const double maxPercent = 12;
 
 
         /// <summary>
@@ -18,9 +18,9 @@ namespace Homework_13.Model.bankModel
         /// <returns></returns>
         public static double SetDepositPercent(Client client)
         {
-            if (client.Reputation == 10) return _maxPercent;
+            if (client.Reputation == 10) return maxPercent;
             double clientReputation = (double)client.Reputation;
-            return _maxPercent / 10.0 * clientReputation;
+            return maxPercent / 10.0 * clientReputation;
         }
     }
 }
