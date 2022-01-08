@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using Homework_13.Model;
-using Homework_13.Model.bankModel;
 using static Homework_13.Model.bankModel.CreditPercentSetter;
 using static Homework_13.Model.bankModel.DepositPercentSetter;
 

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Homework_13.Model.bankModel
+﻿namespace Homework_13.Model.bankModel
 {
+    /// <summary>
+    /// Назначает процент для накопительного счёта
+    /// </summary>
     class DepositPercentSetter
     {
+        /// <summary>
+        /// Максимальный процент для накопительных счетов
+        /// </summary>
         public const double maxPercent = 12;
-
 
         /// <summary>
         /// Назначает процент по вкладу

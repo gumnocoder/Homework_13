@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using Homework_13.Model.bankModel;
 using Homework_13.View.Windows;
 using Homework_13.ViewModel;
@@ -10,6 +8,7 @@ namespace Homework_13.Service.Command
 {
     class AccountCreateCommand : Command
     {
+        #region Поля
         /// <summary>
         /// процент
         /// </summary>
@@ -22,6 +21,20 @@ namespace Homework_13.Service.Command
         /// срок
         /// </summary>
         int expiration;
+        #endregion
+
+        #region Методы
+        /// <summary>
+        /// выводит сообщение об ошибке
+        /// </summary>
+        /// <param name="message">текст сообщения</param>
+        private void ShowError(string message)
+        {
+            MessageBox.Show(
+                message,
+                "Ошибка",
+                MessageBoxButton.OK);
+        }
 
         public override bool CanExecute(object parameter) =>
             parameter as AccountOpening != null;
@@ -46,10 +59,8 @@ namespace Homework_13.Service.Command
                             if (percent > DepositPercentSetter.maxPercent)
                             {
                                 percent = DepositPercentSetter.maxPercent;
-                                MessageBox.Show(
-                                "Выбран процент больше максимального! Установлено максимально допустимое значение.",
-                                "Процент по вкладу выше максимального!",
-                                MessageBoxButton.OK);
+                                ShowError($"Выбран процент больше максимального! " +
+                                    $"Установлено максимально допустимое значение.");
                             }
                         }
                         else if (!AccountOpeningViewModel.Deposit)
@@ -57,10 +68,8 @@ namespace Homework_13.Service.Command
                             if (percent < CreditPercentSetter.minPercent)
                             {
                                 percent = CreditPercentSetter.minPercent;
-                                MessageBox.Show(
-                                "Выбран процент ниже минимального, установлено минимальное значение",
-                                "Ставка меньше минимальной!",
-                                MessageBoxButton.OK);
+                                ShowError($"Выбран процент ниже минимального, " +
+                                    $"установлено минимальное значение");
                             }
                         }
                         return true;
@@ -68,10 +77,7 @@ namespace Homework_13.Service.Command
                     else
                     {
                         percent = AccountOpeningViewModel.PersonalPercent;
-                        MessageBox.Show(
-                        "Для поля процент установлено расчётное значение", 
-                        "Отсутствует значение",
-                        MessageBoxButton.OK);
+                        ShowError("Для поля процент установлено расчётное значение");
                         return true;
                     }
                 }
@@ -85,10 +91,7 @@ namespace Homework_13.Service.Command
                     else
                     {
                         if (!AccountOpeningViewModel.Deposit) { amount = 0; return true; }
-                        else
-                            MessageBox.Show(
-                            "Введите сумму кредита!", "Отсутствует значение",
-                            MessageBoxButton.OK);
+                        else ShowError("Введите сумму кредита!");
                     }
                 }
                 else if ((typeof(T)) == typeof(int))
@@ -99,24 +102,15 @@ namespace Homework_13.Service.Command
                         if (expiration < BankCreditAccount.minExpiration)
                         {
                             expiration = BankCreditAccount.minExpiration;
-                            MessageBox.Show(
-                            "Срок кредита меньше минимального, установлено минимальное значение.", 
-                            "Срок меньше минимального!",
-                            MessageBoxButton.OK);
+                            ShowError($"Срок кредита меньше минимального, " +
+                                $"установлено минимальное значение.");
                         }
                         return true; 
                     }
-                    else
-                        MessageBox.Show(
-                        "Невозможно распознать значение в поле 'срок'", 
-                        "Отсутствует значение",
-                        MessageBoxButton.OK);
+                    else ShowError("Невозможно распознать значение в поле 'срок'");
                 }
             }
-            else 
-                MessageBox.Show(
-                    "Заполнены не все поля!", "Ошибка",
-                    MessageBoxButton.OK);
+            else ShowError("Заполнены не все поля!");
             return false;
         }
         public override void Execute(object parameter)
@@ -172,5 +166,7 @@ namespace Homework_13.Service.Command
                 }
             }
         }
+
+        #endregion
     }
 }
