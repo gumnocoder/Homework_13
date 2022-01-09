@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Homework_13.View.Windows"
         xmlns:cmd="clr-namespace:Homework_13.Service.Command"
         mc:Ignorable="d"
-        Title="DepositMakerView" Height="85" Width="230"
+        Title="DepositMakerView" Height="100" Width="250"
         WindowStyle="None">
     <Window.DataContext>
         <viewModel:DepositMakerViewModel/>
@@ -28,14 +28,18 @@
             TextWrapping="Wrap"
             VerticalAlignment="Top"/>
         <Button 
-            Command="{Binding MakeDeposit}"
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=local:DepositMakerView}}"
             FontFamily="Arial"
             Width="70" 
             Height="22" 
             Content="Пополнить"
             HorizontalAlignment="Left"
             Margin="95,55,0,0" 
-            VerticalAlignment="Top"/>
+            VerticalAlignment="Top">
+            <Button.Command>
+                <cmd:MakeDepositCommand/>
+            </Button.Command>
+        </Button>
         <Button
             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=local:DepositMakerView}}"
             FontFamily="Arial" 

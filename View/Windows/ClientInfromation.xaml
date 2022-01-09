@@ -123,18 +123,37 @@
                     Grid.Row="3"
                     Grid.Column="0"
                     Text="Состояние счёта"/>
-                <TextBlock
+
+                    <TextBlock
                     Text="{Binding DebitActivity}"
                     Margin="5"
                     Grid.Row="1"
                     Grid.Column="1"/>
-                <TextBlock
-                    Margin="5"
+                    <Grid
                     Grid.Row="3"
-                    Grid.Column="1"
-                    Text="{Binding Selected.ClientsDebitAccount.AccountAmount,
-                    ValidatesOnExceptions=True, 
-                    StringFormat={}{0:C} }"/>
+                    Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Text="{Binding Selected.ClientsDebitAccount.AccountAmount,
+                            ValidatesOnExceptions=True, 
+                            StringFormat={}{0:C} }"/>
+                        <Button
+                            CommandParameter="{Binding Selected.ClientsDebitAccount}"
+                            Command="{Binding MakeDepositWindow}"
+                            Visibility="{Binding Selected.DebitIsActive, Converter={
+                            StaticResource BooleanToVisibilityConverter}}"
+                            Grid.Column="1"
+                            ToolTip="Пополнение дебетового счёта"
+                            Margin="5">
+                            <Image Source="/payment.ico"/>
+                        </Button>
+                    </Grid>
                 <Grid
                     Grid.Row="2"
                     Grid.Column="1">
@@ -157,7 +176,7 @@
                         Grid.Column="1"
                         ToolTip="Скопировать в буфер обмена"
                         Margin="5">
-                        <Image Source="/clipboard.ico"/>
+                            <Image Source="/clipboard.ico"/>
                         </Button>
                 </Grid>
             </Grid>
@@ -232,13 +251,31 @@
                         Grid.Row="3"
                         Grid.Column="0"
                         Text="Состояние счёта"/>
-                    <TextBlock
-                        VerticalAlignment="Center"
+                    <Grid
                         Grid.Row="3"
-                        Grid.Column="1"
-                        Text="{Binding Selected.ClientsDepositAccount.AccountAmount,
-                        ValidatesOnExceptions=True, 
-                        StringFormat={}{0:C} }"/>
+                        Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Text="{Binding Selected.ClientsDepositAccount.AccountAmount, 
+                            ValidatesOnExceptions=True, 
+                            StringFormat={}{0:C} }"/>
+                        <Button
+                            CommandParameter="{Binding Selected.ClientsDepositAccount}"
+                            Command="{Binding MakeDepositWindow}"
+                            Visibility="{Binding Selected.DepositIsActive, Converter={
+                            StaticResource BooleanToVisibilityConverter}}"
+                            Grid.Column="1"
+                            ToolTip="Пополнение депозитного счёта"
+                            Margin="5">
+                            <Image Source="/payment.ico"/>
+                        </Button>
+                    </Grid>
                     <TextBlock
                         VerticalAlignment="Center"
                         Margin="5"
@@ -350,13 +387,32 @@
                         Grid.Row="3"
                         Grid.Column="0"
                         Text="Состояние счёта"/>
-                    <TextBlock
-                        VerticalAlignment="Center"
+                    <Grid
                         Grid.Row="3"
-                        Grid.Column="1"
-                        Text="{Binding Selected.ClientsCreditAccount.AccountAmount,
-                        ValidatesOnExceptions=True, 
-                        StringFormat={}{0:C} }"/>
+                        Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Text="{Binding Selected.ClientsCreditAccount.AccountAmount,
+                            ValidatesOnExceptions=True, 
+                            StringFormat={}{0:C} }"/>
+                        <Button
+                            CommandParameter="{Binding Selected.ClientsCreditAccount}"
+                            Command="{Binding MakeDepositWindow}"
+                            Visibility="{Binding Selected.CreditIsActive, Converter={
+                            StaticResource BooleanToVisibilityConverter}}"
+                            Grid.Column="1"
+                            ToolTip="Пополнение кредитного счёта"
+                            Margin="5">
+                            <Image Source="/payment.ico"/>
+                        </Button>
+                    </Grid>
+
                     <TextBlock
                         VerticalAlignment="Center"
                         Margin="5"

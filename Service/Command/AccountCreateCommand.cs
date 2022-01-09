@@ -2,6 +2,7 @@
 using Homework_13.Model.bankModel;
 using Homework_13.View.Windows;
 using Homework_13.ViewModel;
+using static Homework_13.ViewModel.ClientListViewModel;
 using static Homework_13.Service.Command.AccountOpener;
 
 namespace Homework_13.Service.Command
@@ -36,8 +37,11 @@ namespace Homework_13.Service.Command
                 MessageBoxButton.OK);
         }
 
-        public override bool CanExecute(object parameter) =>
-            parameter as AccountOpening != null;
+        public override bool CanExecute(object parameter)
+        {
+            return parameter as AccountOpening != null;
+        }
+            
 
         /// <summary>
         /// выполняет парсинг
@@ -118,7 +122,7 @@ namespace Homework_13.Service.Command
             AccountOpening window = parameter as AccountOpening;
 
             /// Открывает депозитный счёт
-            if (AccountOpeningViewModel.Deposit)
+            if (AccountOpeningViewModel.Deposit && !SelectedClient.DepositIsActive)
             {
                 if (ParameterParsing<double>(window.depPercent.Text))
                 {
@@ -142,7 +146,7 @@ namespace Homework_13.Service.Command
                 }
             }
             /// открывает кредитный счёт
-            else
+            else if (!AccountOpeningViewModel.Deposit && !SelectedClient.CreditIsActive)
             {
                 if (ParameterParsing<double>(window.credPercent.Text))
                 {
@@ -159,12 +163,12 @@ namespace Homework_13.Service.Command
                             MessageBox.Show(
                                 info, "Кредит успешно выдан!",
                                 MessageBoxButton.OK);
-                            //SelectedClient = null;
                             window.Close();
                         }
                     }
                 }
             }
+
         }
 
         #endregion

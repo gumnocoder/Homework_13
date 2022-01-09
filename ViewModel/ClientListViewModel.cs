@@ -6,6 +6,7 @@ using Homework_13.Service.Command;
 using static Homework_13.ViewModel.ParameterChangingInputVM;
 using static Homework_13.Model.bankModel.Bank;
 using Homework_13.Model.bankModel;
+using System.Windows;
 
 namespace Homework_13.ViewModel
 {
@@ -138,10 +139,11 @@ namespace Homework_13.ViewModel
 
         #endregion
 
+        private static BankAccount _selectedAccount;
         public static BankAccount SelectedAccount
         {
-            get;
-            set;
+            get => _selectedAccount;
+            set => _selectedAccount = value;
         }
         private RelayCommand _makeDepositWindow;
 
@@ -149,7 +151,8 @@ namespace Homework_13.ViewModel
 
         private void MakeDepositOpenWindow(object s)
         {
-            SelectedAccount = SelectedClient.ClientsDebitAccount;
+            SelectedAccount = s as BankAccount;
+            Debug.WriteLine(SelectedAccount);
             _dialogService.Edit(SelectedAccount);
         }
 

@@ -57,9 +57,10 @@ namespace Homework_13.Service
 
         private static bool DepositMaker(BankAccount account)
         {
-            var dlg = new Window();
-
-            switch (account)
+            //var dlg = new Window();
+            ClientListViewModel.SelectedAccount = account as BankAccount;
+            var dlg = new DepositMakerView();
+            /*switch (account)
             {
                 case BankDebitAccount:
                     dlg = new DepositMakerView();
@@ -73,12 +74,12 @@ namespace Homework_13.Service
                 case BankDepositAccount:
                     dlg = new ClientCreationForm();
                     break;
-            }
+            }*/
 
             dlg.Owner = _owner;
             dlg.WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            if (dlg.ShowDialog() != true) return false;
+            if (dlg.ShowDialog() != true) { dlg.Close(); return false; }
             return true;
         }
 

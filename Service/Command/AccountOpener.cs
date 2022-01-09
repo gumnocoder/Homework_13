@@ -1,12 +1,13 @@
-﻿using Homework_13.Model;
+﻿using System.Windows;
+using Homework_13.Model;
 using Homework_13.View.Windows;
 using Homework_13.ViewModel;
+using static Homework_13.ViewModel.ClientListViewModel;
 
 namespace Homework_13.Service.Command
 {
     class AccountOpener : Command
     {
-        public static Client SelectedClient;
         public bool? DialogResult { get; set; }
         public bool Deposit { get; set; } = false;
 
@@ -14,24 +15,25 @@ namespace Homework_13.Service.Command
 
         public override bool CanExecute(object parameter) 
         {
-            if ((parameter as Client) != null)
-            {
-                if (!Deposit && (parameter as Client).CreditIsActive) return false;
-                else if (Deposit && (parameter as Client).DepositIsActive) return false;
-            }
+            if ((parameter as Client) == null) return false;
+            if ((parameter as Client).AccountsFreezed) { return false; }
+            if ((parameter as Client).DepositIsActive && Deposit) { return false; }
+            if ((parameter as Client).CreditIsActive && Deposit) { return false; }
+            if ((parameter as Client).CreditIsActive && !Deposit) { return false; }
+
             return true;
         }
 
         public override void Execute(object parameter)
         {
-            if (CanExecute(parameter))
-            {
-                //Debug.WriteLine(parameter);
-                SelectedClient = (Client)parameter;
-                AccountOpening dlg = new();
-                dlg.DataContext = new AccountOpeningViewModel((Client)parameter, Deposit);
-                dlg.ShowDialog();
-            }
+            AccountOpening dlg = new();
+
+            dlg.DataContext = 
+                new AccountOpeningViewModel(
+                    (Client)parameter,
+                    Deposit);
+
+            dlg.ShowDialog();
         }
     }
 }

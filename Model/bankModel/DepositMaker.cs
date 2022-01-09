@@ -1,24 +1,23 @@
 ﻿using System.Diagnostics;
+using static Homework_13.ViewModel.ClientListViewModel;
 
 namespace Homework_13.Model.bankModel
 {
     /// <summary>
     /// Пополняет счёт
     /// </summary>
-    class DepositMaker<T> where T : BankAccount
+    class DepositMaker
     {
-        private static bool CanMakeDeposit(Client client, T account)
+        private static bool CanMakeDeposit(Client client)
         {
             if (client.AccountsFreezed) return false;
-            else if (account.GetType() == typeof(BankCreditAccount) && !client.CreditIsActive) return false;
-            else if (account.GetType() == typeof(BankDebitAccount) && !client.DebitIsActive) return false;
-            else if (account.GetType() == typeof(BankDepositAccount) && !client.DepositIsActive) return false;
             return true;
         }
-        public static void MakeDeposit(Client client, T account, long Amount)
+        public static void MakeDeposit(Client client, BankAccount account, long Amount)
         {
-            if (CanMakeDeposit(client, account))
+            if (CanMakeDeposit(client))
             {
+                
                 account.AccountAmount += Amount;
                 Debug.WriteLine($" current account amount is: {account.AccountAmount}");
             }

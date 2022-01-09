@@ -1,12 +1,14 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using Homework_13.Model;
+using Homework_13.Model.bankModel;
+using Homework_13.Service;
 using Homework_13.Service.Command;
 using static Homework_13.ViewModel.ClientListViewModel;
 
 namespace Homework_13.ViewModel
 {
-    class ClientInformationViewModel
+    class ClientInformationViewModel : BaseViewModel
     {
         /// <summary>
         /// Конструктор
@@ -21,7 +23,23 @@ namespace Homework_13.ViewModel
             else Debug.WriteLine("SelectedClient было null");
         }
 
+        /// <summary>
+        /// прокси для открытия диалоговых окон во избежание нарушения концепции mvvm 
+        /// </summary>
+        private UserDialogService _dialogService = new();
+
         #region Свойства
+
+        private string _depositAmount;
+        public string DepositAmount
+        {
+            get => _depositAmount;
+            set
+            {
+                _depositAmount = SelectedClient.ClientsDepositAccount.AccountAmount.ToString();
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Идентификатор
@@ -35,13 +53,13 @@ namespace Homework_13.ViewModel
         /// <summary>
         /// Возвращает индентификатор дебетового счёта в string
         /// </summary>
-        public string DebitID 
+        public string DebitID
         { get => SelectedClient.DebitIsActive ? SelectedClient.DebitAccountID.ToString() : string.Empty; }
 
         /// <summary>
         /// Возвращает индентификатор депозитного счёта в string
         /// </summary>
-        public string DepositID 
+        public string DepositID
         { get => SelectedClient.DepositIsActive ? SelectedClient.DepositAccountID.ToString() : string.Empty; }
 
         /// <summary>
@@ -115,7 +133,7 @@ namespace Homework_13.ViewModel
         /// <summary>
         /// предоставляет доступ к SelectedClient из ClientListViewModel
         /// </summary>
-        public Client Selected { get => SelectedClient; }
+        public static Client Selected { get => SelectedClient; set => Selected = value; }
 
         #endregion
 
@@ -130,11 +148,25 @@ namespace Homework_13.ViewModel
             Clipboard.Clear();
             Clipboard.SetText((string)text);
             MessageBox.Show(
-                "Значение скопировано в буфер обмена.", 
+                "Значение скопировано в буфер обмена.",
                 "Выполнено",
                 MessageBoxButton.OK);
         }
 
         #endregion
+
+        public static BankAccount SelectedAccount
+        {
+            get;
+            set;
+        }
+        private RelayCommand _makeDepositWindow;
+
+        public RelayCommand MakeDepositWindow => _makeDepositWindow ??= new(MakeDepositOpenWindow);
+
+        private void MakeDepositOpenWindow(object s)
+        {
+            _dialogService.Edit(s as BankAccount);
+        }
     }
 }

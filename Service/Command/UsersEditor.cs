@@ -62,6 +62,5 @@ namespace Homework_13.Service.Command
                 Tittle,
                 MessageBoxButton.OK);
         }
-
     }
 }

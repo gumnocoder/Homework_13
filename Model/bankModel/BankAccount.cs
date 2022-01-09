@@ -31,15 +31,22 @@ namespace Homework_13.Model.bankModel
         /// Баланс счета
         /// </summary>
         public long AccountAmount
-        { get => _accountAmount; set => _accountAmount = value; }
+        { 
+            get => _accountAmount;
+            set
+            {
+                _accountAmount = value;
+                OnPropertyChanged();
+            }
+         }
 
         #endregion
 
-        #region Методы
+            #region Методы
 
-        /// <summary>
-        /// назначает ID
-        /// </summary>
+            /// <summary>
+            /// назначает ID
+            /// </summary>
         public abstract void SetId();
 
         public abstract void AddLinkToAccountInBank();
