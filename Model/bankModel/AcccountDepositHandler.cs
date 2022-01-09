@@ -27,7 +27,7 @@ namespace Homework_13.Model.bankModel
         private readonly BankDepositAccount _account;
         private readonly Client _client;
         private bool _executed = false;
-        private const long _minDepositExtension = 1000;
+        public const long minDepositExtension = 1000;
         #endregion
 
         #region Свойства
@@ -97,9 +97,9 @@ namespace Homework_13.Model.bankModel
         /// расширяет депозитный счёт
         /// </summary>
         /// <param name="ExtensionAmount"></param>
-        void DepositExtension(long ExtensionAmount)
+        public void DepositExtension(long ExtensionAmount)
         {
-            if (ExtensionAmount > _minDepositExtension)
+            if (ExtensionAmount > minDepositExtension)
             {
                 _account.AccountAmount += ExtensionAmount;
                 new ReputationIncreaser(_client);

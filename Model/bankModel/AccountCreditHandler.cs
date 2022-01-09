@@ -1,4 +1,5 @@
-﻿using Homework_13.Model.Interfaces;
+﻿using System.Diagnostics;
+using Homework_13.Model.Interfaces;
 using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.Model.bankModel
@@ -9,10 +10,10 @@ namespace Homework_13.Model.bankModel
         /// Конструктор
         /// </summary>
         /// <param name="client">Клиент, владелец кредитного счёта</param>
-        public AccountCreditHandler(Client client)
+        public AccountCreditHandler(Client client, BankCreditAccount account)
         {
             _client = client;
-            _account = client.ClientsCreditAccount;
+            _account = account;
         }
 
         #region Поля
@@ -36,7 +37,7 @@ namespace Homework_13.Model.bankModel
             if (_client.Reputation > 7)
             {
                 _account.AccountAmount -= amount;
-                new ReputationDecreaser(_client, 2);
+                new ReputationDecreaser(_client, 2).Execute();
                 Execute();
             }
         }
@@ -58,7 +59,7 @@ namespace Homework_13.Model.bankModel
             }
             _client.CreditIsActive = false;
             _client.ClientsCreditAccount = null;
-            new ReputationIncreaser(_client, 2);
+            new ReputationIncreaser(_client, 2).Execute();
             Execute();
         }
 
@@ -80,7 +81,7 @@ namespace Homework_13.Model.bankModel
         {
             if (_account.Expired() && _account.AccountAmount < 0)
             {
-                _client.Reputation -= _client.Reputation;
+                new ReputationDecreaser(_client, _client.Reputation).Execute();
                 _client.AccountsFreezed = true;
             }
         }
