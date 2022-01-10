@@ -111,7 +111,7 @@ namespace Homework_13.ViewModel
         {
             if (SelectedClient != null)
             {
-                _dialogService.Edit(SelectedClient);
+                _dialogService.StartDialogScenario(SelectedClient);
             }
         }
 
@@ -133,7 +133,7 @@ namespace Homework_13.ViewModel
         {
             if (SelectedClient != null)
             {
-                _dialogService.Edit(new ClientInformationViewModel());
+                _dialogService.StartDialogScenario(new ClientInformationViewModel());
             }
         }
 
@@ -153,7 +153,7 @@ namespace Homework_13.ViewModel
         {
             SelectedAccount = s as BankAccount;
             Debug.WriteLine(SelectedAccount);
-            _dialogService.Edit(SelectedAccount);
+            _dialogService.StartDialogScenario(SelectedAccount);
         }
 
 
@@ -219,7 +219,7 @@ namespace Homework_13.ViewModel
             if (SelectedClient != null)
             {
                 incr = true;
-                _dialogService.Edit(new ParameterChangingInputVM());
+                _dialogService.StartDialogScenario(new ParameterChangingInputVM());
             }
             else
             {
@@ -241,7 +241,7 @@ namespace Homework_13.ViewModel
             if (SelectedClient != null)
             {
                 decr = true;
-                _dialogService.Edit(new ParameterChangingInputVM());
+                _dialogService.StartDialogScenario(new ParameterChangingInputVM());
             }
             else
             {

@@ -21,7 +21,7 @@ namespace Homework_13.ViewModel
 
             DataLoader<User>.LoadFromJson(UserList<User>.UsersList, "users.json");
             //DataSaver<User>.JsonSeralize(UserList<User>.UsersList, "users.json");
-            _dialogService.Edit(CurrentUser);
+            _dialogService.StartDialogScenario(CurrentUser);
             Tittle = "Банк";
             new BankSettingsLoader(ThisBank);
             new BankSettingsSaver(ThisBank);
@@ -116,7 +116,7 @@ namespace Homework_13.ViewModel
             _createUser ??= new(CreateUserCommand);
         public void CreateUserCommand(object s)
         {
-            _dialogService.Edit(new UserCreationFormViewModel());
+            _dialogService.StartDialogScenario(new UserCreationFormViewModel());
         }
 
         #endregion
@@ -129,7 +129,7 @@ namespace Homework_13.ViewModel
             _createClient ??= new(CreateClientCommand);
         public void CreateClientCommand(object s)
         {
-            _dialogService.Edit(new ClientCreationFormViewModel());
+            _dialogService.StartDialogScenario(new ClientCreationFormViewModel());
         }
 
         #endregion
@@ -142,7 +142,7 @@ namespace Homework_13.ViewModel
             _viewUserDB ??= new(ShowUserDB);
         public void ShowUserDB(object s)
         {
-            _dialogService.Edit(new UserListViewModel());
+            _dialogService.StartDialogScenario(new UserListViewModel());
         }
 
         #endregion
@@ -155,7 +155,7 @@ namespace Homework_13.ViewModel
             _viewClientDB ??= new(ShowClientDB);
         public void ShowClientDB(object s)
         {
-            _dialogService.Edit(new ClientListViewModel());
+            _dialogService.StartDialogScenario(new ClientListViewModel());
         }
 
         #endregion

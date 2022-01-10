@@ -40,7 +40,7 @@ namespace Homework_13.Service.Command
             else if (SelectedAccount.GetType() == typeof(BankDepositAccount))
             {
                 AcccountDepositHandler depositHandler = new(SelectedClient, (BankDepositAccount)SelectedAccount);
-                if (amount > minDepositExtension) 
+                if (amount >= minDepositExtension) 
                 { depositHandler.DepositExtension(amount); }
 
                 else { ShowError($"Минимальная сумма для расширения " +

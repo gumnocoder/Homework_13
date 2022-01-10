@@ -393,6 +393,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="15*"/>
                             <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock
                             VerticalAlignment="Center"
@@ -408,6 +409,16 @@
                             StaticResource BooleanToVisibilityConverter}}"
                             Grid.Column="1"
                             ToolTip="Пополнение кредитного счёта"
+                            Margin="5">
+                            <Image Source="/payment.ico"/>
+                        </Button>
+                        <Button
+                            CommandParameter="{Binding Selected.ClientsCreditAccount}"
+                            Command="{Binding ExtendCreditWindow}"
+                            Visibility="{Binding Selected.CreditIsActive, Converter={
+                            StaticResource BooleanToVisibilityConverter}}"
+                            Grid.Column="2"
+                            ToolTip="Расширить кредит"
                             Margin="5">
                             <Image Source="/payment.ico"/>
                         </Button>

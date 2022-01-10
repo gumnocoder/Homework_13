@@ -39,7 +39,7 @@ namespace Homework_13.Service
         /// </summary>
         /// <param name="o"></param>
         /// <returns></returns>
-        public bool Edit(object o)
+        public bool StartDialogScenario(object o)
         {
             switch (o)
             {
@@ -55,26 +55,28 @@ namespace Homework_13.Service
             return true;
         }
 
+        public bool ExtendCredit(BankCreditAccount account)
+        {
+            ClientListViewModel.SelectedAccount = account;
+            var dlg = new CreditExtentionView();
+
+            dlg.Owner = _owner;
+            dlg.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            if (dlg.ShowDialog() != true) { dlg.Close(); return false; }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Запускает окно пополнения счёта
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
         private static bool DepositMaker(BankAccount account)
         {
-            //var dlg = new Window();
             ClientListViewModel.SelectedAccount = account as BankAccount;
             var dlg = new DepositMakerView();
-            /*switch (account)
-            {
-                case BankDebitAccount:
-                    dlg = new DepositMakerView();
-                    //dlg.DataContext = new DepositMakerViewModel(account as BankDebitAccount);
-                    break;
-
-                case BankCreditAccount:
-                    dlg = new UserCreationForm();
-                    break;
-
-                case BankDepositAccount:
-                    dlg = new ClientCreationForm();
-                    break;
-            }*/
 
             dlg.Owner = _owner;
             dlg.WindowStartupLocation = WindowStartupLocation.CenterScreen;

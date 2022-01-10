@@ -7,6 +7,5 @@
     <Application.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converters:IntToStringConverter x:Key="IntToStringConverter"/>
-        <converters:LongToStringConverter x:Key="LongToStringConverter"/>
     </Application.Resources>
 </Application>

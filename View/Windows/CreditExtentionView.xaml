@@ -1,4 +1,4 @@
-﻿<Window x:Class="Homework_13.View.Windows.DepositMakerView"
+﻿<Window x:Class="Homework_13.View.Windows.CreditExtentionView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,10 +7,10 @@
         xmlns:local="clr-namespace:Homework_13.View.Windows"
         xmlns:cmd="clr-namespace:Homework_13.Service.Command"
         mc:Ignorable="d"
-        Title="DepositMakerView" Height="100" Width="250"
+        Title="CreditExtentionView" Height="100" Width="250"
         WindowStyle="None">
     <Window.DataContext>
-        <viewModel:DepositMakerViewModel/>
+        <viewModel:CreditExtentionViewModel/>
     </Window.DataContext>
     <Grid>
         <TextBox 
@@ -32,22 +32,22 @@
         <Button 
             CommandParameter="{
             Binding RelativeSource={
-            RelativeSource AncestorType=local:DepositMakerView}}"
+            RelativeSource AncestorType=local:CreditExtentionView}}"
             FontFamily="Arial"
             Width="70" 
             Height="22" 
-            Content="Пополнить"
+            Content="Расширить"
             HorizontalAlignment="Left"
             Margin="95,55,0,0" 
             VerticalAlignment="Top">
             <Button.Command>
-                <cmd:MakeDepositCommand/>
+                <cmd:ExtendCreditCommand/>
             </Button.Command>
         </Button>
         <Button
             CommandParameter="{
             Binding RelativeSource={
-            RelativeSource AncestorType=local:DepositMakerView}}"
+            RelativeSource AncestorType=local:CreditExtentionView}}"
             FontFamily="Arial" 
             Width="50" 
             Height="22" 

@@ -31,7 +31,7 @@ namespace Homework_13.Model.bankModel
         #endregion
 
         #region Методы
-        public void ExtendCreditAmount(long amount)
+        public bool ExtendCreditAmount(long amount)
         {
             Executed = false;
             if (_client.Reputation > 7)
@@ -39,7 +39,9 @@ namespace Homework_13.Model.bankModel
                 _account.AccountAmount -= amount;
                 new ReputationDecreaser(_client, 2).Execute();
                 Execute();
+                return true;
             }
+            return false;
         }
 
         /// <summary>
