@@ -8,6 +8,9 @@ using System.Windows;
 
 namespace Homework_13.Service.Command
 {
+    /// <summary>
+    /// Класс выполняющий расширение кредита
+    /// </summary>
     class ExtendCreditCommand : Command
     {
         public override bool CanExecute(object parameter) =>

@@ -29,9 +29,9 @@ namespace Homework_13.Service.Command
         {
             DepositMakerView window = parameter as DepositMakerView;
 
-            int amount = 0;
+            long amount = 0;
 
-            if (int.TryParse(window.summField.Text, out int tmp)) 
+            if (long.TryParse(window.summField.Text, out long tmp)) 
             { amount = tmp; Debug.WriteLine("Парсинг успешно завершен"); }
 
             if (SelectedAccount.GetType() == typeof(BankDebitAccount)) 
@@ -51,8 +51,9 @@ namespace Homework_13.Service.Command
                 AccountCreditHandler creditHandler = 
                     new(SelectedClient, (BankCreditAccount)SelectedAccount);
 
-                if (amount >= SelectedAccount.AccountAmount) 
-                { creditHandler.PayOff(); }
+                if ((long)amount >= -((long)SelectedAccount.AccountAmount)) 
+                { 
+                    creditHandler.PayOff(); }
 
                 else 
                 { creditHandler.Pay(amount); }

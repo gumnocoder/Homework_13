@@ -14,6 +14,7 @@ namespace Homework_13.Model.bankModel
         {
             _client = client;
             _account = account;
+            onPayment += PaymentSignal;
         }
 
         #region Поля
@@ -31,6 +32,16 @@ namespace Homework_13.Model.bankModel
         #endregion
 
         #region Методы
+        public void PaymentSignal()
+        {
+            Debug.WriteLine("Была совершена оплата");
+        }
+
+        /// <summary>
+        /// расширение кредитного счёта
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         public bool ExtendCreditAmount(long amount)
         {
             Executed = false;
@@ -41,6 +52,8 @@ namespace Homework_13.Model.bankModel
                 Execute();
                 return true;
             }
+            Debug.WriteLine("не удалось расширить кредит, низкая " +
+                "репутация клиента. Требуемый показатель - от 8");
             return false;
         }
 
@@ -73,8 +86,11 @@ namespace Homework_13.Model.bankModel
         {
             Executed = false;
             _account.AccountAmount += PayAmount;
+            onPayment();
             Execute();
         }
+        public delegate void PaymentEvent();
+        public event PaymentEvent onPayment;
 
         /// <summary>
         /// Выполнить если кредит не был погашен, но срок вышел
