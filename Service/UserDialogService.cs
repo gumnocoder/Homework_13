@@ -68,6 +68,19 @@ namespace Homework_13.Service
             return true;
         }
 
+        public bool SendMoney(BankAccount account)
+        {
+            ClientListViewModel.SelectedAccount = account;
+            var dlg = new MoneySenderView();
+
+            dlg.Owner = _owner;
+            dlg.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            if (dlg.ShowDialog() != true) { dlg.Close(); return false; }
+
+            return true;
+        }
+
         /// <summary>
         /// Запускает окно пополнения счёта
         /// </summary>

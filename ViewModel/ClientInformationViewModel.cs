@@ -169,6 +169,16 @@ namespace Homework_13.ViewModel
             _dialogService.StartDialogScenario(s as BankAccount);
         }
 
+        private RelayCommand _showSenderWindow;
+
+        public RelayCommand ShowSenderWindow =>  
+            _showSenderWindow ??= new(SendMoneyOpenWindow);
+
+        private void SendMoneyOpenWindow(object s)
+        {
+            _dialogService.SendMoney(s as BankAccount);
+        }
+
         private RelayCommand _extendCreditWindow;
 
         public RelayCommand ExtendCreditWindow => _extendCreditWindow ??= new(OpenExtendWindow);

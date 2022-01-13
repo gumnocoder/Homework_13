@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Homework_13.Model.bankModel.interfaces;
+using static Homework_13.ViewModel.ClientListViewModel;
 
 namespace Homework_13.Model.bankModel
 {

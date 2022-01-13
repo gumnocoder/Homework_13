@@ -4,9 +4,9 @@ using Homework_13.Service.Interfaces;
 
 namespace Homework_13.Service
 {
-    class InformationDialogService : IInformationDialogService
+    class InformationDialogService
     {
-        public void ShowError(string Message)
+        public static void ShowError(string Message)
         {
             MessageBox.Show(
                 Message,
@@ -14,7 +14,7 @@ namespace Homework_13.Service
                 MessageBoxButton.OK);
         }
 
-        public void ShowInformation(string Message, string Tittle)
+        public static void ShowInformation(string Message, string Tittle)
         {
             MessageBox.Show(
                 Message,

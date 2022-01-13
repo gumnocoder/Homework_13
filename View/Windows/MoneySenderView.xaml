@@ -47,7 +47,7 @@
                     Binding RelativeSource={
                     RelativeSource AncestorType=local:MoneySenderView}}">
                     <Button.Command>
-                        <cmd:ParameterChanger/>
+                        <cmd:SendMoneyCommand/>
                     </Button.Command>
                 </Button>
                 <Button

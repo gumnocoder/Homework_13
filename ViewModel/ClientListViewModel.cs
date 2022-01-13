@@ -5,6 +5,7 @@ using Homework_13.Service;
 using Homework_13.Service.Command;
 using static Homework_13.ViewModel.ParameterChangingInputVM;
 using static Homework_13.Model.bankModel.Bank;
+using static Homework_13.Service.InformationDialogService;
 using Homework_13.Model.bankModel;
 using System.Windows;
 
@@ -175,15 +176,15 @@ namespace Homework_13.ViewModel
             if (SelectedClient != null && SelectedClient.DebitIsActive == false)
             {
                 SelectedClient.ClientsDebitAccount = new(SelectedClient);
-                _informDialogService.ShowInformation(
+                ShowInformation(
                     "Дебетовый счёт успешно открыт!", 
                     "Операция завершена");
             }
             else if (SelectedClient == null)
-            { _informDialogService.ShowError("Выберите клиента!"); }
+            { ShowError("Выберите клиента!"); }
 
             else if (SelectedClient != null && SelectedClient.DebitIsActive == true) 
-            { _informDialogService.ShowError("Дебетовый счёт уже открыт"); }
+            { ShowError("Дебетовый счёт уже открыт"); }
         }
 
         #endregion
@@ -223,7 +224,7 @@ namespace Homework_13.ViewModel
             }
             else
             {
-                _informDialogService.ShowError("Выберите клиента!");
+                ShowError("Выберите клиента!");
             }
         }
 
@@ -245,7 +246,7 @@ namespace Homework_13.ViewModel
             }
             else
             {
-                _informDialogService.ShowError("Выберите клиента!");
+                ShowError("Выберите клиента!");
             }
         }
 

@@ -135,6 +135,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="15*"/>
                             <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock
                             VerticalAlignment="Center"
@@ -150,6 +151,16 @@
                             StaticResource BooleanToVisibilityConverter}}"
                             Grid.Column="1"
                             ToolTip="Пополнение дебетового счёта"
+                            Margin="5">
+                            <Image Source="/payment.ico"/>
+                        </Button>
+                        <Button
+                            CommandParameter="{Binding Selected.ClientsDebitAccount}"
+                            Command="{Binding ShowSenderWindow}"
+                            Visibility="{Binding Selected.DebitIsActive, Converter={
+                            StaticResource BooleanToVisibilityConverter}}"
+                            Grid.Column="2"
+                            ToolTip="Отправить деньги"
                             Margin="5">
                             <Image Source="/payment.ico"/>
                         </Button>
@@ -257,6 +268,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="15*"/>
                             <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock
                             VerticalAlignment="Center"
@@ -272,6 +284,16 @@
                             StaticResource BooleanToVisibilityConverter}}"
                             Grid.Column="1"
                             ToolTip="Пополнение депозитного счёта"
+                            Margin="5">
+                            <Image Source="/payment.ico"/>
+                        </Button>
+                        <Button
+                            CommandParameter="{Binding Selected.ClientsDepositAccount}"
+                            Command="{Binding ShowSenderWindow}"
+                            Visibility="{Binding Selected.DepositIsActive, Converter={
+                            StaticResource BooleanToVisibilityConverter}}"
+                            Grid.Column="2"
+                            ToolTip="Отправить деньги"
                             Margin="5">
                             <Image Source="/payment.ico"/>
                         </Button>
