@@ -23,14 +23,23 @@ namespace Homework_13.ViewModel
             else Debug.WriteLine("SelectedClient было null");
         }
 
+        #region Поля
         /// <summary>
         /// прокси для открытия диалоговых окон во избежание нарушения концепции mvvm 
         /// </summary>
         private UserDialogService _dialogService = new();
 
+        /// <summary>
+        /// Сумма на депозитном счёте клиента
+        /// </summary>
+        private string _depositAmount;
+        #endregion
+
         #region Свойства
 
-        private string _depositAmount;
+        /// <summary>
+        /// Состояние депозитного счёта выбранного клиента
+        /// </summary>
         public string DepositAmount
         {
             get => _depositAmount;
@@ -42,11 +51,12 @@ namespace Homework_13.ViewModel
         }
 
         /// <summary>
-        /// Идентификатор
+        /// Идентификатор клиента
         /// </summary>
         public string ID { get; set; }
+
         /// <summary>
-        /// Рейтинг
+        /// Рейтинг клиента
         /// </summary>
         public string Reputation { get; set; }
 
@@ -133,7 +143,11 @@ namespace Homework_13.ViewModel
         /// <summary>
         /// предоставляет доступ к SelectedClient из ClientListViewModel
         /// </summary>
-        public static Client Selected { get => SelectedClient; set => Selected = value; }
+        public static Client Selected 
+        { 
+            get => SelectedClient;
+            set => Selected = value;
+        }
 
         #endregion
 
@@ -141,8 +155,15 @@ namespace Homework_13.ViewModel
 
         private RelayCommand _copy;
 
+        /// <summary>
+        /// Копирует значение string в буфер обмена
+        /// </summary>
         public RelayCommand Copy => _copy ??= new(CopyText);
 
+        /// <summary>
+        /// Преобразует обёект в сроку и помещает её в буфер обмена
+        /// </summary>
+        /// <param name="text"></param>
         private void CopyText(object text)
         {
             Clipboard.Clear();
@@ -155,37 +176,59 @@ namespace Homework_13.ViewModel
 
         #endregion
 
-        public static BankAccount SelectedAccount
-        {
-            get;
-            set;
-        }
+        #region Команда отрывает окно пополнения счёта
         private RelayCommand _makeDepositWindow;
 
-        public RelayCommand MakeDepositWindow => _makeDepositWindow ??= new(MakeDepositOpenWindow);
+        /// <summary>
+        /// Запускает метод открытия окна пополнения счёта
+        /// </summary>
+        public RelayCommand MakeDepositWindow => 
+            _makeDepositWindow ??= new(MakeDepositOpenWindow);
 
+        /// <summary>
+        /// Открывает окно пополнения счёта
+        /// </summary>
+        /// <param name="s"></param>
         private void MakeDepositOpenWindow(object s)
         {
             _dialogService.StartDialogScenario(s as BankAccount);
         }
+        #endregion
 
+        #region Команда открытия окна транзакции
         private RelayCommand _showSenderWindow;
-
+        /// <summary>
+        /// Запускает метод открывающий окно транзакции
+        /// </summary>
         public RelayCommand ShowSenderWindow =>  
             _showSenderWindow ??= new(SendMoneyOpenWindow);
 
+        /// <summary>
+        /// Открывает окно транзакции
+        /// </summary>
+        /// <param name="s"></param>
         private void SendMoneyOpenWindow(object s)
         {
             _dialogService.SendMoney(s as BankAccount);
         }
+        #endregion
 
+        #region Команда открытия окна расширения кредитного счёта
         private RelayCommand _extendCreditWindow;
+        /// <summary>
+        /// Запускает метод открывающий окно расширения кредита
+        /// </summary>
+        public RelayCommand ExtendCreditWindow => 
+            _extendCreditWindow ??= new(OpenExtendWindow);
 
-        public RelayCommand ExtendCreditWindow => _extendCreditWindow ??= new(OpenExtendWindow);
-
+        /// <summary>
+        /// открывает окно расширения кредита
+        /// </summary>
+        /// <param name="s"></param>
         private void OpenExtendWindow(object s)
         {
             _dialogService.ExtendCredit(s as BankCreditAccount);
         }
+        #endregion
     }
 }

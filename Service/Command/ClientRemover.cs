@@ -3,22 +3,25 @@ using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.Service.Command
 {
+    /// <summary>
+    /// Команда удаления клиента
+    /// </summary>
     class ClientRemover : Command
     {
-        public override bool CanExecute(object parameter)
-        {
-            return (parameter as Client) != null;
-        }
+        public override bool CanExecute(object parameter) =>
+            (parameter as Client) != null;
 
         public override void Execute(object parameter)
         {
             if (CanExecute(parameter))
             {
                 Client client = parameter as Client;
+
                 foreach (var c in ClientList<Client>.ClientsList)
                 {
                     if (c == (client)) 
                     {
+                        // удаляет кредитный счёт при его наличии
                         if (client.ClientsCreditAccount != null)
                         {
                             foreach (var a in ThisBank.Credits)
@@ -27,7 +30,7 @@ namespace Homework_13.Service.Command
                                 break;
                             }
                         }
-
+                        // удаляет дебетовый счёт при его наличии
                         if (client.ClientsDebitAccount != null)
                         {
                             foreach (var a in ThisBank.Debits)
@@ -36,7 +39,7 @@ namespace Homework_13.Service.Command
                                 break;
                             }
                         }
-
+                        // удаляет депозитный счёт при его наличии
                         if (client.ClientsDepositAccount != null)
                         {
                             foreach (var a in ThisBank.Deposits)
@@ -45,7 +48,7 @@ namespace Homework_13.Service.Command
                                 break;
                             }
                         }
-
+                        // удаляет клиента из коллекции в синглтоне ThisBank
                         ClientList<Client>.ClientsList.Remove(c);
                         break; 
                     }

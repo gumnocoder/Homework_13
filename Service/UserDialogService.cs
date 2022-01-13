@@ -43,18 +43,27 @@ namespace Homework_13.Service
         {
             switch (o)
             {
+                /// редактирование клиента
                 case Client client:
                     return EditSelectedClient(client);
+                /// авторизация
                 case User user:
                     return LoginFormOpen(user);
+                /// пополнение счёта
                 case BankAccount account:
                     return DepositMaker(account);
+                /// при передаче Window в качестве параметра
                 case object window:
                     return GenericWindowOpenerMethod(window);
             }
             return true;
         }
 
+        /// <summary>
+        /// Метод открывающий окно расширения кредитного счёта
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
         public bool ExtendCredit(BankCreditAccount account)
         {
             ClientListViewModel.SelectedAccount = account;
@@ -68,6 +77,11 @@ namespace Homework_13.Service
             return true;
         }
 
+        /// <summary>
+        /// Метод открывающий окно транзакции
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
         public bool SendMoney(BankAccount account)
         {
             ClientListViewModel.SelectedAccount = account;
@@ -111,6 +125,7 @@ namespace Homework_13.Service
 
             switch (o)
             {
+                /// изменение параметра
                 case ParameterChangingInputVM:
                     dlg = new ParameterChangingInput();
                     break;
@@ -130,6 +145,7 @@ namespace Homework_13.Service
                 case ClientListViewModel:
                     dlg = new ClientListView();
                     break;
+                /// информация о клиенте
                 case ClientInformationViewModel:
                     dlg = new ClientInfromation();
                     break;

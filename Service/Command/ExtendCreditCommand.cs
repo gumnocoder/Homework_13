@@ -1,10 +1,8 @@
-﻿using static Homework_13.ViewModel.ClientListViewModel;
-using static Homework_13.Model.bankModel.DepositMaker;
-using static Homework_13.Model.bankModel.AccountCreditHandler;
-using Homework_13.View.Windows;
+﻿using System.Diagnostics;
 using Homework_13.Model.bankModel;
-using System.Diagnostics;
-using System.Windows;
+using Homework_13.View.Windows;
+using static Homework_13.Service.InformationDialogService;
+using static Homework_13.ViewModel.ClientListViewModel;
 
 namespace Homework_13.Service.Command
 {
@@ -22,25 +20,31 @@ namespace Homework_13.Service.Command
 
             int amount = 0;
 
-            if (int.TryParse(window.summField.Text, out int tmp))
-            { amount = tmp; Debug.WriteLine("Парсинг успешно завершен"); }
+            /// выполняется при успешном парсинге положительного числа
+            if (int.TryParse(window.summField.Text, out int tmp) && tmp > 0)
+            { 
+                amount = tmp;
 
-            AccountCreditHandler creditHandler =
-                new(SelectedClient, (BankCreditAccount)SelectedAccount);
+                AccountCreditHandler creditHandler =
+                    new(SelectedClient, (BankCreditAccount)SelectedAccount);
 
-            if (creditHandler.ExtendCreditAmount(amount))
-            {
-                string message = $"Кредит успешно расширен на сумму {amount}";
-                MessageBox.Show(message, "Успешно", MessageBoxButton.OK);
+                Debug.WriteLine("Парсинг успешно завершен");
+                if (creditHandler.ExtendCreditAmount(amount))
+                {
+                    ShowInformation(
+                        $"Кредит успешно расширен на сумму {amount}",
+                        "Успешно");
+                    window.Close();
+                }
+
+                else
+                {
+                    ShowError($"Не удалось расширить кредит, низкая репутация");
+                    window.Close();
+                }
             }
-
-            else
-            {
-                string message = $"Не удалось расширить кредит, низкая репутация";
-                MessageBox.Show(message, "Ошибка", MessageBoxButton.OK);
-            }
-
-            window.Close();
+            else { ShowError("Недопустимое значение, введите " +
+                "целочисленное, положительное значение"); }
         }
     }
 }

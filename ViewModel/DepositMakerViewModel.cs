@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Homework_13.Model.bankModel;
-using Homework_13.Service.Command;
-using static Homework_13.ViewModel.ClientListViewModel;
-using static Homework_13.Model.bankModel.DepositMaker;
-using System.Diagnostics;
-
-namespace Homework_13.ViewModel
+﻿namespace Homework_13.ViewModel
 {
+    /// <summary>
+    /// Логика взаимодействия для DepositMakerView
+    /// </summary>
     class DepositMakerViewModel
     {
         private int _amount = 0;
+
+        /// <summary>
+        /// Вносимая сумма
+        /// </summary>
         public int Amount 
         {
             get => _amount;
