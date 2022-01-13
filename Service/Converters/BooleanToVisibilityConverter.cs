@@ -5,6 +5,9 @@ using System.Windows.Data;
 
 namespace Homework_13.Service.Converters
 {
+    /// <summary>
+    /// преобразует bool из viewModel в Visibility
+    /// </summary>
     public sealed class BooleanToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
