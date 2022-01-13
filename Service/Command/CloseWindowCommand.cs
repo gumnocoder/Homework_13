@@ -3,6 +3,9 @@ using System.Windows;
 
 namespace Homework_13.Service.Command
 {
+    /// <summary>
+    /// Служит для закрытия открытых диалоговых окон
+    /// </summary>
     class CloseWindowCommand : Command
     {
         public bool? DialogResult { get; set; }

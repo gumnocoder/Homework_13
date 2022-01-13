@@ -3,10 +3,14 @@ using Homework_13.Model.bankModel;
 using Homework_13.View.Windows;
 using Homework_13.ViewModel;
 using static Homework_13.ViewModel.ClientListViewModel;
+using static Homework_13.Service.InformationDialogService;
 using static Homework_13.Service.Command.AccountOpener;
 
 namespace Homework_13.Service.Command
 {
+    /// <summary>
+    /// Открывает счёт
+    /// </summary>
     class AccountCreateCommand : Command
     {
         #region Поля
@@ -25,17 +29,6 @@ namespace Homework_13.Service.Command
         #endregion
 
         #region Методы
-        /// <summary>
-        /// выводит сообщение об ошибке
-        /// </summary>
-        /// <param name="message">текст сообщения</param>
-        private void ShowError(string message)
-        {
-            MessageBox.Show(
-                message,
-                "Ошибка",
-                MessageBoxButton.OK);
-        }
 
         public override bool CanExecute(object parameter)
         {
@@ -136,10 +129,7 @@ namespace Homework_13.Service.Command
                                 $"{percent}% " +
                                 $"на срок: {expiration}, " +
                                 $"для клиента {SelectedClient}";
-                            MessageBox.Show(
-                                info, "Депозитный счёт успешно открыт!",
-                                MessageBoxButton.OK);
-                            //SelectedClient = null;
+                            ShowInformation("Депозитный счёт успешно открыт!", "Успешно");
                             window.Close();
                         }
                     }
@@ -160,9 +150,7 @@ namespace Homework_13.Service.Command
                                 $"под {percent}% " +
                                 $"на срок: {expiration}, " +
                                 $"для клиента {SelectedClient}";
-                            MessageBox.Show(
-                                info, "Кредит успешно выдан!",
-                                MessageBoxButton.OK);
+                            ShowInformation("Кредит успешно выдан!", "Успешно");
                             window.Close();
                         }
                     }

@@ -2,6 +2,9 @@
 
 namespace Homework_13.Service.Command
 {
+    /// <summary>
+    /// Служит для привзяки в xaml методов во viewModel
+    /// </summary>
     class RelayCommand : Command
     {
         private readonly Action<object> _execute;

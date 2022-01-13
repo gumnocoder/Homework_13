@@ -1,9 +1,9 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using Homework_13.Model;
 using Homework_13.Model.bankModel;
 using Homework_13.View.Windows;
 using Homework_13.ViewModel;
+using static Homework_13.Service.InformationDialogService;
 using static Homework_13.ViewModel.ParameterChangingInputVM;
 
 namespace Homework_13.Service.Command
@@ -39,19 +39,13 @@ namespace Homework_13.Service.Command
                 }
                 else
                 {
-                    MessageBox.Show(
-                        "Введено недопустимое число! Число должно быть в диапазоне от 1 до 10",
-                        "Недопустимое значение",
-                        MessageBoxButton.OK);
+                    ShowError("Введено недопустимое число! Число должно быть в диапазоне от 1 до 10");
                     return false;
                 }
             }
             else
             {
-                MessageBox.Show(
-                    "Введено недопустимое значение! Введите число в диапазоне от 1 до 10",
-                    "Недопустимое значение",
-                    MessageBoxButton.OK);
+                ShowError("Введено недопустимое значение! Введите число в диапазоне от 1 до 10");
                 return false;
             }
         }
@@ -67,22 +61,20 @@ namespace Homework_13.Service.Command
             if (!CanExecute(parameter)) return;
             if (ClientListViewModel.SelectedClient == null)
             {
-                MessageBox.Show(
-                    "Клиент не выбран!",
-                    "Отсутствие данных",
-                    MessageBoxButton.OK);
+                ShowError("Клиент не выбран");
                 return;
             }
 
             Client client = ClientListViewModel.SelectedClient;
-            ParameterChangingInput window = parameter as ParameterChangingInput;
+            ParameterChangingInput window = 
+                parameter as ParameterChangingInput;
 
             if (Check(window.NumberField.Text))
             {
-                if (incr) { ReputationIncreaser incr = new(client, _number); incr.Execute(); }
+                if (incr) new ReputationIncreaser(client, _number).Execute();
                 incr = false;
 
-                if (decr) { new ReputationDecreaser(client, _number).Execute(); }
+                if (decr) new ReputationDecreaser(client, _number).Execute(); 
                 decr = false;
 
                 window.Close();

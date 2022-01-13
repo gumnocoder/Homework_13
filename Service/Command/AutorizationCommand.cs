@@ -6,6 +6,9 @@ using Homework_13.ViewModel;
 
 namespace Homework_13.Service.Command
 {
+    /// <summary>
+    /// Выполняет авторизацию по паре логин - пароль
+    /// </summary>
     class AutorizationCommand : Command
     {
         public bool? DialogResult { get; set; }
