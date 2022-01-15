@@ -3,7 +3,7 @@ using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.Model
 {
-    class User : BasicUserWithPermissions, IPasswordHolder
+    class User : BasicUserWithPermissions, IPasswordHolder, IIdentificable
     {
         #region Конструкторы
         /// <summary>
@@ -20,7 +20,7 @@ namespace Homework_13.Model
         /// <param name="Type"></param>
         public User(string Name, string Login, string Pass, string Type)
         {
-            ID = ++ThisBank.CurrentUserID;
+            SetID();
             this.Name = Name;
             this.Login = Login;
             this.Pass = Pass;
@@ -66,7 +66,7 @@ namespace Homework_13.Model
         public long ID 
         { 
             get => _id; 
-            protected set 
+            set 
             { 
                 _id = value; 
                 OnPropertyChanged();
@@ -114,6 +114,11 @@ namespace Homework_13.Model
         public override string ToString()
         {
             return $"{ID}, {Name} [{Type}]";
+        }
+
+        public void SetID()
+        {
+            ID = ++ThisBank.CurrentUserID;
         }
         #endregion
     }

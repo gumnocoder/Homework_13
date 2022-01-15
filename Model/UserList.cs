@@ -14,41 +14,5 @@ namespace Homework_13.Model
             get => _usersPath;
             set => _usersPath = value;
         }
-        public T this[string Name]
-        {
-            get
-            {
-                T u = default;
-
-                if (UsersList != null && UsersList.Count > 0)
-                {
-                    foreach (T t in UsersList)
-                    {
-                        if (t.Name.ToLower() == Name.ToLower())
-                        { u = t; break; }
-                    }
-                }
-
-                return u;
-            }
-        }
-        public T this[int ID]
-        {
-            get
-            {
-                T u = default;
-
-                if (UsersList != null && UsersList.Count > 0)
-                {
-                    foreach (T t in UsersList)
-                    {
-                        if (t.ID == ID)
-                        { u = t; break; }
-                    }
-                }
-
-                return u;
-            }
-        }
     }
 }

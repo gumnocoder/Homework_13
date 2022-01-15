@@ -202,7 +202,7 @@ namespace Homework_13.ViewModel
             {
                 Debug.WriteLine($"" +
                     $"{SelectedClient.ClientsCreditAccount} " +
-                    $"{SelectedClient.ClientID} " +
+                    $"{SelectedClient.ID} " +
                     $"{SelectedClient.CreditAccountID}");
             }
         }

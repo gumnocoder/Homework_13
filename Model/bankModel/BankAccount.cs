@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
+using Homework_13.Model.Interfaces;
 using Homework_13.ViewModel;
 
 namespace Homework_13.Model.bankModel
 {
-    public abstract class BankAccount : BaseViewModel
+    public abstract class BankAccount : BaseViewModel, IIdentificable
     {
         #region Поля
 
@@ -81,6 +82,11 @@ namespace Homework_13.Model.bankModel
             return $"Тип: {GetType()}, " +
                 $" ID - {_id}, " +
                 $"Состояние - {AccountAmount}$";
+        }
+
+        public void SetID()
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

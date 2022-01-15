@@ -17,7 +17,7 @@ namespace Homework_13.ViewModel
         {
             if (SelectedClient != null)
             {
-                ID = SelectedClient.ClientID.ToString();
+                ID = SelectedClient.ID.ToString();
                 Reputation = SelectedClient.Reputation.ToString();
             }
             else Debug.WriteLine("SelectedClient было null");

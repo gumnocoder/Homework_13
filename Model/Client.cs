@@ -1,11 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Homework_13.Model.bankModel;
+using Homework_13.Model.Interfaces;
 using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.Model
 {
-    class Client : Person
+    class Client : Person, IIdentificable
     {
         /// <summary>
         /// Конструктор
@@ -123,10 +124,10 @@ namespace Homework_13.Model
         /// <summary>
         /// Идентификатор клиента
         /// </summary>
-        public long ClientID
+        public long ID
         {
             get => _clientId;
-            protected set
+            set
             {
                 _clientId = value;
                 OnPropertyChanged();
@@ -215,7 +216,7 @@ namespace Homework_13.Model
         /// </summary>
         public void SetID()
         {
-            ClientID = ++ThisBank.currentClientID;
+            ID = ++ThisBank.currentClientID;
         }
 
         /// <summary>
@@ -224,7 +225,7 @@ namespace Homework_13.Model
         /// <returns></returns>
         public override string ToString()
         {
-            return $"{ClientID} {Name} {Reputation}";
+            return $"{ID} {Name} {Reputation}";
         }
 
         #endregion
