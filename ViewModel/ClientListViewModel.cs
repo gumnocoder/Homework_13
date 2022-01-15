@@ -43,6 +43,16 @@ namespace Homework_13.ViewModel
         /// </summary>
         private string _findText = "поиск";
 
+        /// <summary>
+        /// Выбранный счёт
+        /// </summary>
+        private static BankAccount _selectedAccount;
+
+        /// <summary>
+        /// Активность кредита
+        /// </summary>
+        private bool _creditEnabled;
+
         #endregion
 
         #region Свойства
@@ -69,7 +79,6 @@ namespace Homework_13.ViewModel
         public static ObservableCollection<Client> Clients
         { get => ClientList<Client>.ClientsList; }
 
-        //// TODO
         /// <summary>
         /// Поиск
         /// </summary>
@@ -83,7 +92,18 @@ namespace Homework_13.ViewModel
             }
         }
 
-        private bool _creditEnabled;
+        /// <summary>
+        /// Выбранный счёт
+        /// </summary>
+        public static BankAccount SelectedAccount
+        {
+            get => _selectedAccount;
+            set => _selectedAccount = value;
+        }
+        
+        /// <summary>
+        /// Флаг активности кредита
+        /// </summary>
         public bool CreditEnabled
         {
             get
@@ -95,6 +115,8 @@ namespace Homework_13.ViewModel
         }
 
         #endregion
+
+        #region Команды
 
         #region Команда редактирования клиента
 
@@ -140,28 +162,34 @@ namespace Homework_13.ViewModel
 
         #endregion
 
-        private static BankAccount _selectedAccount;
-        public static BankAccount SelectedAccount
-        {
-            get => _selectedAccount;
-            set => _selectedAccount = value;
-        }
+        #region Команда пополнения счёта
         private RelayCommand _makeDepositWindow;
 
-        public RelayCommand MakeDepositWindow => _makeDepositWindow ??= new(MakeDepositOpenWindow);
+        /// <summary>
+        /// пополнение счёта
+        /// </summary>
+        public RelayCommand MakeDepositWindow => 
+            _makeDepositWindow ??= new(MakeDepositOpenWindow);
 
+        /// <summary>
+        /// запускает окно пополнения выбранного счёта
+        /// </summary>
+        /// <param name="s"></param>
         private void MakeDepositOpenWindow(object s)
         {
             SelectedAccount = s as BankAccount;
             Debug.WriteLine(SelectedAccount);
             _dialogService.StartDialogScenario(SelectedAccount);
         }
-
+        #endregion
 
         #region Команда для открытия дебетового счёта
 
         private RelayCommand _openDebit;
 
+        /// <summary>
+        /// открывает дебетовый счёт
+        /// </summary>
         public RelayCommand OpenDebit
         {
             get => _openDebit ??= new(OpenDebitCommand);
@@ -193,7 +221,7 @@ namespace Homework_13.ViewModel
         #region Просмотр информации по кредиту
 
         private RelayCommand _checkCreditInfoCommand;
-
+        
         public RelayCommand CheckCreditInfoCommand =>
             _checkCreditInfoCommand ??= new(ShowCreditInfo);
         public void ShowCreditInfo(object s)
@@ -213,9 +241,16 @@ namespace Homework_13.ViewModel
 
         private RelayCommand _parameterIncrease;
 
+        /// <summary>
+        /// повышение репутации
+        /// </summary>
         public RelayCommand ParameterIncrease =>
             _parameterIncrease ??= new(ShowParameterChangerIncrease);
 
+        /// <summary>
+        /// запускает окно повышения репутации
+        /// </summary>
+        /// <param name="s"></param>
         public void ShowParameterChangerIncrease(object s)
         {
             if (SelectedClient != null)
@@ -235,9 +270,16 @@ namespace Homework_13.ViewModel
 
         private RelayCommand _parameterDecrease;
 
+        /// <summary>
+        /// уменьшение репутации клиента
+        /// </summary>
         public RelayCommand ParameterDecrease =>
             _parameterDecrease ??= new(ShowParameterChangerDecrease);
 
+        /// <summary>
+        /// Вызывает диалоговое окно успеньшения репутации клиента
+        /// </summary>
+        /// <param name="s"></param>
         public void ShowParameterChangerDecrease(object s)
         {
             if (SelectedClient != null)
@@ -250,7 +292,69 @@ namespace Homework_13.ViewModel
                 ShowError("Выберите клиента!");
             }
         }
+        #endregion
+
+        #region Команда выполнения поиска клиента
+
+        private RelayCommand _search;
+
+        /// <summary>
+        /// Поиск
+        /// </summary>
+        public RelayCommand SearchCommand =>
+            _search ??= new(Search);
+
+        /// <summary>
+        /// Выполняет поиск клиента по имени или id
+        /// </summary>
+        /// <param name="s"></param>
+        public void Search(object s)
+        {
+            if ((string)s != string.Empty && (string)s != "поиск")
+            {
+                if (long.TryParse((string)s, out long tmp))
+                {
+                    SelectedClient = (SearchEngine.SearchByID(ClientList<Client>.ClientsList, tmp));
+                    if (SelectedClient != null)
+                    {
+                        _dialogService.StartDialogScenario(new ClientInformationViewModel());
+                    }
+                    else ShowError($"Не удалось найти клиента {(string)s} в базе");
+                }
+                else
+                {
+                    SelectedClient = (SearchEngine.SearchByName(ClientList<Client>.ClientsList, (string)s));
+                    if (SelectedClient != null)
+                    {
+                        _dialogService.StartDialogScenario(new ClientInformationViewModel());
+                    }
+                    else ShowError($"Не удалось найти клиента {(string)s} в базе");
+                }
+            }
+            else ShowError($"пустое значение");
+        }
 
         #endregion
+
+        #region Команда очистки текстовой переменной
+
+        private RelayCommand _clearText;
+
+        /// <summary>
+        /// вызывает метод который очищает значение переменной string
+        /// </summary>
+        public RelayCommand ClearText =>
+            _clearText ??= new(ClearSearchText);
+
+        /// <summary>
+        /// очищает значение переменнйо string
+        /// </summary>
+        /// <param name="s"></param>
+        private void ClearSearchText(object s) =>
+            FindText = string.Empty;
+        #endregion
+
+        #endregion
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using Homework_13.Model;
 using Homework_13.Model.Interfaces;
 
@@ -20,7 +21,7 @@ namespace Homework_13.Service
                 foreach (T element in TargetList)
                 {
                     if (element.Name.ToLower() == Name.ToLower())
-                    { t = element; break; }
+                    { return element; }
                 }
             }
             return t;
@@ -40,7 +41,7 @@ namespace Homework_13.Service
                 foreach (T element in TargetList)
                 {
                     if (element.ID == ID)
-                    { t = element; break; }
+                    { return element; }
                 }
             }
             return t;

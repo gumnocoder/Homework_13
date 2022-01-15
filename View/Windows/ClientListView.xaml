@@ -105,8 +105,8 @@
             <DataGrid.Columns>
                 <DataGridTextColumn 
                 Header="ID" 
-                Binding="{Binding ClientID}" 
-                Width="40"/>
+                Binding="{Binding ID}" 
+                Width="70"/>
                 <DataGridTextColumn 
                 Header="Имя" 
                 Binding="{Binding Name}" 
@@ -134,14 +134,20 @@
             </DataGrid.Columns>
         </DataGrid>
         <TextBox
+            Text="{Binding FindText, Mode=TwoWay}"
             Grid.Row="0"
             HorizontalAlignment="Right"
             Width="150"
             Margin="3,3,48,3"
-
+            x:Name="searchField"
             Padding="2,-1,0,0"
             FontStyle="Italic"
             Foreground="Gray">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding ClearText}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </TextBox>
         <Button
             Background="Transparent"
@@ -173,6 +179,8 @@
             HorizontalAlignment="Right"
             Width="19"
             Height="19"
+            CommandParameter="{Binding Text, ElementName=searchField, Mode=TwoWay}"
+            Command="{Binding SearchCommand}"
             Margin="3,0,48,0">
             <Button.Content>
                 <TextBlock
