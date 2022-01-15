@@ -1,6 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
+using Homework_13.Model;
 using Newtonsoft.Json;
+using static Homework_13.Model.ClientList<Homework_13.Model.Client>;
+using static Homework_13.Model.UserList<Homework_13.Model.User>;
+using static Homework_13.Model.bankModel.Bank;
+using Homework_13.Model.bankModel;
 
 namespace Homework_13.Service
 {
@@ -10,10 +15,14 @@ namespace Homework_13.Service
     /// <typeparam name="T">объект подлежащий сериализации</typeparam>
     public static class DataSaver<T>
     {
-
         public static void DataSaverChain()
         {
-
+            DataSaver<User>.JsonSeralize(UserList<User>.UsersList, UsersPath);
+            DataSaver<Client> .JsonSeralize(ClientList<Client>.ClientsList, ClientsPath);
+            DataSaver<BankAccount>.JsonSeralize(ThisBank.Credits, ThisBank.CreditsPath);
+            DataSaver<BankAccount>.JsonSeralize(ThisBank.Debits, ThisBank.DebitsPath);
+            DataSaver<BankAccount>.JsonSeralize(ThisBank.Deposits, ThisBank.DepositsPath);
+            new BankSettingsSaver(ThisBank);
         }
 
         /// <summary>

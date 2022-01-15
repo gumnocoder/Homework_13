@@ -18,6 +18,10 @@ namespace Homework_13.Service
         /// <param name="inputNum">входящий параметр</param>
         public void WriteBankSettingsToFile(string outputFile, ref long inputNum)
         {
+            if (!File.Exists(outputFile))
+            { using (FileStream fs = new(outputFile, FileMode.OpenOrCreate))
+                { File.Create(outputFile); } }
+
             using (FileStream fs = new FileStream(outputFile, FileMode.Open, FileAccess.Write))
             {
                 using (StreamWriter sw = new StreamWriter(fs))

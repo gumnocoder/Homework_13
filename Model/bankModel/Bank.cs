@@ -15,6 +15,12 @@ namespace Homework_13.Model.bankModel
         /// </summary>
         public ObservableCollection<BankAccount> debits, credits, deposits;
 
+        private string _creditsPath = "credits.json", _debitsPath = "debits.json", _depositsPath = "deposits.json";
+        public string CreditsPath { get => _creditsPath; set => _creditsPath = value; }
+        public string DebitsPath { get => _debitsPath; set => _debitsPath = value; }
+        public string DepositsPath { get => _depositsPath; set => _depositsPath = value; }
+
+
         #endregion
 
         #region Свойства

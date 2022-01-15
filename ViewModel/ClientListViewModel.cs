@@ -175,7 +175,8 @@ namespace Homework_13.ViewModel
         {
             if (SelectedClient != null && SelectedClient.DebitIsActive == false)
             {
-                SelectedClient.ClientsDebitAccount = new(SelectedClient);
+                new BankDebitAccount(SelectedClient);
+                //SelectedClient.ClientsDebitAccount = new(SelectedClient);
                 ShowInformation(
                     "Дебетовый счёт успешно открыт!", 
                     "Операция завершена");

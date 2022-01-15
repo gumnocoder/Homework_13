@@ -176,7 +176,7 @@ namespace Homework_13.Model
                 _clientsDepositAccount = (BankDepositAccount)ba<BankDepositAccount>(
                         ref ThisBank.deposits,
                         DepositAccountID);
-                Debug.WriteLine($" deposit expired at: {this.ClientsDepositAccount.Expiration} from client");
+                //Debug.WriteLine($" deposit expired at: {this.ClientsDepositAccount.Expiration} from client");
                 OnPropertyChanged();
             }
         }

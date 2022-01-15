@@ -31,6 +31,8 @@ namespace Homework_13.Model.bankModel
             }
         }
 
+        public BankDebitAccount() { }
+
         #region
         /// <summary>
         /// Назначает идентификатор

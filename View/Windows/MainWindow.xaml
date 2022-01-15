@@ -57,6 +57,11 @@
                     Command="{Binding ViewClientDB}">
                 </MenuItem>
                 <Separator/>
+                <MenuItem
+                    Header="Сохранить изменения"
+                    Command="{Binding SaveData}">
+                </MenuItem>
+                <Separator/>
                 <MenuItem 
                     Header="Выход" 
                     Command="{Binding AppExit}">

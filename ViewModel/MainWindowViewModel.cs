@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Homework_13.Model;
+using Homework_13.Model.bankModel;
 using Homework_13.Service;
 using Homework_13.Service.Command;
 using static Homework_13.Model.bankModel.Bank;
@@ -10,25 +12,28 @@ namespace Homework_13.ViewModel
 {
     class MainWindowViewModel : BaseViewModel
     {
+        private void FillList<T>(
+            ObservableCollection<BankAccount> TargetList, 
+            ObservableCollection<T> InputList) 
+            where T : BankAccount
+        {
+            foreach (var e in InputList)
+            {
+                TargetList.Add(e);
+                Debug.WriteLine($"{e} added to {TargetList}");
+            }
+            Debug.WriteLine($"load into {TargetList} complete");
+        }
         /// <summary>
         /// конструктор MainWindow
         /// </summary>
         public MainWindowViewModel()
         {
-            Client client = new("Test Client");
-            ListsOperator<Client> oper = new();
-            oper.AddToList(ClientListViewModel.Clients, client);
-
             DataLoader<User>.LoadFromJson(UserList<User>.UsersList, "users.json");
-            //DataSaver<User>.JsonSeralize(UserList<User>.UsersList, "users.json");
             _dialogService.StartDialogScenario(CurrentUser);
             Tittle = "Банк";
-            new BankSettingsLoader(ThisBank);
-            new BankSettingsSaver(ThisBank);
-            foreach (var e in ClientListViewModel.Clients)
-            {
-                Debug.WriteLine(e);
-            }
+
+            DataLoader<BankAccount>.LoadingChain();
         }
 
         #region Поля
@@ -97,6 +102,15 @@ namespace Homework_13.ViewModel
         }
 
         #endregion
+
+        private RelayCommand _saveData;
+        public RelayCommand SaveData =>
+            _saveData ??= new(SaveAllData);
+
+        private void SaveAllData(object s)
+        {
+            DataSaver<Client>.DataSaverChain();
+        }
 
         #region Команда выход из приложения
 
