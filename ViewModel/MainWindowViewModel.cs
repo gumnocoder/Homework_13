@@ -12,18 +12,6 @@ namespace Homework_13.ViewModel
 {
     class MainWindowViewModel : BaseViewModel
     {
-        private void FillList<T>(
-            ObservableCollection<BankAccount> TargetList, 
-            ObservableCollection<T> InputList) 
-            where T : BankAccount
-        {
-            foreach (var e in InputList)
-            {
-                TargetList.Add(e);
-                Debug.WriteLine($"{e} added to {TargetList}");
-            }
-            Debug.WriteLine($"load into {TargetList} complete");
-        }
         /// <summary>
         /// конструктор MainWindow
         /// </summary>
@@ -76,6 +64,7 @@ namespace Homework_13.ViewModel
         {
             get => CurrentUser.Type == "администратор";
         }
+
         /// <summary>
         /// Конвертирует информацию о 
         /// авторизированном пользователе в строку
@@ -91,11 +80,22 @@ namespace Homework_13.ViewModel
 
         #endregion
 
+        #region Команды
+
         #region Команда загрузки данных в синглтон банка
 
         private RelayCommand _loadBank;
+
+        /// <summary>
+        /// вызывает загрузку данных банка
+        /// </summary>
         public RelayCommand LoadBank => 
             _loadBank ??= new(LoadBankBtnClick);
+
+        /// <summary>
+        /// загружает настройки банка
+        /// </summary>
+        /// <param name="s"></param>
         private void LoadBankBtnClick(object s)
         {
             new BankSettingsLoader(ThisBank);
@@ -103,20 +103,41 @@ namespace Homework_13.ViewModel
 
         #endregion
 
+        #region Команда сохранения данных приложения
+
         private RelayCommand _saveData;
+
+        /// <summary>
+        /// вызывает сохранение данных приложения
+        /// </summary>
         public RelayCommand SaveData =>
             _saveData ??= new(SaveAllData);
 
+        /// <summary>
+        /// Метод сохранения данных приложения
+        /// </summary>
+        /// <param name="s"></param>
         private void SaveAllData(object s)
         {
             DataSaver<Client>.DataSaverChain();
         }
 
-        #region Команда выход из приложения
+        #endregion
+
+        #region Команда выхода из приложения
 
         private RelayCommand _appExit;
+
+        /// <summary>
+        /// Вызывает метод выхода из приложения
+        /// </summary>
         public RelayCommand AppExit =>
             _appExit ??= new(ExitBtnClick);
+
+        /// <summary>
+        /// Выход из приложения
+        /// </summary>
+        /// <param name="s"></param>
         private void ExitBtnClick(object s) => 
             Environment.Exit(0);
 
@@ -126,8 +147,16 @@ namespace Homework_13.ViewModel
 
         private RelayCommand _createUser;
 
+        /// <summary>
+        /// вызывает форму создания пользователя
+        /// </summary>
         public RelayCommand CreateUser =>
             _createUser ??= new(CreateUserCommand);
+
+        /// <summary>
+        /// Открывает форму для создания пользователя
+        /// </summary>
+        /// <param name="s"></param>
         public void CreateUserCommand(object s)
         {
             _dialogService.StartDialogScenario(new UserCreationFormViewModel());
@@ -139,8 +168,16 @@ namespace Homework_13.ViewModel
 
         private RelayCommand _createClient;
 
+        /// <summary>
+        /// Вызывает форму создания клиента
+        /// </summary>
         public RelayCommand CreateClient =>
             _createClient ??= new(CreateClientCommand);
+
+        /// <summary>
+        /// Открывает форму создания клиента
+        /// </summary>
+        /// <param name="s"></param>
         public void CreateClientCommand(object s)
         {
             _dialogService.StartDialogScenario(new ClientCreationFormViewModel());
@@ -152,8 +189,16 @@ namespace Homework_13.ViewModel
 
         private RelayCommand _viewUserDB;
 
+        /// <summary>
+        /// Вызывает метод открывающий список пользователей
+        /// </summary>
         public RelayCommand ViewUserDB =>
             _viewUserDB ??= new(ShowUserDB);
+
+        /// <summary>
+        /// Открывает список пользователей
+        /// </summary>
+        /// <param name="s"></param>
         public void ShowUserDB(object s)
         {
             _dialogService.StartDialogScenario(new UserListViewModel());
@@ -165,12 +210,22 @@ namespace Homework_13.ViewModel
 
         private RelayCommand _viewClientDB;
 
+        /// <summary>
+        /// Вызывает метод открывающий список клиентов
+        /// </summary>
         public RelayCommand ViewClientDB =>
             _viewClientDB ??= new(ShowClientDB);
+
+        /// <summary>
+        /// Открывает список клиентов
+        /// </summary>
+        /// <param name="s"></param>
         public void ShowClientDB(object s)
         {
             _dialogService.StartDialogScenario(new ClientListViewModel());
         }
+
+        #endregion
 
         #endregion
 

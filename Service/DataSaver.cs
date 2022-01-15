@@ -10,7 +10,7 @@ using Homework_13.Model.bankModel;
 namespace Homework_13.Service
 {
     /// <summary>
-    /// Выполняет сериализацию  обьектов в json
+    /// Выполняет сохранение данных
     /// </summary>
     /// <typeparam name="T">объект подлежащий сериализации</typeparam>
     public static class DataSaver<T>

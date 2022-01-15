@@ -10,6 +10,10 @@ namespace Homework_13.Service
 {
     public static class DataLoader<T>
     {
+
+        /// <summary>
+        /// Последовательная загрузка данных
+        /// </summary>
         public static void LoadingChain()
         {
             new BankSettingsLoader(ThisBank);
@@ -31,6 +35,13 @@ namespace Homework_13.Service
                 ClientList<Client>.ClientsPath);
         }
 
+        /// <summary>
+        /// Заполняет конечную коллекцию элементами из промежуточной колеекции,
+        /// например для конечных коллекций с обобщением от абстрактного класса
+        /// </summary>
+        /// <typeparam name="U"></typeparam>
+        /// <param name="TargetList">конечная коллекция</param>
+        /// <param name="InputList">временная коллекция</param>
         private static void FillList<U>(
             ObservableCollection<BankAccount> TargetList,
             ObservableCollection<U> InputList)
@@ -44,6 +55,11 @@ namespace Homework_13.Service
             Debug.WriteLine($"load into {TargetList} complete");
         }
 
+        /// <summary>
+        /// Загружает данные из json в коллекции ObservableCollection
+        /// </summary>
+        /// <param name="targetList">целевая коллекция</param>
+        /// <param name="inputFile">входящий файл</param>
         public static void LoadFromJson(
             ObservableCollection<T> targetList, 
             string inputFile)
