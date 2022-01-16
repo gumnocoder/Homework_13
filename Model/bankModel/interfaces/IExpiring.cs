@@ -21,7 +21,12 @@ namespace Homework_13.Model.bankModel.interfaces
         /// <summary>
         /// Дата активации
         /// </summary>
-        DateTime ActivationDate { get; }
+        DateTime ActivationDate { get; set; }
+
+        /// <summary>
+        /// Дата следующего начисления процентов
+        /// </summary>
+        DateTime NextPaymentDay { get; set; }
 
         /// <summary>
         /// Активность
@@ -30,5 +35,7 @@ namespace Homework_13.Model.bankModel.interfaces
         bool Expired();
 
         public int GetTotalMonthsCount();
+
+        void CalculateNextPaymentDay();
     }
 }

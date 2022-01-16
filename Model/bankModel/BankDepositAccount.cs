@@ -31,15 +31,19 @@ namespace Homework_13.Model.bankModel
                 SetId();
                 client.DepositIsActive = true;
                 Percent = PersonalPercent;
-                _activationDate = DateTime.Now;
-                this.Expiration = Expiration;
+                _activationDate = DateTime.UtcNow;
+                NextPaymentDay = _activationDate.AddDays(
+                    DateTime.DaysInMonth(
+                        _activationDate.Year,
+                        _activationDate.Month));
+                this.Expiration = ++Expiration;
                 AddLinkToAccountInBank();
                 client.DepositAccountID = ID;
                 client.ClientsDepositAccount = 
                     (BankDepositAccount)client.ba<BankDepositAccount>(
                         ref ThisBank.deposits, 
                         client.DepositAccountID);
-                Debug.WriteLine($"Expired at: {Expiration}");
+                Debug.WriteLine($"Expired at: {this.Expiration}");
                 new ReputationIncreaser(client, 3);
                 Debug.WriteLine(this);
             }
@@ -78,12 +82,18 @@ namespace Homework_13.Model.bankModel
         /// <summary>
         /// Дата открытия счёта
         /// </summary>
-        public DateTime ActivationDate { get => _activationDate; }
+        public DateTime ActivationDate 
+        { 
+            get => _activationDate; 
+            set => _activationDate = value; 
+        }
 
         /// <summary>
-        /// Остаток единиц исчисления до конца срока истечения вклада 
+        /// Остаток единиц исчисления до конца 
+        /// срока истечения вклада 
         /// </summary>
-        public int ExpirationDuration { get => GetTotalMonthsCount(); }
+        public int ExpirationDuration 
+        { get => GetTotalMonthsCount(); }
 
         #endregion
 
@@ -107,7 +117,7 @@ namespace Homework_13.Model.bankModel
         /// <returns></returns>
         public int GetTotalMonthsCount()
         {
-            DateTime now = DateTime.Now;
+            DateTime now = DateTime.UtcNow;
             DateTime start = ActivationDate;
 
             return (int)(((now.Year - start.Year) * 12) +
@@ -116,9 +126,35 @@ namespace Homework_13.Model.bankModel
                 ((start.Day == 1 && DateTime.DaysInMonth(now.Year, now.Month) == now.Day) ? 1 : 0));
         }
 
+        private DateTime _nextPaymentDay;
+
+        /// <summary>
+        /// дата следующего начисления процентов
+        /// </summary>
+        public DateTime NextPaymentDay
+        {
+            get => _nextPaymentDay;
+            set
+            {
+                _nextPaymentDay = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Расчитывает дату следующего начисления процентов
+        /// </summary>
+        public void CalculateNextPaymentDay()
+        {
+            NextPaymentDay = NextPaymentDay.AddDays(
+                DateTime.DaysInMonth(
+                    NextPaymentDay.Year,
+                    NextPaymentDay.Month));
+        }
+
         /// <summary>
         /// Добавляет экземпляр депозитного счёта 
-        /// в соответствующий списко в синглтоне ThisBank
+        /// в соответствующий список в синглтоне ThisBank
         /// </summary>
         public override void AddLinkToAccountInBank()
         {

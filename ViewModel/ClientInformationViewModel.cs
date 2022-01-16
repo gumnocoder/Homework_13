@@ -149,6 +149,29 @@ namespace Homework_13.ViewModel
             set => Selected = value;
         }
 
+        /// <summary>
+        /// Инвертированное значение активности кредитного счёта
+        /// </summary>
+        public bool Credit
+        {
+            get => !SelectedClient.CreditIsActive;
+        }
+
+        /// <summary>
+        /// Инвертированное значение активности дебетового счёта
+        /// </summary>
+        public bool Debit
+        {
+            get => !SelectedClient.DebitIsActive;
+        }
+
+        /// <summary>
+        /// Инвертированное значение активности депозитного счёта
+        /// </summary>
+        public bool Deposit
+        {
+            get => !SelectedClient.DepositIsActive;
+        }
         #endregion
 
         #region Команда копирования в буфер обмена

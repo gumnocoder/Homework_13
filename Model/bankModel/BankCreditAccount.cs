@@ -24,7 +24,12 @@ namespace Homework_13.Model.bankModel
                 if (Percent < CreditPercentSetter.minPercent) 
                 { Percent = CreditPercentSetter.minPercent; }
 
-                _activationDate = DateTime.Now;
+                _activationDate = DateTime.UtcNow;
+                NextPaymentDay = _activationDate.AddDays(
+                    DateTime.DaysInMonth(
+                        _activationDate.Year,
+                        _activationDate.Month));
+
                 this.Expiration = Expiration;
                 AddLinkToAccountInBank();
                 client.CreditAccountID = ID;
@@ -43,6 +48,8 @@ namespace Homework_13.Model.bankModel
         private int _expiration;
         public const int minExpiration = 6;
         private DateTime _activationDate;
+        private DateTime _nextPaymentDay;
+
 
         #endregion
 
@@ -68,12 +75,41 @@ namespace Homework_13.Model.bankModel
         /// <summary>
         /// Дата выдачи кредита
         /// </summary>
-        public DateTime ActivationDate { get => _activationDate; }
+        public DateTime ActivationDate 
+        { 
+            get => _activationDate; 
+            set => _activationDate = value; 
+        }
+
+        /// <summary>
+        /// Дата следующего платежа по кредиту
+        /// </summary>
+        public DateTime NextPaymentDay
+        {
+            get => _nextPaymentDay;
+            set
+            {
+                _nextPaymentDay = value;
+                OnPropertyChanged();
+            }
+         }
+
+        /// <summary>
+        /// Расчитывает дату следующего платежа
+        /// </summary>
+        public void CalculateNextPaymentDay()
+        {
+            NextPaymentDay = NextPaymentDay.AddDays(
+                DateTime.DaysInMonth(
+                    NextPaymentDay.Year,
+                    NextPaymentDay.Month));
+        }
 
         /// <summary>
         /// Возвращает остаточное значение до истечения срока кредита
         /// </summary>
-        public int ExpirationDuration { get => GetTotalMonthsCount(); }
+        public int ExpirationDuration 
+        { get => GetTotalMonthsCount(); }
 
         #endregion
 

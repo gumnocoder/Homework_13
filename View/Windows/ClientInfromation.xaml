@@ -7,7 +7,7 @@
         xmlns:cmd="clr-namespace:Homework_13.Service.Command"
         xmlns:local="clr-namespace:Homework_13.View.Windows"
         mc:Ignorable="d"
-        Title="ClientInfromation" Height="700" Width="380">
+        Title="ClientInfromation" Height="760" Width="380">
     <Window.DataContext>
         <viewModel:ClientInformationViewModel/>
     </Window.DataContext>
@@ -29,14 +29,14 @@
             Grid.Row="1" 
             Margin="5,5,5,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="7*"/>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <TextBlock
                 Grid.Column="0"
-                Text="Идентификатор"
-                Margin="5,2,5,2"/>
+                Text="ID"
+                Margin="15,2,5,2"/>
             <TextBlock 
                 Grid.Column="1"
                 Text="Имя клиента"
@@ -44,7 +44,7 @@
             <TextBlock 
                 Grid.Column="2" 
                 Text="Рейтинг" 
-                Margin="12,2,5,2"/>
+                Margin="5,2,5,2"/>
             <Border 
                 Grid.Row="0"
                 Grid.Column="0" 
@@ -66,9 +66,9 @@
             Grid.Row="2" 
             Margin="5,0,5,5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="7*"/>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <TextBlock
                 Grid.Column="0"
@@ -77,7 +77,7 @@
             <TextBlock 
                 Grid.Column="1"
                 Text="{Binding Selected.Name}"
-                Margin="50,2,5,2"/>
+                Margin="5,2,5,2"/>
             <TextBlock 
                 Grid.Column="2" 
                 Text="{Binding Reputation}" 
@@ -102,12 +102,43 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock 
-                    Margin="5"
-                    FontWeight="Bold"
-                    Grid.Row="0" 
-                    Grid.ColumnSpan="2" 
-                     Text="Информация о дебетовом счёте"/>
+                    <StackPanel 
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="5"
+                        Grid.Row="0" 
+                        Grid.ColumnSpan="2">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Margin="0,0,7,0"
+                            FontWeight="Bold"
+                            Grid.Row="0" 
+                            Grid.ColumnSpan="2" 
+                             Text="Информация о дебетовом счёте"/>
+                        <Button
+                            CommandParameter="{Binding Selected}"
+                            Visibility="{
+                            Binding Debit, 
+                            Converter={
+                            StaticResource BooleanToVisibilityConverter}}"                            
+                            Margin="0,5,0,0"
+                            Width="18"
+                            ToolTip="Открыть дебетовый счёт">
+                            <Button.Content>
+                                <TextBlock 
+                                    Foreground="SeaGreen"
+                                    Margin="0,-4,0,0"
+                                    Text="+"
+                                    FontWeight="Black"
+                                    FontFamily="Arial"
+                                    FontSize="17"
+                                    />
+                            </Button.Content>
+                            <Button.Command>
+                                <cmd:CreateDebitCommand/>
+                            </Button.Command>
+                        </Button>
+                    </StackPanel>
                 <TextBlock
                     Margin="5"
                     Grid.Row="1"
@@ -202,18 +233,49 @@
                         <RowDefinition Height="2*"/>
                         <RowDefinition Height="3*"/>
                         <RowDefinition Height="2*"/>
+                        <RowDefinition Height="3*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock 
+                    <StackPanel 
+                        Orientation="Horizontal"
                         VerticalAlignment="Center"
                         Margin="5"
-                        FontWeight="Bold"
                         Grid.Row="0" 
-                        Grid.ColumnSpan="2" 
-                         Text="Информация о депозитном счёте"/>
+                        Grid.ColumnSpan="2">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Margin="0,0,7,0"
+                            FontWeight="Bold"
+                            Grid.Row="0" 
+                            Grid.ColumnSpan="2" 
+                             Text="Информация о депозитном счёте"/>
+                        <Button
+                            CommandParameter="{Binding Selected}"
+                            Visibility="{
+                            Binding Deposit, 
+                            Converter={
+                            StaticResource BooleanToVisibilityConverter}}"
+                            Margin="0,2,0,0"
+                            Width="18"
+                            ToolTip="Открыть депозитный счёт">
+                            <Button.Content>
+                                <TextBlock 
+                                    Foreground="SeaGreen"
+                                    Margin="0,-4,0,0"
+                                    Text="+"
+                                    FontWeight="Black"
+                                    FontFamily="Arial"
+                                    FontSize="17"
+                                    />
+                            </Button.Content>
+                            <Button.Command>
+                                <cmd:AccountOpener Deposit="True"/>
+                            </Button.Command>
+                        </Button>
+                    </StackPanel>
                     <TextBlock
                         VerticalAlignment="Center"
                         Margin="5"
@@ -337,6 +399,21 @@
                         Text="{Binding Selected.ClientsDepositAccount.ActivationDate,
                         ValidatesOnExceptions=True, 
                         StringFormat={}{0:d} }"/>
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Margin="5"
+                        Grid.Row="7"
+                        Grid.Column="0">
+                        Дата следующего <LineBreak/>
+                        начисления
+                    </TextBlock>
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        Text="{Binding Selected.ClientsDepositAccount.NextPaymentDay,
+                        ValidatesOnExceptions=True, 
+                        StringFormat={}{0:d} }"/>
                 </Grid>
             </Border>
             <Border Grid.Row="2" BorderThickness="0.5" BorderBrush="Black">
@@ -354,13 +431,43 @@
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock 
+                    <StackPanel 
+                        Orientation="Horizontal"
                         VerticalAlignment="Center"
                         Margin="5"
-                        FontWeight="Bold"
                         Grid.Row="0" 
-                        Grid.ColumnSpan="2" 
-                         Text="Информация о кредитном счёте"/>
+                        Grid.ColumnSpan="2">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Margin="0,0,7,0"
+                            FontWeight="Bold"
+                            Grid.Row="0" 
+                            Grid.ColumnSpan="2" 
+                             Text="Информация о кредитном счёте"/>
+                        <Button
+                            CommandParameter="{Binding Selected}"
+                            Visibility="{
+                            Binding Credit, 
+                            Converter={
+                            StaticResource BooleanToVisibilityConverter}}"
+                            Margin="0,5,0,0"
+                            Width="18"
+                            ToolTip="Оформить кредит">
+                            <Button.Content>
+                                <TextBlock 
+                                    Foreground="SeaGreen"
+                                    Margin="0,-3,0,0"
+                                    Text="+"
+                                    FontWeight="Black"
+                                    FontFamily="Arial"
+                                    FontSize="17"
+                                    />
+                            </Button.Content>
+                            <Button.Command>
+                                <cmd:AccountOpener Deposit="False"/>
+                            </Button.Command>
+                        </Button>
+                    </StackPanel>
                     <TextBlock
                         VerticalAlignment="Center"
                         Margin="5"

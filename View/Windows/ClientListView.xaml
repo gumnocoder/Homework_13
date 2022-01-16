@@ -46,8 +46,16 @@
                         Command="{Binding ParameterDecrease}">
                     </MenuItem>
                     <MenuItem 
-                        Header="Открыть дебетовый счёт" 
-                        Command="{Binding OpenDebit}"/>
+                        CommandParameter="{
+                            Binding RelativeSource={
+                            RelativeSource FindAncestor, AncestorType={
+                            x:Type ContextMenu}}, 
+                            Path=PlacementTarget.SelectedItem}"
+                        Header="Открыть дебетовый счёт">
+                        <MenuItem.Command>
+                            <cmd:CreateDebitCommand/>
+                        </MenuItem.Command>
+                    </MenuItem>
                     <MenuItem 
                         IsEnabled="True"
                         Header="Открыть депозитный счёт"

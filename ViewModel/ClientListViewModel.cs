@@ -183,41 +183,6 @@ namespace Homework_13.ViewModel
         }
         #endregion
 
-        #region Команда для открытия дебетового счёта
-
-        private RelayCommand _openDebit;
-
-        /// <summary>
-        /// открывает дебетовый счёт
-        /// </summary>
-        public RelayCommand OpenDebit
-        {
-            get => _openDebit ??= new(OpenDebitCommand);
-        }
-
-        /// <summary>
-        /// открывает дебетовый счёт для выбранного клиента
-        /// </summary>
-        /// <param name="s"></param>
-        private void OpenDebitCommand(object s)
-        {
-            if (SelectedClient != null && SelectedClient.DebitIsActive == false)
-            {
-                new BankDebitAccount(SelectedClient);
-                //SelectedClient.ClientsDebitAccount = new(SelectedClient);
-                ShowInformation(
-                    "Дебетовый счёт успешно открыт!", 
-                    "Операция завершена");
-            }
-            else if (SelectedClient == null)
-            { ShowError("Выберите клиента!"); }
-
-            else if (SelectedClient != null && SelectedClient.DebitIsActive == true) 
-            { ShowError("Дебетовый счёт уже открыт"); }
-        }
-
-        #endregion
-
         #region Просмотр информации по кредиту
 
         private RelayCommand _checkCreditInfoCommand;
