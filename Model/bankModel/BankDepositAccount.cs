@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Homework_13.Model.bankModel.interfaces;
+using Homework_13.Service;
 using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.Model.bankModel
@@ -45,6 +46,7 @@ namespace Homework_13.Model.bankModel
                         client.DepositAccountID);
                 Debug.WriteLine($"Expired at: {this.Expiration}");
                 new ReputationIncreaser(client, 3);
+                _clientID = client.ID;
                 Debug.WriteLine(this);
             }
         }
@@ -58,6 +60,7 @@ namespace Homework_13.Model.bankModel
         #region Поля
         private double _percent;
         private int _expiration;
+        private long _clientID;
         private const int _minExpiration = 12;
         private DateTime _activationDate;
         #endregion
@@ -88,12 +91,12 @@ namespace Homework_13.Model.bankModel
             set => _activationDate = value; 
         }
 
-        /// <summary>
+/*        /// <summary>
         /// Остаток единиц исчисления до конца 
         /// срока истечения вклада 
         /// </summary>
         public int ExpirationDuration 
-        { get => GetTotalMonthsCount(); }
+        { get => GetTotalMonthsCount(); }*/
 
         #endregion
 
@@ -108,7 +111,7 @@ namespace Homework_13.Model.bankModel
         /// Проверяет истёк ли срок вклада
         /// </summary>
         /// <returns></returns>
-        public bool Expired() => GetTotalMonthsCount() == 0;
+        public bool Expired() => Expiration == 0;
 
 
         /// <summary>
@@ -139,6 +142,43 @@ namespace Homework_13.Model.bankModel
                 _nextPaymentDay = value;
                 OnPropertyChanged();
             }
+        }
+
+        /// <summary>
+        /// выполняет ряд методов если пора начислять проценты,
+        /// или закрывает счёт и переводит средства на дебетовый 
+        /// счёт если срок депозита вышел
+        /// </summary>
+        public void TurnMonth()
+        {
+            if (NextPaymentDay.Month <= DateTime.UtcNow.Month &&
+                NextPaymentDay.Day <= DateTime.UtcNow.Day)
+            {
+                
+                AddPercents();
+                if (!Expired())
+                {
+                    --Expiration;
+                    CalculateNextPaymentDay();
+                    TurnMonth();
+                }
+                else
+                {
+                    new AcccountDepositHandler(
+                        SearchEngine.SearchByID(
+                            ClientList<Client>.ClientsList, 
+                            _clientID), this).OnExpired();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Начисляет проценты за прошедший месяц
+        /// </summary>
+        public void AddPercents()
+        {
+            AccountAmount += (Convert.ToInt64(
+                Math.Round((double)(AccountAmount * Percent / 100 / 12))));
         }
 
         /// <summary>

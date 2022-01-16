@@ -70,7 +70,7 @@ namespace Homework_13.Model.bankModel
         /// переводит накопления на дебетовый счёт 
         /// (создаёт при необходимости) и закрывает депозитный счёт
         /// </summary>
-        void OnExpired()
+        public void OnExpired()
         {
             if (_account.Expiration == 0)
             {

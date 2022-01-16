@@ -105,11 +105,11 @@ namespace Homework_13.Model.bankModel
                     NextPaymentDay.Month));
         }
 
-        /// <summary>
+/*        /// <summary>
         /// Возвращает остаточное значение до истечения срока кредита
         /// </summary>
         public int ExpirationDuration 
-        { get => GetTotalMonthsCount(); }
+        { get => GetTotalMonthsCount(); }*/
 
         #endregion
 
@@ -130,9 +130,9 @@ namespace Homework_13.Model.bankModel
         /// Проверяет истёк ли срок кредита
         /// </summary>
         /// <returns></returns>
-        public bool Expired() => GetTotalMonthsCount() == 0;
+        public bool Expired() => Expiration == 0;
 
-        /// <summary>
+/*        /// <summary>
         /// Выполняет расчёт остатка до истечения срока кредита
         /// </summary>
         /// <returns></returns>
@@ -145,7 +145,7 @@ namespace Homework_13.Model.bankModel
                 now.Month - start.Month +
                 (start.Day >= now.Day - 1 ? 0 : -1) +
                 ((start.Day == 1 && DateTime.DaysInMonth(now.Year, now.Month) == now.Day) ? 1 : 0));
-        }
+        }*/
 
         /// <summary>
         /// Добавляет экземпляр кредитного счёта в 

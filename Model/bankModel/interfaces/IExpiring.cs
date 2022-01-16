@@ -14,11 +14,6 @@ namespace Homework_13.Model.bankModel.interfaces
         int Expiration { get; set; }
 
         /// <summary>
-        /// остаток срока
-        /// </summary>
-        int ExpirationDuration { get; }
-
-        /// <summary>
         /// Дата активации
         /// </summary>
         DateTime ActivationDate { get; set; }
@@ -34,7 +29,6 @@ namespace Homework_13.Model.bankModel.interfaces
         /// <returns></returns>
         bool Expired();
 
-        public int GetTotalMonthsCount();
 
         void CalculateNextPaymentDay();
     }
