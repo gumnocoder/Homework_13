@@ -25,13 +25,7 @@ namespace Homework_13.ViewModel
 
             DataLoader<BankAccount>.LoadingChain();
 
-
-            //TimeCheck.OnTimerSignal += Stri;
-
-            /*            foreach (var e in ThisBank.Deposits)
-                        {
-                            TimeCheck.OnTimerSignal += (e as BankDepositAccount).Temp;
-                        }*/
+            SubscribeCredits();
             SubscribeDeposits();
 
             Task.Run(() => TimeCheck.StartTimeChecking());
@@ -45,6 +39,16 @@ namespace Homework_13.ViewModel
             {
                 foreach (var e in ThisBank.Deposits)
                     TimeCheck.OnTimerSignal += (e as BankDepositAccount).DateComparer;
+            }
+        }
+
+        private void SubscribeCredits()
+        {
+            if (ThisBank.Credits == null) ThisBank.Credits = new();
+            else
+            {
+                foreach (var e in ThisBank.Credits)
+                    TimeCheck.OnTimerSignal += (e as BankCreditAccount).DateComparer;
             }
         }
         public void Stri()

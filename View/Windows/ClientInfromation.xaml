@@ -7,7 +7,7 @@
         xmlns:cmd="clr-namespace:Homework_13.Service.Command"
         xmlns:local="clr-namespace:Homework_13.View.Windows"
         mc:Ignorable="d"
-        Title="ClientInfromation" Height="760" Width="380">
+        Title="ClientInfromation" Height="780" Width="380">
     <Window.DataContext>
         <viewModel:ClientInformationViewModel/>
     </Window.DataContext>
@@ -85,9 +85,9 @@
         </Grid>
         <Grid Grid.Row="3" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="10*"/>
+                <RowDefinition Height="9*"/>
                 <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
+                <RowDefinition Height="22*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Border BorderThickness="0.5" BorderBrush="Black">
@@ -426,6 +426,7 @@
                         <RowDefinition Height="2*"/>
                         <RowDefinition Height="3*"/>
                         <RowDefinition Height="2*"/>
+                        <RowDefinition Height="3*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
@@ -590,6 +591,21 @@
                         Grid.Row="6"
                         Grid.Column="1"
                         Text="{Binding Selected.ClientsCreditAccount.ActivationDate,
+                        ValidatesOnExceptions=True, 
+                        StringFormat={}{0:d} }"/>
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Margin="5"
+                        Grid.Row="7"
+                        Grid.Column="0">
+                        Дата следующего <LineBreak/>
+                        начисления
+                    </TextBlock>
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        Text="{Binding Selected.ClientsCreditAccount.NextPaymentDay,
                         ValidatesOnExceptions=True, 
                         StringFormat={}{0:d} }"/>
                 </Grid>
