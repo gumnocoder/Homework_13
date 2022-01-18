@@ -61,22 +61,10 @@ namespace Homework_13.Model.bankModel
         #endregion
 
         #region Поля
-        private double _percent;
         private long _clientID;
         private const int _minExpiration = 12;
         #endregion
 
-        #region Свойства
-        /// <summary>
-        /// Процент по вкладу
-        /// </summary>
-        public double Percent 
-        { 
-            get => _percent;
-            set => _percent = value;
-        }
-
-        #endregion
 
         #region Методы
         /// <summary>
@@ -90,14 +78,13 @@ namespace Homework_13.Model.bankModel
         /// или закрывает счёт и переводит средства на дебетовый 
         /// счёт если срок депозита вышел
         /// </summary>
-        public void TurnMonth()
+        public override void TurnMonth()
         {
             AddPercents();
             if (!Expired())
             {
                 --Expiration;
                 CalculateNextPaymentDay();
-                TurnMonth();
             }
             else
             {
@@ -109,13 +96,6 @@ namespace Homework_13.Model.bankModel
         }
 
         /// <summary>
-        /// Начисляет проценты за прошедший месяц
-        /// </summary>
-        public void AddPercents() =>
-            AccountAmount += (Convert.ToInt64(
-                Math.Round((double)(AccountAmount * Percent / 100 / 12))));
-
-        /// <summary>
         /// Добавляет экземпляр депозитного счёта 
         /// в соответствующий список в синглтоне ThisBank
         /// </summary>
@@ -124,30 +104,6 @@ namespace Homework_13.Model.bankModel
             ThisBank.Deposits.Add(this);
             Debug.WriteLine(this);
         }
-
-        /// <summary>
-        /// Выполняет проверку на окончание расчётного периода
-        /// в случае подтверждения окончания периода запускает 
-        /// сценарий плановых ежемесячных процедур
-        /// </summary>
-        public void ComprareDateToNextPaymentDay()
-        {
-            if (DateTime.UtcNow.Year == NextPaymentDay.Year &&
-                DateTime.UtcNow.Month == NextPaymentDay.Month &&
-                DateTime.UtcNow.Day == NextPaymentDay.Day)
-            {
-                Debug.WriteLine("is a payment day!");
-                TurnMonth();
-            }
-            else Debug.WriteLine($"not yet! at least {(int)(((NextPaymentDay - DateTime.UtcNow).Days))} days");
-        }
-
-        /// <summary>
-        /// Асинхронно запускает группу методов выполняющих 
-        /// плановые ежемесячные операции по депозитному счёту
-        /// </summary>
-        public async void DateComparer() =>
-            await Task.Run(() => ComprareDateToNextPaymentDay());
 
 
         /// <summary>

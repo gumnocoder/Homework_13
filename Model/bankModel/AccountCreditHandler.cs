@@ -64,6 +64,7 @@ namespace Homework_13.Model.bankModel
         {
             Executed = false;
             _account.AccountAmount = 0;
+            _account.PaymentFlag = true;
             foreach (var e in ThisBank.Credits)
             {
                 if (e == _client.ClientsCreditAccount)
@@ -87,10 +88,17 @@ namespace Homework_13.Model.bankModel
             Executed = false;
             _account.AccountAmount += PayAmount;
             onPayment();
+            _account.PaymentFlag = true;
             Execute();
         }
         public delegate void PaymentEvent();
         public event PaymentEvent onPayment;
+
+        public void OnExpiredMonthlyPayment()
+        {
+            new ReputationDecreaser(_client, _client.Reputation).Execute();
+            _client.AccountsFreezed = true;
+        }
 
         /// <summary>
         /// Выполнить если кредит не был погашен, но срок вышел
@@ -99,8 +107,7 @@ namespace Homework_13.Model.bankModel
         {
             if (_account.Expired() && _account.AccountAmount < 0)
             {
-                new ReputationDecreaser(_client, _client.Reputation).Execute();
-                _client.AccountsFreezed = true;
+                OnExpiredMonthlyPayment();
             }
         }
 
