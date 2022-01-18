@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Homework_13.Model.bankModel.interfaces;
 using Homework_13.Service;
 using static Homework_13.Model.bankModel.Bank;
+using static Homework_13.Model.bankModel.TimeChecker;
 
 namespace Homework_13.Model.bankModel
 {
@@ -28,6 +30,7 @@ namespace Homework_13.Model.bankModel
         {
             if (!client.DepositIsActive)
             {
+                TimeCheck.OnTimerSignal += this.DateComparer;
                 AccountAmount += DepositStartAmount;
                 SetId();
                 client.DepositIsActive = true;
@@ -63,9 +66,23 @@ namespace Homework_13.Model.bankModel
         private long _clientID;
         private const int _minExpiration = 12;
         private DateTime _activationDate;
+        private DateTime _nextPaymentDay;
         #endregion
 
         #region Свойства
+        /// <summary>
+        /// дата следующего начисления процентов
+        /// </summary>
+        public DateTime NextPaymentDay
+        {
+            get => _nextPaymentDay;
+            set
+            {
+                _nextPaymentDay = value;
+                OnPropertyChanged();
+            }
+        }
+
         /// <summary>
         /// Процент по вкладу
         /// </summary>
@@ -91,13 +108,6 @@ namespace Homework_13.Model.bankModel
             set => _activationDate = value; 
         }
 
-/*        /// <summary>
-        /// Остаток единиц исчисления до конца 
-        /// срока истечения вклада 
-        /// </summary>
-        public int ExpirationDuration 
-        { get => GetTotalMonthsCount(); }*/
-
         #endregion
 
         #region Методы
@@ -113,62 +123,26 @@ namespace Homework_13.Model.bankModel
         /// <returns></returns>
         public bool Expired() => Expiration == 0;
 
-
         /// <summary>
-        /// Возвращает остаток дней до истечения срока вклада
-        /// </summary>
-        /// <returns></returns>
-        public int GetTotalMonthsCount()
-        {
-            DateTime now = DateTime.UtcNow;
-            DateTime start = ActivationDate;
-
-            return (int)(((now.Year - start.Year) * 12) +
-                now.Month - start.Month +
-                (start.Day >= now.Day - 1 ? 0 : -1) +
-                ((start.Day == 1 && DateTime.DaysInMonth(now.Year, now.Month) == now.Day) ? 1 : 0));
-        }
-
-        private DateTime _nextPaymentDay;
-
-        /// <summary>
-        /// дата следующего начисления процентов
-        /// </summary>
-        public DateTime NextPaymentDay
-        {
-            get => _nextPaymentDay;
-            set
-            {
-                _nextPaymentDay = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <summary>
-        /// выполняет ряд методов если пора начислять проценты,
+        /// выполняет ряд методов по начислению процентов,
         /// или закрывает счёт и переводит средства на дебетовый 
         /// счёт если срок депозита вышел
         /// </summary>
         public void TurnMonth()
         {
-            if (NextPaymentDay.Month <= DateTime.UtcNow.Month &&
-                NextPaymentDay.Day <= DateTime.UtcNow.Day)
+            AddPercents();
+            if (!Expired())
             {
-                
-                AddPercents();
-                if (!Expired())
-                {
-                    --Expiration;
-                    CalculateNextPaymentDay();
-                    TurnMonth();
-                }
-                else
-                {
-                    new AcccountDepositHandler(
-                        SearchEngine.SearchByID(
-                            ClientList<Client>.ClientsList, 
-                            _clientID), this).OnExpired();
-                }
+                --Expiration;
+                CalculateNextPaymentDay();
+                TurnMonth();
+            }
+            else
+            {
+                new AcccountDepositHandler(
+                    SearchEngine.SearchByID(
+                        ClientList<Client>.ClientsList,
+                        _clientID), this).OnExpired();
             }
         }
 
@@ -201,6 +175,22 @@ namespace Homework_13.Model.bankModel
             ThisBank.Deposits.Add(this);
             Debug.WriteLine(this);
         }
+
+        public void ComprareDateToNextPaymentDay()
+        {
+            if (DateTime.UtcNow.Year == NextPaymentDay.Year &&
+                DateTime.UtcNow.Month == NextPaymentDay.Month &&
+                DateTime.UtcNow.Day == NextPaymentDay.Day)
+            {
+                Debug.WriteLine("is a payment day!");
+                TurnMonth();
+            }
+            else Debug.WriteLine($"not yet! at least {(int)(((NextPaymentDay - DateTime.UtcNow).Days))} days");
+        }
+
+        public async void DateComparer() =>
+            await Task.Run(() => ComprareDateToNextPaymentDay());
+
 
         /// <summary>
         /// Возвращает информацию о 

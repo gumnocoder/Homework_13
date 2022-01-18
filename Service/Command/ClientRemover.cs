@@ -1,5 +1,7 @@
 ﻿using Homework_13.Model;
+using Homework_13.Model.bankModel;
 using static Homework_13.Model.bankModel.Bank;
+using static Homework_13.Model.bankModel.TimeChecker;
 
 namespace Homework_13.Service.Command
 {
@@ -44,7 +46,12 @@ namespace Homework_13.Service.Command
                         {
                             foreach (var a in ThisBank.Deposits)
                             {
-                                if (a == client.ClientsDepositAccount) ThisBank.Deposits.Remove(a);
+                                if (a == client.ClientsDepositAccount) 
+                                {
+                                    TimeCheck.OnTimerSignal -= 
+                                        (a as BankDepositAccount).DateComparer; 
+                                    ThisBank.Deposits.Remove(a);
+                                }
                                 break;
                             }
                         }

@@ -33,7 +33,9 @@ namespace Homework_13.Model.bankModel
                 this.Expiration = Expiration;
                 AddLinkToAccountInBank();
                 client.CreditAccountID = ID;
-                client.ClientsCreditAccount = (BankCreditAccount)client.ba<BankCreditAccount>(ref ThisBank.credits, client.CreditAccountID);
+                client.ClientsCreditAccount = (BankCreditAccount)client.ba<BankCreditAccount>(
+                    ref ThisBank.credits, 
+                    client.CreditAccountID);
             }
             else Debug.WriteLine("кредит недоступен для этой персоны");
         }
@@ -131,21 +133,6 @@ namespace Homework_13.Model.bankModel
         /// </summary>
         /// <returns></returns>
         public bool Expired() => Expiration == 0;
-
-/*        /// <summary>
-        /// Выполняет расчёт остатка до истечения срока кредита
-        /// </summary>
-        /// <returns></returns>
-        public int GetTotalMonthsCount()
-        {
-            DateTime now = DateTime.Now;
-            DateTime start = ActivationDate;
-
-            return (int)(((now.Year - start.Year) * 12) +
-                now.Month - start.Month +
-                (start.Day >= now.Day - 1 ? 0 : -1) +
-                ((start.Day == 1 && DateTime.DaysInMonth(now.Year, now.Month) == now.Day) ? 1 : 0));
-        }*/
 
         /// <summary>
         /// Добавляет экземпляр кредитного счёта в 

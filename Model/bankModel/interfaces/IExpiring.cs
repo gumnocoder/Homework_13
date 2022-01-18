@@ -29,7 +29,9 @@ namespace Homework_13.Model.bankModel.interfaces
         /// <returns></returns>
         bool Expired();
 
-
+        /// <summary>
+        /// Вычисление даты следующей выплаты
+        /// </summary>
         void CalculateNextPaymentDay();
     }
 }

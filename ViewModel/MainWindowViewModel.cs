@@ -5,8 +5,10 @@ using Homework_13.Model;
 using Homework_13.Model.bankModel;
 using Homework_13.Service;
 using Homework_13.Service.Command;
+using static Homework_13.Model.bankModel.TimeChecker;
 using static Homework_13.Model.bankModel.Bank;
 using static Homework_13.Model.ClientList<Homework_13.Model.Client>;
+using System.Threading.Tasks;
 
 namespace Homework_13.ViewModel
 {
@@ -22,6 +24,32 @@ namespace Homework_13.ViewModel
             Tittle = "Банк";
 
             DataLoader<BankAccount>.LoadingChain();
+
+
+            //TimeCheck.OnTimerSignal += Stri;
+
+            /*            foreach (var e in ThisBank.Deposits)
+                        {
+                            TimeCheck.OnTimerSignal += (e as BankDepositAccount).Temp;
+                        }*/
+            SubscribeDeposits();
+
+            Task.Run(() => TimeCheck.StartTimeChecking());
+            
+        }
+
+        private void SubscribeDeposits()
+        {
+            if (ThisBank.Deposits == null) ThisBank.Deposits = new();
+            else
+            {
+                foreach (var e in ThisBank.Deposits)
+                    TimeCheck.OnTimerSignal += (e as BankDepositAccount).DateComparer;
+            }
+        }
+        public void Stri()
+        {
+            Debug.WriteLine("Stri()");
         }
 
         #region Поля
