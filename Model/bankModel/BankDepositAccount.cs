@@ -11,7 +11,7 @@ namespace Homework_13.Model.bankModel
     /// <summary>
     /// Депозитный банковский счёт
     /// </summary>
-    class BankDepositAccount : BankAccount, IPercentContainer, IExpiring
+    class BankDepositAccount : BankPercentableAccount
     {
         #region Конструкторы
 
@@ -35,11 +35,11 @@ namespace Homework_13.Model.bankModel
                 SetId();
                 client.DepositIsActive = true;
                 Percent = PersonalPercent;
-                _activationDate = DateTime.UtcNow;
-                NextPaymentDay = _activationDate.AddDays(
+                ActivationDate = DateTime.UtcNow;
+                NextPaymentDay = ActivationDate.AddDays(
                     DateTime.DaysInMonth(
-                        _activationDate.Year,
-                        _activationDate.Month));
+                        ActivationDate.Year,
+                        ActivationDate.Month));
                 this.Expiration = ++Expiration;
                 AddLinkToAccountInBank();
                 client.DepositAccountID = ID;
@@ -62,27 +62,11 @@ namespace Homework_13.Model.bankModel
 
         #region Поля
         private double _percent;
-        private int _expiration;
         private long _clientID;
         private const int _minExpiration = 12;
-        private DateTime _activationDate;
-        private DateTime _nextPaymentDay;
         #endregion
 
         #region Свойства
-        /// <summary>
-        /// дата следующего начисления процентов
-        /// </summary>
-        public DateTime NextPaymentDay
-        {
-            get => _nextPaymentDay;
-            set
-            {
-                _nextPaymentDay = value;
-                OnPropertyChanged();
-            }
-        }
-
         /// <summary>
         /// Процент по вкладу
         /// </summary>
@@ -90,22 +74,6 @@ namespace Homework_13.Model.bankModel
         { 
             get => _percent;
             set => _percent = value;
-        }
-        /// <summary>
-        /// Срок истечения вклада
-        /// </summary>
-        public int Expiration 
-        { 
-            get => _expiration;
-            set => _expiration = value;
-        }
-        /// <summary>
-        /// Дата открытия счёта
-        /// </summary>
-        public DateTime ActivationDate 
-        { 
-            get => _activationDate; 
-            set => _activationDate = value; 
         }
 
         #endregion
@@ -116,12 +84,6 @@ namespace Homework_13.Model.bankModel
         /// </summary>
         public override void SetId() => 
             ID = ++ThisBank.CurrentDepositID;
-
-        /// <summary>
-        /// Проверяет истёк ли срок вклада
-        /// </summary>
-        /// <returns></returns>
-        public bool Expired() => Expiration == 0;
 
         /// <summary>
         /// выполняет ряд методов по начислению процентов,
@@ -149,22 +111,9 @@ namespace Homework_13.Model.bankModel
         /// <summary>
         /// Начисляет проценты за прошедший месяц
         /// </summary>
-        public void AddPercents()
-        {
+        public void AddPercents() =>
             AccountAmount += (Convert.ToInt64(
                 Math.Round((double)(AccountAmount * Percent / 100 / 12))));
-        }
-
-        /// <summary>
-        /// Расчитывает дату следующего начисления процентов
-        /// </summary>
-        public void CalculateNextPaymentDay()
-        {
-            NextPaymentDay = NextPaymentDay.AddDays(
-                DateTime.DaysInMonth(
-                    NextPaymentDay.Year,
-                    NextPaymentDay.Month));
-        }
 
         /// <summary>
         /// Добавляет экземпляр депозитного счёта 
@@ -176,6 +125,11 @@ namespace Homework_13.Model.bankModel
             Debug.WriteLine(this);
         }
 
+        /// <summary>
+        /// Выполняет проверку на окончание расчётного периода
+        /// в случае подтверждения окончания периода запускает 
+        /// сценарий плановых ежемесячных процедур
+        /// </summary>
         public void ComprareDateToNextPaymentDay()
         {
             if (DateTime.UtcNow.Year == NextPaymentDay.Year &&
@@ -188,6 +142,10 @@ namespace Homework_13.Model.bankModel
             else Debug.WriteLine($"not yet! at least {(int)(((NextPaymentDay - DateTime.UtcNow).Days))} days");
         }
 
+        /// <summary>
+        /// Асинхронно запускает группу методов выполняющих 
+        /// плановые ежемесячные операции по депозитному счёту
+        /// </summary>
         public async void DateComparer() =>
             await Task.Run(() => ComprareDateToNextPaymentDay());
 

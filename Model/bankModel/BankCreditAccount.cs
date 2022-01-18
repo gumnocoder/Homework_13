@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Homework_13.Model.bankModel.interfaces;
 using static Homework_13.Model.bankModel.Bank;
+using static Homework_13.Model.bankModel.TimeChecker;
 
 namespace Homework_13.Model.bankModel
 {
@@ -11,8 +12,18 @@ namespace Homework_13.Model.bankModel
     class BankCreditAccount : BankAccount, IPercentContainer, IExpiring
     {
         #region Конструктор
-
-        public BankCreditAccount(Client client, double PersonalPercent, long CreditAmount, int Expiration)
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="PersonalPercent"></param>
+        /// <param name="CreditAmount"></param>
+        /// <param name="Expiration"></param>
+        public BankCreditAccount(
+            Client client, 
+            double PersonalPercent,
+            long CreditAmount,
+            int Expiration)
         {
             if (!client.CreditIsActive && client.Reputation > 5)
             {
@@ -40,6 +51,9 @@ namespace Homework_13.Model.bankModel
             else Debug.WriteLine("кредит недоступен для этой персоны");
         }
 
+        /// <summary>
+        /// Конструктор по умолчанию
+        /// </summary>
         public BankCreditAccount() { }
 
         #endregion
@@ -107,11 +121,6 @@ namespace Homework_13.Model.bankModel
                     NextPaymentDay.Month));
         }
 
-/*        /// <summary>
-        /// Возвращает остаточное значение до истечения срока кредита
-        /// </summary>
-        public int ExpirationDuration 
-        { get => GetTotalMonthsCount(); }*/
 
         #endregion
 
