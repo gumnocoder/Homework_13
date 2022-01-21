@@ -9,6 +9,7 @@ using static Homework_13.Model.bankModel.TimeChecker;
 using static Homework_13.Model.bankModel.Bank;
 using static Homework_13.Model.ClientList<Homework_13.Model.Client>;
 using System.Threading.Tasks;
+using Homework_13.View.Windows;
 
 namespace Homework_13.ViewModel
 {
@@ -29,7 +30,8 @@ namespace Homework_13.ViewModel
             SubscribeDeposits();
 
             Task.Run(() => TimeCheck.StartTimeChecking());
-            
+            //testView t = new();
+            //t.TickHandler();
         }
 
         private void SubscribeDeposits()

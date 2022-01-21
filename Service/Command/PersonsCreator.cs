@@ -5,6 +5,8 @@ using Homework_13.Model.bankModel;
 using Homework_13.View.UserControls;
 using Homework_13.View.Windows;
 using static Homework_13.Service.InformationDialogService;
+using static Homework_13.Model.bankModel.Bank;
+using static Homework_13.Service.HudViewer;
 
 namespace Homework_13.Service.Command
 {
@@ -55,7 +57,8 @@ namespace Homework_13.Service.Command
                 return true;
             }
         }
-
+        public delegate void OnClientCreate(string a);
+        public event OnClientCreate createClientSignal;
         /// <summary>
         /// создаёт клиента и открывает на него дебетовый счёт при необходимости
         /// </summary>
@@ -65,7 +68,8 @@ namespace Homework_13.Service.Command
         public void CreateClient(ClientCreationForm window, string name, string type)
         {
             Client client = new(name, type);
-
+            this.createClientSignal += ShowHudWindow;
+            createClientSignal($"создан клиент {client}");
             /// проверяет потребность в открытии дебетового счёта и открывает его если true
             bool createAccount = (bool)window.CreateDebitAccountFlag.IsChecked;
             if (createAccount) new BankDebitAccount(client);
