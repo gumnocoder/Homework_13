@@ -1,4 +1,5 @@
-﻿using Homework_13.View.Windows;
+﻿using System;
+using Homework_13.View.Windows;
 using Homework_13.ViewModel;
 
 namespace Homework_13.Service.Command
@@ -16,14 +17,23 @@ namespace Homework_13.Service.Command
         {
             ClientEditingForm dlg = parameter as ClientEditingForm;
             EventAction += HudViewer.ShowHudWindow;
+            HistoryEventAction += LogWriter.WriteToLog;
 
             if (dlg.NameField.Text != string.Empty && 
                 ClientListViewModel.SelectedClient.Name != dlg.NameField.Text)
             {
                 OnEventAction($"имя клиента " +
-                    $"{ClientListViewModel.SelectedClient.Name} " +
                     $"изменено на " +
                     $"{dlg.NameField.Text}", true, false);
+
+                OnHistoryEventAction($"" +
+                    $"{DateTime.UtcNow} : " +
+                    $"Изменение имени клиента [" +
+                    $"{ClientListViewModel.SelectedClient}] c " +
+                    $"{ClientListViewModel.SelectedClient.Name} " +
+                    $"на {dlg.NameField.Text} : " +
+                    $"{MainWindowViewModel.CurrentUser}");
+
                 ClientListViewModel.SelectedClient.Name = dlg.NameField.Text;
             }
 
@@ -31,9 +41,17 @@ namespace Homework_13.Service.Command
                 ClientListViewModel.SelectedClient.Type != dlg.TypesList.Text)
             {
                 OnEventAction($"тип клиента " +
-                    $"{ClientListViewModel.SelectedClient.Name} " +
                     $"изменен на " +
                     $"{dlg.TypesList.Text}", true, false);
+
+                OnHistoryEventAction($"" +
+                    $"{DateTime.UtcNow} : " +
+                    $"Изменение типа клиента [" +
+                    $"{ClientListViewModel.SelectedClient}] c " +
+                    $"{ClientListViewModel.SelectedClient.Type} " +
+                    $"на {dlg.TypesList.Text} : " +
+                    $"{MainWindowViewModel.CurrentUser}");
+
                 ClientListViewModel.SelectedClient.Type = dlg.TypesList.Text;
             }
 

@@ -39,13 +39,23 @@ namespace Homework_13.Service.Command
                 }
                 else
                 {
-                    ShowError("Введено недопустимое число! Число должно быть в диапазоне от 1 до 10");
+                    //ShowError("");
+                    OnEventAction($"Введено недопустимое число! " +
+                        $"Число должно быть в диапазоне от 1 до 10", false, true);
+                    OnHistoryEventAction($"Попытка изменения репутации " +
+                        $"на недопустимое число ({tmp})");
+
                     return false;
                 }
             }
             else
             {
-                ShowError("Введено недопустимое значение! Введите число в диапазоне от 1 до 10");
+                //ShowError("Введено недопустимое значение! Введите число в диапазоне от 1 до 10");
+                OnEventAction($"Введено недопустимое значение! " +
+                    $"Введите число в диапазоне от 1 до 10", false, true);
+                OnHistoryEventAction($"Попытка изменения репутации, обнаружено " +
+                    $"несоответствие типов, переданное значение : {input}");
+
                 return false;
             }
         }
@@ -53,16 +63,23 @@ namespace Homework_13.Service.Command
             (parameter as Window) != null;
 
         /// <summary>
-        /// Инициализирует проверки и выполняет изменение параметра, в соответствии с выбранным флагом
+        /// Инициализирует проверки и выполняет изменение 
+        /// параметра, в соответствии с выбранным флагом
         /// </summary>
         /// <param name="parameter">окно ParameterChangingInput</param>
         public override void Execute(object parameter)
         {
             EventAction += HudViewer.ShowHudWindow;
+            HistoryEventAction += LogWriter.WriteToLog;
+
             if (!CanExecute(parameter)) return;
             if (ClientListViewModel.SelectedClient == null)
             {
-                ShowError("Клиент не выбран");
+                //ShowError("Клиент не выбран");
+                OnEventAction($"Клиент не выбран", false, true);
+                OnHistoryEventAction($"Попытка изменения репутации " +
+                    $"без указания конечного клиента");
+
                 return;
             }
 
@@ -75,14 +92,16 @@ namespace Homework_13.Service.Command
                 if (incr) 
                 { 
                     new ReputationIncreaser(client, _number).Execute();
-                    OnEventAction($"репутация клиента {client} повышена на {_number} пункт(ов)", true, false);
+                    OnEventAction($"Репутация клиента {client.Name} повышена", true, false);
+                    OnHistoryEventAction($"Репутация клиента {client} повышена на {_number} пункт(ов)");
                 }
                 incr = false;
 
                 if (decr)
                 {
                     new ReputationDecreaser(client, _number).Execute();
-                    OnEventAction($"репутация клиента {client} понижена на {_number} пункт(ов)", true, false);
+                    OnEventAction($"Репутация клиента {client.Name} понижена", true, false);
+                    OnHistoryEventAction($"Репутация клиента {client} понижена на {_number} пункт(ов)");
                 }
                 decr = false;
 

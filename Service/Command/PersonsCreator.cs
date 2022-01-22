@@ -7,6 +7,7 @@ using Homework_13.View.Windows;
 using static Homework_13.Service.InformationDialogService;
 using static Homework_13.Model.bankModel.Bank;
 using static Homework_13.Service.HudViewer;
+using Homework_13.ViewModel;
 
 namespace Homework_13.Service.Command
 {
@@ -69,7 +70,9 @@ namespace Homework_13.Service.Command
         {
             Client client = new(name, type);
             
-            OnEventAction($"создан клиент {client}", true, false);
+            OnEventAction($"Создан клиент {client.Name}", true, false);
+            OnHistoryEventAction($"Создан клиент {client}");
+
             /// проверяет потребность в открытии дебетового счёта и открывает его если true
             bool createAccount = (bool)window.CreateDebitAccountFlag.IsChecked;
             if (createAccount) new BankDebitAccount(client);
@@ -82,7 +85,6 @@ namespace Homework_13.Service.Command
                 "Отчёт");
             Debug.WriteLine(client);
 
-            foreach (var e in ClientList<Client>.ClientsList) Debug.WriteLine(e);
             window.Close();
         }
 
@@ -148,7 +150,9 @@ namespace Homework_13.Service.Command
         {
 
             User user = new(Name, Login, Pass, Type);
-            OnEventAction($"создан пользователь {user}", true, false);
+            OnEventAction($"Создан пользователь {user.Login}", true, false);
+            OnHistoryEventAction($"Создан пользователь {user}");
+
             /// выдает права пользователю в соответствии галочкам
             user.CanCreateUsers = 
                 (bool)window.canCreateUsers.IsChecked;
@@ -179,7 +183,7 @@ namespace Homework_13.Service.Command
             ShowInformation(
                 "Пользователь успешно создан!",
                 "Отчёт");
-
+            
             window.Close();
         }
 
@@ -193,6 +197,7 @@ namespace Homework_13.Service.Command
             if (!CanExecute(parameter)) return;
             Window window = parameter as Window;
             EventAction += ShowHudWindow;
+            HistoryEventAction += LogWriter.WriteToLog;
 
             switch (parameter)
             {

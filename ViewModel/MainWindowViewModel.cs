@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
+using System.Threading.Tasks;
 using Homework_13.Model;
 using Homework_13.Model.bankModel;
 using Homework_13.Service;
 using Homework_13.Service.Command;
-using static Homework_13.Model.bankModel.TimeChecker;
 using static Homework_13.Model.bankModel.Bank;
-using static Homework_13.Model.ClientList<Homework_13.Model.Client>;
-using System.Threading.Tasks;
-using Homework_13.View.Windows;
+using static Homework_13.Model.bankModel.TimeChecker;
 
 namespace Homework_13.ViewModel
 {
@@ -28,15 +25,13 @@ namespace Homework_13.ViewModel
 
             SubscribeCredits();
             SubscribeDeposits();
-            foreach (BankAccount e in ThisBank.Deposits)
-            {
-                Debug.WriteLine(e.ID);
-            }
+
             Task.Run(() => TimeCheck.StartTimeChecking());
-            //testView t = new();
-            //t.TickHandler();
         }
 
+        /// <summary>
+        /// Подписка всех депозитов на сигнал проверки даты
+        /// </summary>
         private void SubscribeDeposits()
         {
             if (ThisBank.Deposits == null) ThisBank.Deposits = new();
@@ -47,6 +42,9 @@ namespace Homework_13.ViewModel
             }
         }
 
+        /// <summary>
+        /// Подписка всех кредитов на сигнал проверки даты
+        /// </summary>
         private void SubscribeCredits()
         {
             if (ThisBank.Credits == null) ThisBank.Credits = new();
@@ -55,10 +53,6 @@ namespace Homework_13.ViewModel
                 foreach (var e in ThisBank.Credits)
                     TimeCheck.OnTimerSignal += (e as BankCreditAccount).DateComparer;
             }
-        }
-        public void Stri()
-        {
-            Debug.WriteLine("Stri()");
         }
 
         #region Поля
@@ -82,6 +76,14 @@ namespace Homework_13.ViewModel
         {
             get => _currentUser;
             set { _currentUser = value; }
+        }
+
+        /// <summary>
+        /// Ссылка на LogWriter.Logs содержащий логи текущей сессии
+        /// </summary>
+        public ObservableCollection<string> LogsList
+        {
+            get => LogWriter.Logs;
         }
 
         /// <summary>

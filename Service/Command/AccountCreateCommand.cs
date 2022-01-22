@@ -30,10 +30,8 @@ namespace Homework_13.Service.Command
 
         #region Методы
 
-        public override bool CanExecute(object parameter)
-        {
-            return parameter as AccountOpening != null;
-        }
+        public override bool CanExecute(object parameter) =>
+            parameter as AccountOpening != null;
             
 
         /// <summary>
@@ -55,9 +53,13 @@ namespace Homework_13.Service.Command
                         {
                             if (percent > DepositPercentSetter.maxPercent)
                             {
+                                OnEventAction($"Выбран процент больше максимального! " +
+                                    $"Установлено максимально допустимое значение", false, true);
+                                OnHistoryEventAction($"Попытка открытия вклада под процент превышающий " +
+                                    $"максимальный. Введенные данные {percent}%, " +
+                                    $"установлено значение {DepositPercentSetter.maxPercent}");
+
                                 percent = DepositPercentSetter.maxPercent;
-                                ShowError($"Выбран процент больше максимального! " +
-                                    $"Установлено максимально допустимое значение.");
                             }
                         }
                         else if (!AccountOpeningViewModel.Deposit)
@@ -67,6 +69,8 @@ namespace Homework_13.Service.Command
                                 percent = CreditPercentSetter.minPercent;
                                 ShowError($"Выбран процент ниже минимального, " +
                                     $"установлено минимальное значение");
+                                OnEventAction($"Для поля процент установлено расчётное значение", false, true);
+                                OnHistoryEventAction($"Для поля процент установлено расчётное значение");
                             }
                         }
                         return true;
@@ -74,7 +78,9 @@ namespace Homework_13.Service.Command
                     else
                     {
                         percent = AccountOpeningViewModel.PersonalPercent;
-                        ShowError("Для поля процент установлено расчётное значение");
+                        //ShowError("Для поля процент установлено расчётное значение");
+                        OnEventAction($"Для поля процент установлено расчётное значение", false, true);
+                        OnHistoryEventAction($"Для поля процент установлено расчётное значение");
                         return true;
                     }
                 }
@@ -88,32 +94,53 @@ namespace Homework_13.Service.Command
                     else
                     {
                         if (!AccountOpeningViewModel.Deposit) { amount = 0; return true; }
-                        else ShowError("Введите сумму кредита!");
+                        else
+                        {
+                            //ShowError("Введите сумму кредита!");
+                            OnEventAction($"Введите сумму кредита", false, true);
+                            OnHistoryEventAction($"Попытка выдачи кредита без указания суммы");
+                        }
                     }
                 }
                 else if ((typeof(T)) == typeof(int))
                 {
-                    if (int.TryParse(Text, out int tmp)) 
-                    { 
-                        expiration = tmp; 
+                    if (int.TryParse(Text, out int tmp))
+                    {
+                        expiration = tmp;
                         if (expiration < BankCreditAccount.minExpiration)
                         {
                             expiration = BankCreditAccount.minExpiration;
-                            ShowError($"Срок кредита меньше минимального, " +
-                                $"установлено минимальное значение.");
+                            //ShowError($"Срок кредита меньше минимального, " +
+                             //   $"установлено минимальное значение.");
+                            OnEventAction($"Срок кредита меньше минимального " +
+                                $"установлено минимальное значение", false, true);
+                            OnHistoryEventAction($"Попытка выдачи кредита на срок меньше " +
+                                $"минимального, установлено минимальное значение");
                         }
-                        return true; 
+                        return true;
                     }
-                    else ShowError("Невозможно распознать значение в поле 'срок'");
+                    else
+                    {
+                        //ShowError("Невозможно распознать значение в поле 'срок'");
+                        OnEventAction($"Невозможно распознать значение в поле 'срок'", false, true);
+                        OnHistoryEventAction($"ошибка открытия счёта, отсутствие данных в поле срок");
+                    }
                 }
             }
-            else ShowError("Заполнены не все поля!");
+            else
+            {
+                //ShowError("Заполнены не все поля!");
+                OnEventAction($"Заполнены не все поля", false, true);
+                OnHistoryEventAction($"ошибка открытия счёта, отсутствие данных в обязательных полях");
+            }
             return false;
         }
         public override void Execute(object parameter)
         {
             AccountOpening window = parameter as AccountOpening;
             EventAction += HudViewer.ShowHudWindow;
+            HistoryEventAction += LogWriter.WriteToLog;
+
             /// Открывает депозитный счёт
             if (AccountOpeningViewModel.Deposit && !SelectedClient.DepositIsActive)
             {
@@ -129,8 +156,11 @@ namespace Homework_13.Service.Command
                                 $"{percent}% " +
                                 $"на срок: {expiration}, " +
                                 $"для клиента {SelectedClient}";
-                            ShowInformation("Депозитный счёт успешно открыт!", "Успешно");
-                            OnEventAction($"Открыт {a.ToString()}", true, false);
+                            //ShowInformation("Депозитный счёт успешно открыт!", "Успешно");
+
+                            OnEventAction($"Депозитный счёт успешно открыт", true, false);
+                            OnHistoryEventAction($"Открыт {a.ToString()}");
+
                             window.Close();
                         }
                     }
@@ -151,8 +181,11 @@ namespace Homework_13.Service.Command
                                 $"под {percent}% " +
                                 $"на срок: {expiration}, " +
                                 $"для клиента {SelectedClient}";
-                            ShowInformation("Кредит успешно выдан!", "Успешно");
-                            OnEventAction($"Открыт {a.ToString()}", true, false);
+
+                            //ShowInformation("Кредит успешно выдан!", "Успешно");
+                            OnEventAction($"Кредит успешно выдан!", true, false);
+                            OnHistoryEventAction($"Открыт {a.ToString()}");
+
                             window.Close();
                         }
                     }

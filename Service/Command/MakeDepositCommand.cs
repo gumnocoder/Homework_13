@@ -20,12 +20,26 @@ namespace Homework_13.Service.Command
         {
             DepositMakerView window = parameter as DepositMakerView;
             EventAction += HudViewer.ShowHudWindow;
+            HistoryEventAction += LogWriter.WriteToLog;
+
             long amount = 0;
 
             /// парсинг введенной суммы в int64
             if (long.TryParse(window.summField.Text, out long tmp)) 
-            { amount = tmp; Debug.WriteLine("Парсинг успешно завершен"); }
-            else { ShowError("Не удалось распознать число!"); }
+            { 
+                amount = tmp; Debug.WriteLine("Парсинг успешно завершен"); 
+            }
+            else 
+            {
+                //ShowError("Не удалось распознать число!"); 
+                OnEventAction($"" +
+                    $"Не удалось распознать число", false, true);
+                OnHistoryEventAction(
+                    $"Пополнен счёт {SelectedAccount.ID} " +
+                    $"клиента {SelectedClient} " +
+                    $"на сумму ${amount}. " +
+                    $"Состояние: {SelectedAccount}");
+            }
 
             /// выполняется если введенная сумма положительная и больше нуля
             if (amount > 0)
@@ -35,10 +49,12 @@ namespace Homework_13.Service.Command
                 { 
                     MakeDeposit(SelectedClient, SelectedAccount, amount); 
                     OnEventAction($"" +
-                        $"Пополнен {SelectedAccount.ID} " +
+                        $"Пополнен счёт {SelectedAccount.ID} на сумму ${amount}.", true, false);
+                    OnHistoryEventAction(
+                        $"Пополнен счёт {SelectedAccount.ID} " +
                         $"клиента {SelectedClient} " +
-                        $"на сумму {amount}. " +
-                        $"Состояние: {SelectedAccount}", true, false); 
+                        $"на сумму ${amount}. " +
+                        $"Состояние: {SelectedAccount}");
                 }
 
                 /// пополнение депозитного счёта
@@ -50,8 +66,14 @@ namespace Homework_13.Service.Command
 
                     else
                     {
-                        ShowError($"Минимальная сумма для расширения " +
-                     $"депозитного счёта составляет: {minDepositExtension}");
+                     //   ShowError($"Минимальная сумма для расширения " +
+                     //$"депозитного счёта составляет: {minDepositExtension}");
+
+                        OnEventAction($"Минимальная сумма для расширения " +
+                     $"депозитного счёта составляет: ${minDepositExtension}", false, true);
+                        OnHistoryEventAction(
+                            $"Попытка расширения депозитного счёта {SelectedAccount.ID} " +
+                            $"на сумму ${amount}, меньше минимальной - ${minDepositExtension}");
                     }
                 }
 
@@ -64,10 +86,24 @@ namespace Homework_13.Service.Command
                     if ((long)amount >= -((long)SelectedAccount.AccountAmount))
                     {
                         creditHandler.PayOff();
+                        OnEventAction($"" +
+                             $"Кредит {SelectedAccount.ID} погашен.", true, false);
+                        OnHistoryEventAction(
+                            $"Кредитный счёт {SelectedAccount.ID} " +
+                            $"клиента {SelectedClient} погашен");
                     }
 
                     else
-                    { creditHandler.Pay(amount); }
+                    { 
+                        creditHandler.Pay(amount);
+                        OnEventAction($"" +
+                             $"Выплата по кредиту {SelectedAccount.ID} на сумму {amount}", true, false);
+                        OnHistoryEventAction(
+                            $"Выплата на кредитный счёт {SelectedAccount.ID} " +
+                            $"клиента {SelectedClient} " +
+                            $"на сумму ${amount}. " +
+                            $"Состояние: {SelectedAccount}");
+                    }
                 }
                 window.Close();
             }

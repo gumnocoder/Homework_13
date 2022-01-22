@@ -13,10 +13,13 @@ namespace Homework_13.Service.Command
         {
             BankDebitAccount a = new(parameter as Client);
             EventAction += HudViewer.ShowHudWindow;
-            OnEventAction($"Открыт {a}", true, false);
-            ShowInformation(
-                "Дебетовый счёт успешно открыт!",
-                "Операция завершена");
+            HistoryEventAction += LogWriter.WriteToLog;
+
+            OnEventAction($"Дебетовый счёт успешно открыт", true, false);
+            OnHistoryEventAction($"Открыт дебетовый счёт {a}");
+            //ShowInformation(
+             //   "Дебетовый счёт успешно открыт!",
+             //   "Операция завершена");
         }
     }
 }

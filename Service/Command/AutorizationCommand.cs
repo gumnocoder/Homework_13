@@ -66,7 +66,8 @@ namespace Homework_13.Service.Command
             if (CanExecute(parameter))
             {
                 OnEventAction($"Пользователь {MainWindowViewModel.CurrentUser} вошёл в систему", true, false);
-                OnHistoryEventAction($"{DateTime.UtcNow} : Вход в систему : {MainWindowViewModel.CurrentUser}");
+                OnHistoryEventAction($"Вход в систему");
+                
                 window.Close();
             }
         }

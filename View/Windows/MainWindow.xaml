@@ -25,7 +25,15 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        <ListView 
+            Grid.Row="2" 
+            ItemsSource="{
+            Binding LogsList,
+            Mode=OneWay}">
+        </ListView>
         <Menu 
             Grid.Row="0" 
             Width="400" 

@@ -95,6 +95,7 @@ namespace Homework_13.Service.Command
         {
             MoneySenderView window = (MoneySenderView)parameter;
             EventAction += HudViewer.ShowHudWindow;
+            HistoryEventAction += LogWriter.WriteToLog;
 
             amount = ParseField(
                 window.AmountField.Text,
@@ -149,7 +150,10 @@ namespace Homework_13.Service.Command
                                 {
                                     SelectedAccount.AccountAmount -= amount;
                                     creditHandler.PayOff();
-                                    OnEventAction($"Кредит {SelectedAccount.ID} погашен", true, false);
+
+                                    OnEventAction($"Кредит погашен", true, false);
+                                    OnHistoryEventAction($"Кредит {SelectedAccount.ID} погашен");
+
                                     //ShowInformation("Кредит успешно погашен!", "Успешно");
                                     window.Close();
                                 }
@@ -158,22 +162,33 @@ namespace Homework_13.Service.Command
                                 {
                                     SelectedAccount.AccountAmount -= amount;
                                     creditHandler.Pay(amount);
-                                    OnEventAction($"Совершена выплата по кредиту {SelectedAccount.ID} в размере ${amount}", true, false);
-                                    //ShowInformation($"Совершена выплата по кредиту в размере ${amount}", "Успешно");
+
+                                    OnEventAction($"Выплата по кредиту {SelectedAccount.ID} ${amount}", true, false);
+                                    OnHistoryEventAction($"Совершена выплата по кредиту " +
+                                        $"{SelectedAccount.ID} в размере ${amount}");
+
                                     window.Close();
                                 }
                             }
                         }
                         else
                         {
-                            ShowError(
-                         "Невозможно отправить средства со счёта-отправителя " +
-                         "на тот же самый счёт. Какой в этом смысл?");
+                            OnEventAction($"Невозможно перевести деньги со счета на него же самого", false, true);
+                            OnHistoryEventAction($"Ошибка при выполнении перевода, попытка перевода со счёта " +
+                                $"{SelectedAccount.ID} на {id}, которые тождественны");
                         }
                     }
-                    else { ShowError("Указанного счёта не существует!"); }
+                    else
+                    {
+                        OnEventAction($"Указанного счёта не существует!", false, true);
+                        OnHistoryEventAction($"Ошибка при выполнении перевода, счёт {id} не существует");
+                    }
                 }
-                else ShowError("Не удалось распознать требуемые значения");
+                else
+                {
+                    OnEventAction($"Не удалось распознать требуемые значения!", false, true);
+                    OnHistoryEventAction($"Не удалось распознать требуемые значения");
+                }
             }
         }
     }

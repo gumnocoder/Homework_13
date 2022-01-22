@@ -16,11 +16,13 @@ namespace Homework_13.Service.Command
         public override void Execute(object parameter)
         {
             EventAction += HudViewer.ShowHudWindow;
+            HistoryEventAction += LogWriter.WriteToLog;
 
             foreach (User user in UserList<User>.UsersList)
                 if (user == parameter as User)
                 {
-                    OnEventAction($"пользователь {user} удалён", true, false);
+                    OnEventAction($"пользователь удалён", true, false);
+                    OnHistoryEventAction($"пользователь {user} удалён");
                     UserList<User>.UsersList.Remove(user);
                     break;
                 }
