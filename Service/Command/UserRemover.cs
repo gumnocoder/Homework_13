@@ -20,7 +20,7 @@ namespace Homework_13.Service.Command
             foreach (User user in UserList<User>.UsersList)
                 if (user == parameter as User)
                 {
-                    OnEventAction($"пользователь {user} удалён");
+                    OnEventAction($"пользователь {user} удалён", true, false);
                     UserList<User>.UsersList.Remove(user);
                     break;
                 }

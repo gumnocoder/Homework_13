@@ -69,7 +69,7 @@ namespace Homework_13.Service.Command
         {
             Client client = new(name, type);
             
-            OnEventAction($"создан клиент {client}");
+            OnEventAction($"создан клиент {client}", true, false);
             /// проверяет потребность в открытии дебетового счёта и открывает его если true
             bool createAccount = (bool)window.CreateDebitAccountFlag.IsChecked;
             if (createAccount) new BankDebitAccount(client);
@@ -148,7 +148,7 @@ namespace Homework_13.Service.Command
         {
 
             User user = new(Name, Login, Pass, Type);
-            OnEventAction($"создан пользователь {user}");
+            OnEventAction($"создан пользователь {user}", true, false);
             /// выдает права пользователю в соответствии галочкам
             user.CanCreateUsers = 
                 (bool)window.canCreateUsers.IsChecked;

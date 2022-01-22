@@ -8,7 +8,7 @@ namespace Homework_13.Service
 {
     class HudViewer
     {
-        public static async void ShowHudWindow(string message)
+        public static async void ShowHudWindow(string message, bool Positive, bool Negative)
         {
             await Task.Delay(500);
             HudWindowView hudWindow = new() 

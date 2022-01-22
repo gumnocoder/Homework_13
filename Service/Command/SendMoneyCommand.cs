@@ -122,7 +122,7 @@ namespace Homework_13.Service.Command
                             if (accountReciever.GetType() != typeof(BankCreditAccount))
                             {
                                 SendMoney(SelectedClient, amount, SelectedAccount, accountReciever);
-                                OnEventAction($"{SelectedClient} перевёл ${amount} на счёт {accountReciever.ID}");
+                                OnEventAction($"{SelectedClient} перевёл ${amount} на счёт {accountReciever.ID}", true, false);
                                 //ShowInformation(
                                 //    $"{SelectedClient} перевёл ${amount} на счёт {accountReciever.ID}",
                                 //    "Перевод выполнен");
@@ -149,7 +149,7 @@ namespace Homework_13.Service.Command
                                 {
                                     SelectedAccount.AccountAmount -= amount;
                                     creditHandler.PayOff();
-                                    OnEventAction($"Кредит {SelectedAccount.ID} погашен");
+                                    OnEventAction($"Кредит {SelectedAccount.ID} погашен", true, false);
                                     //ShowInformation("Кредит успешно погашен!", "Успешно");
                                     window.Close();
                                 }
@@ -158,7 +158,7 @@ namespace Homework_13.Service.Command
                                 {
                                     SelectedAccount.AccountAmount -= amount;
                                     creditHandler.Pay(amount);
-                                    OnEventAction($"Совершена выплата по кредиту {SelectedAccount.ID} в размере ${amount}");
+                                    OnEventAction($"Совершена выплата по кредиту {SelectedAccount.ID} в размере ${amount}", true, false);
                                     //ShowInformation($"Совершена выплата по кредиту в размере ${amount}", "Успешно");
                                     window.Close();
                                 }

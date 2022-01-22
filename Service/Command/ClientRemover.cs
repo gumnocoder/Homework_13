@@ -56,7 +56,7 @@ namespace Homework_13.Service.Command
                         }
                     }
                     // удаляет клиента из коллекции в синглтоне ThisBank
-                    OnEventAction($"клиент {client} удалён");
+                    OnEventAction($"клиент {client} удалён", true, false);
                     ClientList<Client>.ClientsList.Remove(c);
                     break;
                 }

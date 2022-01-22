@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using Homework_13.Model;
 using Homework_13.View;
@@ -57,11 +58,15 @@ namespace Homework_13.Service.Command
         {
             var window = (Window)parameter;
             window.DialogResult = DialogResult;
+
             EventAction += HudViewer.ShowHudWindow;
+            HistoryEventAction += LogWriter.WriteToLog;
+
             /// в случае успешной авторизации закрывает окно
             if (CanExecute(parameter))
             {
-                OnEventAction($"Пользователь {MainWindowViewModel.CurrentUser} вошёл в систему");
+                OnEventAction($"Пользователь {MainWindowViewModel.CurrentUser} вошёл в систему", true, false);
+                OnHistoryEventAction($"{DateTime.UtcNow} : Вход в систему : {MainWindowViewModel.CurrentUser}");
                 window.Close();
             }
         }

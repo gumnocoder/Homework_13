@@ -13,7 +13,7 @@ namespace Homework_13.Service.Command
         {
             BankDebitAccount a = new(parameter as Client);
             EventAction += HudViewer.ShowHudWindow;
-            OnEventAction($"Открыт {a}");
+            OnEventAction($"Открыт {a}", true, false);
             ShowInformation(
                 "Дебетовый счёт успешно открыт!",
                 "Операция завершена");

@@ -130,7 +130,7 @@ namespace Homework_13.Service.Command
                                 $"на срок: {expiration}, " +
                                 $"для клиента {SelectedClient}";
                             ShowInformation("Депозитный счёт успешно открыт!", "Успешно");
-                            OnEventAction($"Открыт {a.ToString()}");
+                            OnEventAction($"Открыт {a.ToString()}", true, false);
                             window.Close();
                         }
                     }
@@ -152,7 +152,7 @@ namespace Homework_13.Service.Command
                                 $"на срок: {expiration}, " +
                                 $"для клиента {SelectedClient}";
                             ShowInformation("Кредит успешно выдан!", "Успешно");
-                            OnEventAction($"Открыт {a.ToString()}");
+                            OnEventAction($"Открыт {a.ToString()}", true, false);
                             window.Close();
                         }
                     }

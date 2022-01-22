@@ -23,7 +23,7 @@ namespace Homework_13.Service.Command
                 OnEventAction($"имя клиента " +
                     $"{ClientListViewModel.SelectedClient.Name} " +
                     $"изменено на " +
-                    $"{dlg.NameField.Text}");
+                    $"{dlg.NameField.Text}", true, false);
                 ClientListViewModel.SelectedClient.Name = dlg.NameField.Text;
             }
 
@@ -33,7 +33,7 @@ namespace Homework_13.Service.Command
                 OnEventAction($"тип клиента " +
                     $"{ClientListViewModel.SelectedClient.Name} " +
                     $"изменен на " +
-                    $"{dlg.TypesList.Text}");
+                    $"{dlg.TypesList.Text}", true, false);
                 ClientListViewModel.SelectedClient.Type = dlg.TypesList.Text;
             }
 

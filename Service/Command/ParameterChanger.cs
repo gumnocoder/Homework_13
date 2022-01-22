@@ -75,14 +75,14 @@ namespace Homework_13.Service.Command
                 if (incr) 
                 { 
                     new ReputationIncreaser(client, _number).Execute();
-                    OnEventAction($"репутация клиента {client} повышена на {_number} пункт(ов)");
+                    OnEventAction($"репутация клиента {client} повышена на {_number} пункт(ов)", true, false);
                 }
                 incr = false;
 
                 if (decr)
                 {
                     new ReputationDecreaser(client, _number).Execute();
-                    OnEventAction($"репутация клиента {client} понижена на {_number} пункт(ов)");
+                    OnEventAction($"репутация клиента {client} понижена на {_number} пункт(ов)", true, false);
                 }
                 decr = false;
 

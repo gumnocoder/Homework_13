@@ -32,7 +32,14 @@ namespace Homework_13.Service.Command
             {
                 /// пополнение дебетового счёта
                 if (SelectedAccount.GetType() == typeof(BankDebitAccount))
-                { MakeDeposit(SelectedClient, SelectedAccount, amount); OnEventAction($"Пополнен {SelectedAccount.ID} клиента {SelectedClient} на сумму {amount}. Состояние: {SelectedAccount}"); }
+                { 
+                    MakeDeposit(SelectedClient, SelectedAccount, amount); 
+                    OnEventAction($"" +
+                        $"Пополнен {SelectedAccount.ID} " +
+                        $"клиента {SelectedClient} " +
+                        $"на сумму {amount}. " +
+                        $"Состояние: {SelectedAccount}", true, false); 
+                }
 
                 /// пополнение депозитного счёта
                 else if (SelectedAccount.GetType() == typeof(BankDepositAccount))

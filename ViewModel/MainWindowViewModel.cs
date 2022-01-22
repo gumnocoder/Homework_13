@@ -158,7 +158,7 @@ namespace Homework_13.ViewModel
         {
             EventAction += HudViewer.ShowHudWindow;
             DataSaver<Client>.DataSaverChain();
-            OnEventAction("Данные успешно сохранены");
+            OnEventAction("Данные успешно сохранены", true, false);
         }
 
         #endregion

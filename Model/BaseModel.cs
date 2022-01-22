@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Homework_13.Model
 {
-    public abstract class BaseModel : INotifyPropertyChanged
+    public abstract class BaseModel : BaseEventSystem, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
