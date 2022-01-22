@@ -65,7 +65,7 @@ namespace Homework_13.Service.Command
             /// в случае успешной авторизации закрывает окно
             if (CanExecute(parameter))
             {
-                OnEventAction($"Пользователь {MainWindowViewModel.CurrentUser} вошёл в систему", true, false);
+                OnEventAction($"Пользователь {MainWindowViewModel.CurrentUser} вошёл в систему", false, false);
                 OnHistoryEventAction($"Вход в систему");
                 
                 window.Close();

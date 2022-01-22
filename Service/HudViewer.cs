@@ -10,11 +10,47 @@ namespace Homework_13.Service
     {
         public static async void ShowHudWindow(string message, bool Positive, bool Negative)
         {
+            HudWindowView hudWindow = default;
             await Task.Delay(500);
-            HudWindowView hudWindow = new() 
-            { 
-                DataContext = new HudWindowViewModel() { Message = message } 
-            };
+
+            if (Positive)
+            {
+                hudWindow = new()
+                {
+                    DataContext = new HudWindowViewModel()
+                    {
+                        Message = message,
+                        Positive = true,
+                        Negative = false
+                    }
+                };
+            }
+
+            else if (Negative)
+            {
+                hudWindow = new()
+                {
+                    DataContext = new HudWindowViewModel()
+                    {
+                        Message = message,
+                        Positive = false,
+                        Negative = true
+                    }
+                };
+            }
+
+            else
+            {
+                hudWindow = new()
+                {
+                    DataContext = new HudWindowViewModel()
+                    {
+                        Message = message,
+                        Positive = false,
+                        Negative = false
+                    }
+                };
+            }
 
             hudWindow.Owner = 
                 Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive);

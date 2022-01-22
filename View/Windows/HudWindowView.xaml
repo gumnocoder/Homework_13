@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_13.View.Windows"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:vm="clr-namespace:Homework_13.ViewModel"
         mc:Ignorable="d"
         Title="HudWindowView"
@@ -16,6 +17,31 @@
         <vm:HudWindowViewModel/>
     </Window.DataContext>
     <Grid>
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Setter Property="Background" Value="WhiteSmoke"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Positive}">
+                        <DataTrigger.Value>
+                            <sys:Boolean>True</sys:Boolean>
+                        </DataTrigger.Value>
+                        <DataTrigger.Setters>
+                            <Setter Property="Background" Value="#FFAEFFAE"/>
+                            <Setter Property="Opacity" Value="0.7"/>
+                        </DataTrigger.Setters>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Negative}">
+                        <DataTrigger.Value>
+                            <sys:Boolean>True</sys:Boolean>
+                        </DataTrigger.Value>
+                        <DataTrigger.Setters>
+                            <Setter Property="Background" Value="#FFFFB2B2"/>
+                            <Setter Property="Opacity" Value="0.7"/>
+                        </DataTrigger.Setters>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
