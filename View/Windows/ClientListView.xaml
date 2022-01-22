@@ -80,23 +80,12 @@
                         </MenuItem.Command>
                     </MenuItem>
                     <MenuItem
-                        Header="Информация о кредитном счёте"
-                        IsEnabled="{Binding CreditEnabled, Mode=TwoWay}"
-                        Command="{Binding CheckCreditInfoCommand}"
-                        >
-                        
-                    </MenuItem>
-                    <MenuItem
                         Header="Информация о клиенте"
                         IsEnabled="True"
                         Command="{Binding ShowClientInfo}"
                         >
+                        <Separator/>
                     </MenuItem>
-
-                    <MenuItem Header="Закрыть счёт"/>
-                    <Separator/>
-                    <MenuItem Header="Выполнить перевод"/>
-                    <MenuItem Header="Создать клиента"/>
                     <MenuItem
                         CommandParameter="{
                         Binding RelativeSource={

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Windows.Input;
+using Homework_13.Model;
 
 namespace Homework_13.Service.Command
 {
-    public abstract class Command : ICommand
+    public abstract class Command : BaseEventSystem,  ICommand
     {
         public event EventHandler CanExecuteChanged
         {
