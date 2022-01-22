@@ -23,7 +23,7 @@ namespace Homework_13.ViewModel
                 }
             }
 
-            Task.Run(() => TestViewModelRemover());
+            Task.Run(() => NotificationRemover());
         }
 
         #region Поля
@@ -45,6 +45,9 @@ namespace Homework_13.ViewModel
 
         #region Свойства
 
+        /// <summary>
+        /// Список активных оповещений
+        /// </summary>
         public static List<HudWindowViewModel> ListOfMessages
         {
             get
@@ -56,6 +59,9 @@ namespace Homework_13.ViewModel
             set => _listOfMessages = value;
         }
 
+        /// <summary>
+        /// Выравнивание по высоте
+        /// </summary>
         public double Top
         {
             get => _top;
@@ -66,6 +72,9 @@ namespace Homework_13.ViewModel
             }
         }
 
+        /// <summary>
+        /// Выравнивание по ширине
+        /// </summary>
         public double Left
         {
             get => _left;
@@ -76,8 +85,14 @@ namespace Homework_13.ViewModel
             }
         }
 
+        /// <summary>
+        /// Текст оповещения
+        /// </summary>
         public string Message { get; set; }
-
+        
+        /// <summary>
+        /// Флаг зеленого индикатора
+        /// </summary>
         public bool Positive
         {
             get => _positive;
@@ -88,6 +103,9 @@ namespace Homework_13.ViewModel
             }
         }
 
+        /// <summary>
+        /// Флаг красного индикатора
+        /// </summary>
         public bool Negative
         {
             get => _negative;
@@ -102,11 +120,17 @@ namespace Homework_13.ViewModel
 
         #region Методы
 
+        /// <summary>
+        /// Смещает оповещение вверх на его высоту
+        /// </summary>
         public async void ChangeMessagePosition() => 
             await Task.Run(() => Top -= (_testViewWindowHeight/2));
 
 
-        public async void TestViewModelRemover()
+        /// <summary>
+        /// Удаляет оповещение из списка активнх по заверщению 4 сек
+        /// </summary>
+        public async void NotificationRemover()
         {
             await Task.Delay(4000);
             ListOfMessages.Remove(this);

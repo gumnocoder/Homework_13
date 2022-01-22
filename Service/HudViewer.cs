@@ -6,8 +6,17 @@ using Homework_13.ViewModel;
 
 namespace Homework_13.Service
 {
+    /// <summary>
+    /// Создаёт и отображает оповещение
+    /// </summary>
     class HudViewer
     {
+        /// <summary>
+        /// Создаёт и отображает оповещение
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="Positive"></param>
+        /// <param name="Negative"></param>
         public static async void ShowHudWindow(string message, bool Positive, bool Negative)
         {
             HudWindowView hudWindow = default;
