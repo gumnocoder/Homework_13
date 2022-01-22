@@ -84,7 +84,6 @@
                         IsEnabled="True"
                         Command="{Binding ShowClientInfo}"
                         >
-                        <Separator/>
                     </MenuItem>
                     <MenuItem
                         CommandParameter="{

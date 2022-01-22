@@ -68,7 +68,7 @@ namespace Homework_13.Service.Command
         public void CreateClient(ClientCreationForm window, string name, string type)
         {
             Client client = new(name, type);
-            EventAction += ShowHudWindow;
+            
             OnEventAction($"создан клиент {client}");
             /// проверяет потребность в открытии дебетового счёта и открывает его если true
             bool createAccount = (bool)window.CreateDebitAccountFlag.IsChecked;
@@ -148,7 +148,7 @@ namespace Homework_13.Service.Command
         {
 
             User user = new(Name, Login, Pass, Type);
-
+            OnEventAction($"создан пользователь {user}");
             /// выдает права пользователю в соответствии галочкам
             user.CanCreateUsers = 
                 (bool)window.canCreateUsers.IsChecked;
@@ -192,6 +192,7 @@ namespace Homework_13.Service.Command
         {
             if (!CanExecute(parameter)) return;
             Window window = parameter as Window;
+            EventAction += ShowHudWindow;
 
             switch (parameter)
             {

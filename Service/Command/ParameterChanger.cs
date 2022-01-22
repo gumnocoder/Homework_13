@@ -58,6 +58,7 @@ namespace Homework_13.Service.Command
         /// <param name="parameter">окно ParameterChangingInput</param>
         public override void Execute(object parameter)
         {
+            EventAction += HudViewer.ShowHudWindow;
             if (!CanExecute(parameter)) return;
             if (ClientListViewModel.SelectedClient == null)
             {
@@ -71,10 +72,18 @@ namespace Homework_13.Service.Command
 
             if (Check(window.NumberField.Text))
             {
-                if (incr) new ReputationIncreaser(client, _number).Execute();
+                if (incr) 
+                { 
+                    new ReputationIncreaser(client, _number).Execute();
+                    OnEventAction($"репутация клиента {client} повышена на {_number} пункт(ов)");
+                }
                 incr = false;
 
-                if (decr) new ReputationDecreaser(client, _number).Execute(); 
+                if (decr)
+                {
+                    new ReputationDecreaser(client, _number).Execute();
+                    OnEventAction($"репутация клиента {client} понижена на {_number} пункт(ов)");
+                }
                 decr = false;
 
                 window.Close();

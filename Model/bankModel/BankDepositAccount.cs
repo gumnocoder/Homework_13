@@ -113,13 +113,14 @@ namespace Homework_13.Model.bankModel
         /// <returns></returns>
         public override string ToString()
         {
-            return $"{(typeof(BankDepositAccount).ToString())} " +
+            return $"депозитный счёт " +
                 $"{AccountAmount}$ " +
                 $"ID - {ID} " +
                 $"{ActivationDate} " +
                 $"{Percent}%";
         }
 
+        ~BankDepositAccount() { Debug.WriteLine("вызван деструтор класса BankDepositAccount"); }
         #endregion
     }
 }

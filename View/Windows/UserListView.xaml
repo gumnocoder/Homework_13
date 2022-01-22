@@ -42,6 +42,21 @@
                 <DataGridTextColumn Header="Пароль" Binding="{Binding Pass}" Width="100"/>
                 <DataGridTextColumn Header="Тип" Binding="{Binding Type}" Width="120"/>
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        CommandParameter="{
+                        Binding RelativeSource={
+                        RelativeSource FindAncestor, AncestorType={
+                        x:Type ContextMenu}}, 
+                        Path=PlacementTarget.SelectedItem}"
+                        Header="Удалить пользователя">
+                        <MenuItem.Command>
+                            <cmd:UserRemover/>
+                        </MenuItem.Command>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
         <Button
             Background="Transparent"

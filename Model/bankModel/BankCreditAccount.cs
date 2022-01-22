@@ -144,12 +144,14 @@ namespace Homework_13.Model.bankModel
         /// <returns></returns>
         public override string ToString()
         {
-            return $"{(typeof(BankCreditAccount).ToString())} " +
+            return $"кредитный счёт " +
                 $"{AccountAmount}$ " +
                 $"ID - {ID} " +
                 $"{ActivationDate} " +
                 $"{Percent}%";
         }
+
+        ~BankCreditAccount() { Debug.WriteLine("вызван деструтор класса BankCreditAccount"); }
         #endregion
     }
 }

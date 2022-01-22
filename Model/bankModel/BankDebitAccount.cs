@@ -55,8 +55,10 @@ namespace Homework_13.Model.bankModel
         /// <returns></returns>
         public override string ToString()
         {
-            return $"{(typeof(BankDebitAccount).ToString())} {AccountAmount}$ ID - {ID}";
+            return $"дебетовый счёт {AccountAmount}$ ID - {ID}";
         }
+
+        ~BankDebitAccount() { Debug.WriteLine("вызван деструтор класса BankDebitAccount"); }
         #endregion
     }
 }

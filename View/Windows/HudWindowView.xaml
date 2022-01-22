@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:Homework_13.ViewModel"
         mc:Ignorable="d"
         Title="HudWindowView"
-        Height="100" Width="400"
+        Height="100" Width="450"
         WindowStyle="None"
         Left="{Binding Left, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
         Top="{Binding Top, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"

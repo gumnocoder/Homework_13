@@ -46,7 +46,13 @@
                     Margin="0,10,5,0"
                     Height="30" 
                     Width="85" 
-                    Content="Отмена">
+                    Content="Отмена"                    
+                    CommandParameter="{
+                    Binding RelativeSource={
+                    RelativeSource AncestorType=local:ParameterChangingInput}}">
+                    <Button.Command>
+                        <cmd:CloseWindowCommand ExitApp="False"/>
+                    </Button.Command>
                 </Button>
             </UniformGrid>
         </StackPanel>

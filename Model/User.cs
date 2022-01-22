@@ -1,4 +1,5 @@
-﻿using Homework_13.Model.Interfaces;
+﻿using System.Diagnostics;
+using Homework_13.Model.Interfaces;
 using static Homework_13.Model.bankModel.Bank;
 
 namespace Homework_13.Model
@@ -120,6 +121,8 @@ namespace Homework_13.Model
         {
             ID = ++ThisBank.CurrentUserID;
         }
+
+        ~User() { Debug.WriteLine("Вызван деструктор класса User"); }
         #endregion
     }
 }

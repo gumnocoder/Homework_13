@@ -113,7 +113,7 @@ namespace Homework_13.Service.Command
         public override void Execute(object parameter)
         {
             AccountOpening window = parameter as AccountOpening;
-
+            EventAction += HudViewer.ShowHudWindow;
             /// Открывает депозитный счёт
             if (AccountOpeningViewModel.Deposit && !SelectedClient.DepositIsActive)
             {
@@ -130,6 +130,7 @@ namespace Homework_13.Service.Command
                                 $"на срок: {expiration}, " +
                                 $"для клиента {SelectedClient}";
                             ShowInformation("Депозитный счёт успешно открыт!", "Успешно");
+                            OnEventAction($"Открыт {a.ToString()}");
                             window.Close();
                         }
                     }
@@ -151,12 +152,12 @@ namespace Homework_13.Service.Command
                                 $"на срок: {expiration}, " +
                                 $"для клиента {SelectedClient}";
                             ShowInformation("Кредит успешно выдан!", "Успешно");
+                            OnEventAction($"Открыт {a.ToString()}");
                             window.Close();
                         }
                     }
                 }
             }
-
         }
 
         #endregion

@@ -11,8 +11,9 @@ namespace Homework_13.Service.Command
 
         public override void Execute(object parameter)
         {
-            new BankDebitAccount(parameter as Client);
-
+            BankDebitAccount a = new(parameter as Client);
+            EventAction += HudViewer.ShowHudWindow;
+            OnEventAction($"Открыт {a}");
             ShowInformation(
                 "Дебетовый счёт успешно открыт!",
                 "Операция завершена");

@@ -228,6 +228,8 @@ namespace Homework_13.Model
             return $"{ID} {Name} {Reputation}";
         }
 
+
+        ~Client() { Debug.WriteLine("вызван деструтор класса Client"); }
         #endregion
     }
 }

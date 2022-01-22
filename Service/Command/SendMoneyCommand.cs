@@ -60,19 +60,20 @@ namespace Homework_13.Service.Command
         /// <param name="ID">ID</param>
         /// <param name="List">Коллекция счетов</param>
         /// <returns></returns>
-        private BankAccount FindAccount(long ID, ObservableCollection<BankAccount> List)
+        private BankAccount FindAccount(long ID, ref ObservableCollection<BankAccount> List)
         {
 
             Debug.WriteLine($"Выполняется поиск в списке счетов {List}");
             BankAccount tmp = default;
             foreach (var e in List)
             {
+                Debug.WriteLine($"поиск по {List}");
                 if (e.ID == ID) 
-                { 
-                    tmp = e; 
-                    Debug.WriteLine($"Найден {e}"); 
+                {
+                    tmp = e;
+                    Debug.WriteLine($"Найден {e}");
+                    break;
                 }
-                break;
             }
             Debug.WriteLine($"будет возвращено {tmp}");
             return tmp;
@@ -86,13 +87,14 @@ namespace Homework_13.Service.Command
         /// <returns></returns>
         private BankAccount SelectList(long ID)
         {
-            if (ID < 10000) { return FindAccount(ID, Bank.ThisBank.Deposits); }
-            else if (ID >= 10000000) { return FindAccount(ID, Bank.ThisBank.Debits); }
-            else { return FindAccount(ID, Bank.ThisBank.Credits); }
+            if (ID < 10000) { return (BankAccount)FindAccount(ID, ref  Bank.ThisBank.deposits); }
+            else if (ID >= 10000000) { return (BankAccount)FindAccount(ID, ref Bank.ThisBank.debits); }
+            else { return (BankAccount)FindAccount(ID, ref Bank.ThisBank.credits); }
         }
         public override void Execute(object parameter)
         {
             MoneySenderView window = (MoneySenderView)parameter;
+            EventAction += HudViewer.ShowHudWindow;
 
             amount = ParseField(
                 window.AmountField.Text,
@@ -102,9 +104,6 @@ namespace Homework_13.Service.Command
                     window.IdField.Text,
                     "Не удалось распознать введенный номер счёта",
                     "Введите номер счёта, на который хотите отправить деньги");
-
-            Debug.WriteLine("Найденный счёт:");
-            Debug.WriteLine(SelectList(id));
 
             if (amount > SelectedAccount.AccountAmount) ShowError("Недостаточно средств!");
             else
@@ -123,12 +122,13 @@ namespace Homework_13.Service.Command
                             if (accountReciever.GetType() != typeof(BankCreditAccount))
                             {
                                 SendMoney(SelectedClient, amount, SelectedAccount, accountReciever);
-                                ShowInformation(
-                                    $"{SelectedClient} перевёл ${amount} на счёт {accountReciever.ID}",
-                                    "Перевод выполнен");
+                                OnEventAction($"{SelectedClient} перевёл ${amount} на счёт {accountReciever.ID}");
+                                //ShowInformation(
+                                //    $"{SelectedClient} перевёл ${amount} на счёт {accountReciever.ID}",
+                                //    "Перевод выполнен");
                                 window.Close();
                             }
-                            /// в случае отправки на кредитынй счёт
+                            /// в случае отправки на кредитный счёт
                             else
                             {
                                 Client tempClient = default;
@@ -149,7 +149,8 @@ namespace Homework_13.Service.Command
                                 {
                                     SelectedAccount.AccountAmount -= amount;
                                     creditHandler.PayOff();
-                                    ShowInformation("Кредит успешно погашен!", "Успешно");
+                                    OnEventAction($"Кредит {SelectedAccount.ID} погашен");
+                                    //ShowInformation("Кредит успешно погашен!", "Успешно");
                                     window.Close();
                                 }
 
@@ -157,7 +158,8 @@ namespace Homework_13.Service.Command
                                 {
                                     SelectedAccount.AccountAmount -= amount;
                                     creditHandler.Pay(amount);
-                                    ShowInformation($"Совершена выплата по кредиту в размере ${amount}", "Успешно");
+                                    OnEventAction($"Совершена выплата по кредиту {SelectedAccount.ID} в размере ${amount}");
+                                    //ShowInformation($"Совершена выплата по кредиту в размере ${amount}", "Успешно");
                                     window.Close();
                                 }
                             }

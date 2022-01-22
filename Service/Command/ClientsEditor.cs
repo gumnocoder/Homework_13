@@ -15,11 +15,27 @@ namespace Homework_13.Service.Command
         public override void Execute(object parameter)
         {
             ClientEditingForm dlg = parameter as ClientEditingForm;
+            EventAction += HudViewer.ShowHudWindow;
 
-            if (dlg.NameField.Text != string.Empty)
+            if (dlg.NameField.Text != string.Empty && 
+                ClientListViewModel.SelectedClient.Name != dlg.NameField.Text)
+            {
+                OnEventAction($"имя клиента " +
+                    $"{ClientListViewModel.SelectedClient.Name} " +
+                    $"изменено на " +
+                    $"{dlg.NameField.Text}");
                 ClientListViewModel.SelectedClient.Name = dlg.NameField.Text;
-            if (dlg.TypesList.Text != string.Empty)
+            }
+
+            if (dlg.TypesList.Text != string.Empty && 
+                ClientListViewModel.SelectedClient.Type != dlg.TypesList.Text)
+            {
+                OnEventAction($"тип клиента " +
+                    $"{ClientListViewModel.SelectedClient.Name} " +
+                    $"изменен на " +
+                    $"{dlg.TypesList.Text}");
                 ClientListViewModel.SelectedClient.Type = dlg.TypesList.Text;
+            }
 
             dlg.Close();
         }

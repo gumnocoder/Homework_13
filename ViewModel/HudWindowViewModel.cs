@@ -21,7 +21,7 @@ namespace Homework_13.ViewModel
         }
 
         const double _testViewWindowHeight = 100;
-        const double _testViewWindowWidth = 300;
+        const double _testViewWindowWidth = 450;
 
         double _top = WorkArea.Bottom - _testViewWindowHeight;
         

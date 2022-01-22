@@ -19,7 +19,7 @@ namespace Homework_13.Service.Command
         public override void Execute(object parameter)
         {
             DepositMakerView window = parameter as DepositMakerView;
-
+            EventAction += HudViewer.ShowHudWindow;
             long amount = 0;
 
             /// парсинг введенной суммы в int64
@@ -32,7 +32,7 @@ namespace Homework_13.Service.Command
             {
                 /// пополнение дебетового счёта
                 if (SelectedAccount.GetType() == typeof(BankDebitAccount))
-                { MakeDeposit(SelectedClient, SelectedAccount, amount); }
+                { MakeDeposit(SelectedClient, SelectedAccount, amount); OnEventAction($"Пополнен {SelectedAccount.ID} клиента {SelectedClient} на сумму {amount}. Состояние: {SelectedAccount}"); }
 
                 /// пополнение депозитного счёта
                 else if (SelectedAccount.GetType() == typeof(BankDepositAccount))

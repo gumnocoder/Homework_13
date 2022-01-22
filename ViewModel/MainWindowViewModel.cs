@@ -28,7 +28,10 @@ namespace Homework_13.ViewModel
 
             SubscribeCredits();
             SubscribeDeposits();
-
+            foreach (BankAccount e in ThisBank.Deposits)
+            {
+                Debug.WriteLine(e.ID);
+            }
             Task.Run(() => TimeCheck.StartTimeChecking());
             //testView t = new();
             //t.TickHandler();
@@ -153,7 +156,9 @@ namespace Homework_13.ViewModel
         /// <param name="s"></param>
         private void SaveAllData(object s)
         {
+            EventAction += HudViewer.ShowHudWindow;
             DataSaver<Client>.DataSaverChain();
+            OnEventAction("Данные успешно сохранены");
         }
 
         #endregion

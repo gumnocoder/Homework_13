@@ -20,6 +20,7 @@ namespace Homework_13.Service.Command
         /// <returns></returns>
         public override bool CanExecute(object parameter)
         {
+            
             /// путём сличения значений в окне авторизации
             if (parameter is LoginFormWindow)
             {
@@ -36,6 +37,7 @@ namespace Homework_13.Service.Command
                     if (u.Login == login && u.Pass == pass)
                     {
                         MainWindowViewModel.CurrentUser = u;
+                        
                         return true;
                     }
                     else
@@ -55,10 +57,11 @@ namespace Homework_13.Service.Command
         {
             var window = (Window)parameter;
             window.DialogResult = DialogResult;
-
+            EventAction += HudViewer.ShowHudWindow;
             /// в случае успешной авторизации закрывает окно
             if (CanExecute(parameter))
             {
+                OnEventAction($"Пользователь {MainWindowViewModel.CurrentUser} вошёл в систему");
                 window.Close();
             }
         }
