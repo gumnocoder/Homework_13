@@ -61,11 +61,12 @@ namespace Homework_13.Service
 
             if (_firstStart) SetCurrentLogFileName();
             if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-            if (!File.Exists(_logFileName)) 
+            if (!File.Exists(Path.Combine(path, _logFileName))) 
             { 
-                using (FileStream fs = new(Path.Combine(path, _logFileName), FileMode.OpenOrCreate)) 
-                { 
-                    File.Create(Path.Combine(path, _logFileName)); 
+                using (FileStream fs = new(Path.Combine(path, _logFileName), FileMode.OpenOrCreate))
+                {
+                    File.Create(Path.Combine(path, _logFileName));
+                    fs.Close();
                 }
             };
         }
