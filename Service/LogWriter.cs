@@ -82,10 +82,10 @@ namespace Homework_13.Service
         /// Записывает лог в файл и выводит его на главной странице
         /// </summary>
         /// <param name="EventDescription"></param>
-        public static async void WriteToLog(string EventDescription)
+        public static /*async*/ void WriteToLog(string EventDescription)
         {
             string AddedEventDescription = $"{DateTime.UtcNow} : {EventDescription} : {MainWindowViewModel.CurrentUser}";
-            await Task.Run(() => WorkWithLogsPath(AddedEventDescription));
+            /*await Task.Run(() => */WorkWithLogsPath(AddedEventDescription)/*)*/;
             AddToLogsList(AddedEventDescription);
 
             using (StreamWriter sr = new StreamWriter(Path.Combine(path, _logFileName), true))

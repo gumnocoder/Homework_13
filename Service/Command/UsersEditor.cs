@@ -1,4 +1,4 @@
-﻿using Homework_13.Model;
+﻿using BankModelLibrary;
 using Homework_13.View.Windows;
 using Homework_13.ViewModel;
 using static Homework_13.Service.InformationDialogService;

@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics;
-using Homework_13.Model.bankModel;
+using BankModelLibrary;
+using BankModelLibrary.BankServices;
 using Homework_13.View.Windows;
-using static Homework_13.Model.bankModel.AcccountDepositHandler;
-using static Homework_13.Model.bankModel.DepositMaker;
-using static Homework_13.Service.InformationDialogService;
 using static Homework_13.ViewModel.ClientListViewModel;
+using static BankModelLibrary.BankServices.DepositMaker;
+using static BankModelLibrary.BankServices.AcccountDepositHandler;
 
 namespace Homework_13.Service.Command
 {

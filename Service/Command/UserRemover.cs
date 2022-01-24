@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Homework_13.Model;
+﻿using System.Collections.Generic;
+using BankModelLibrary;
 using Homework_13.ViewModel;
 
 namespace Homework_13.Service.Command

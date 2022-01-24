@@ -1,6 +1,8 @@
-﻿using Homework_13.Model;
-using Homework_13.View.Windows;
+﻿using Homework_13.View.Windows;
 using Homework_13.ViewModel;
+using BankModelLibrary;
+using BankModelLibrary.BankServices;
+using BankModelLibrary.BaseBankModels;
 
 namespace Homework_13.Service.Command
 {

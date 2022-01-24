@@ -1,7 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using Homework_13.Model;
-using Homework_13.Model.Interfaces;
+using BankModelLibrary;
+using BankModelLibrary.BankServices;
+using BankModelLibrary.BaseBankModels;
+using BankModelLibrary.Interfaces;
 
 namespace Homework_13.Service
 {

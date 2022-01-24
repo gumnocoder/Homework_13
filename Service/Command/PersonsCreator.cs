@@ -1,13 +1,11 @@
 ﻿using System.Diagnostics;
 using System.Windows;
-using Homework_13.Model;
-using Homework_13.Model.bankModel;
+using BankModelLibrary;
+using BankModelLibrary.BankServices;
 using Homework_13.View.UserControls;
 using Homework_13.View.Windows;
-using static Homework_13.Service.InformationDialogService;
-using static Homework_13.Model.bankModel.Bank;
 using static Homework_13.Service.HudViewer;
-using Homework_13.ViewModel;
+using static Homework_13.Service.InformationDialogService;
 
 namespace Homework_13.Service.Command
 {

@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
-using Homework_13.Model;
-using static Homework_13.Model.bankModel.CreditPercentSetter;
-using static Homework_13.Model.bankModel.DepositPercentSetter;
+using BankModelLibrary;
+using static BankModelLibrary.BankServices.CreditPercentSetter;
+using static BankModelLibrary.BankServices.DepositPercentSetter;
 
 namespace Homework_13.ViewModel
 {

@@ -1,13 +1,13 @@
-﻿using System;
-using Homework_13.View.Windows;
-using static Homework_13.ViewModel.ClientListViewModel;
-using static Homework_13.Service.InformationDialogService;
-using static Homework_13.Model.bankModel.MoneySender<
-    Homework_13.Model.bankModel.BankAccount>;
-using Homework_13.Model.bankModel;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
-using Homework_13.Model;
+using Homework_13.View.Windows;
+using static Homework_13.Service.InformationDialogService;
+using static Homework_13.ViewModel.ClientListViewModel;
+using BankModelLibrary;
+using BankModelLibrary.BankServices;
+using BankModelLibrary.BaseBankModels;
+using static BankModelLibrary.Bank;
+using static BankModelLibrary.BankServices.MoneySender<BankModelLibrary.BankAccount>;
 
 namespace Homework_13.Service.Command
 {

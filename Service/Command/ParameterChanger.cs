@@ -1,10 +1,10 @@
 ﻿using System.Windows;
-using Homework_13.Model;
-using Homework_13.Model.bankModel;
+using BankModelLibrary;
+using BankModelLibrary.BankServices;
 using Homework_13.View.Windows;
 using Homework_13.ViewModel;
-using static Homework_13.Service.InformationDialogService;
 using static Homework_13.ViewModel.ParameterChangingInputVM;
+
 
 namespace Homework_13.Service.Command
 {

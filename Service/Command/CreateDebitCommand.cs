@@ -1,6 +1,7 @@
-﻿using Homework_13.Model;
-using Homework_13.Model.bankModel;
-using static Homework_13.Service.InformationDialogService;
+﻿using BankModelLibrary;
+using BankModelLibrary.BankServices;
+using BankModelLibrary.BaseBankModels;
+using static BankModelLibrary.Bank;
 
 namespace Homework_13.Service.Command
 {

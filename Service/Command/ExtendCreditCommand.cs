@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
-using Homework_13.Model.bankModel;
+using BankModelLibrary;
+using BankModelLibrary.BankServices;
 using Homework_13.View.Windows;
 using static Homework_13.Service.InformationDialogService;
 using static Homework_13.ViewModel.ClientListViewModel;

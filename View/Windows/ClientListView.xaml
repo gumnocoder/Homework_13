@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:cmd="clr-namespace:Homework_13.Service.Command"
-             xmlns:model="clr-namespace:Homework_13.Model"
              xmlns:view="clr-namespace:Homework_13.View.Windows"
              xmlns:viewModel="clr-namespace:Homework_13.ViewModel"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
