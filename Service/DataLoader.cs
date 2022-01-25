@@ -1,10 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using Homework_13.Model;
-using Homework_13.Model.bankModel;
+using BankModelLibrary;
 using Newtonsoft.Json;
-using static Homework_13.Model.bankModel.Bank;
+using static BankModelLibrary.Bank;
 
 namespace Homework_13.Service
 {

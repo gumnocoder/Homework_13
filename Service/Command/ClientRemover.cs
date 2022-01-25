@@ -1,7 +1,9 @@
-﻿using Homework_13.Model;
-using Homework_13.Model.bankModel;
-using static Homework_13.Model.bankModel.Bank;
-using static Homework_13.Model.bankModel.TimeChecker;
+﻿
+using BankModelLibrary;
+using BankModelLibrary.BankServices;
+using BankModelLibrary.BaseBankModels;
+using static BankModelLibrary.Bank;
+using static BankModelLibrary.TimeChecker;
 
 namespace Homework_13.Service.Command
 {

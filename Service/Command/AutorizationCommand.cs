@@ -1,7 +1,6 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Windows;
-using Homework_13.Model;
+using BankModelLibrary;
 using Homework_13.View;
 using Homework_13.ViewModel;
 

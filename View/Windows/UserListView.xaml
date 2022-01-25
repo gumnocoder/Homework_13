@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:Homework_13.View.UserControls"
              xmlns:cmd="clr-namespace:Homework_13.Service.Command"
         xmlns:viewModel="clr-namespace:Homework_13.ViewModel"
-             xmlns:model="clr-namespace:Homework_13.Model"
              mc:Ignorable="d" 
         Height="500" 
         Width="800"

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Homework_13.Model;
-using Homework_13.Model.bankModel;
+using BankModelLibrary;
 using Homework_13.Service;
 using Homework_13.Service.Command;
-using static Homework_13.Model.bankModel.Bank;
-using static Homework_13.Model.bankModel.TimeChecker;
+using static BankModelLibrary.TimeChecker;
+using static BankModelLibrary.Bank;
 
 namespace Homework_13.ViewModel
 {
@@ -17,6 +16,7 @@ namespace Homework_13.ViewModel
         /// </summary>
         public MainWindowViewModel()
         {
+
             DataLoader<User>.LoadFromJson(UserList<User>.UsersList, "users.json");
             _dialogService.StartDialogScenario(CurrentUser);
             Tittle = "Банк";
@@ -152,15 +152,21 @@ namespace Homework_13.ViewModel
         public RelayCommand SaveData =>
             _saveData ??= new(SaveAllData);
 
+        public delegate void SavingEvent(string Message, bool pos, bool neg);
+        public event SavingEvent Saving;
+        protected void OnSavingEvent(string Message, bool pos, bool neg)
+        {
+            Saving?.Invoke(Message, pos, neg);
+        }
         /// <summary>
         /// Метод сохранения данных приложения
         /// </summary>
         /// <param name="s"></param>
         private void SaveAllData(object s)
         {
-            EventAction += HudViewer.ShowHudWindow;
+            Saving += HudViewer.ShowHudWindow;
             DataSaver<Client>.DataSaverChain();
-            OnEventAction("Данные успешно сохранены", true, false);
+            OnSavingEvent("Данные успешно сохранены", true, false);
         }
 
         #endregion

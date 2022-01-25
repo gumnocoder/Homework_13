@@ -1,4 +1,4 @@
-﻿using Homework_13.Model;
+﻿using BankModelLibrary;
 
 namespace Homework_13.ViewModel
 {

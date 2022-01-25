@@ -1,13 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
-using Homework_13.Model;
 using Homework_13.Service;
 using Homework_13.Service.Command;
-using static Homework_13.ViewModel.ParameterChangingInputVM;
-using static Homework_13.Model.bankModel.Bank;
 using static Homework_13.Service.InformationDialogService;
-using Homework_13.Model.bankModel;
-using System.Windows;
+using BankModelLibrary;
+using BankModelLibrary.BankServices;
+using BankModelLibrary.BaseBankModels;
+using static Homework_13.ViewModel.ParameterChangingInputVM;
 
 namespace Homework_13.ViewModel
 {
@@ -279,7 +278,7 @@ namespace Homework_13.ViewModel
             {
                 if (long.TryParse((string)s, out long tmp))
                 {
-                    SelectedClient = (SearchEngine.SearchByID(ClientList<Client>.ClientsList, tmp));
+                    SelectedClient = (BankModelLibrary.BankServices.SearchEngine.SearchByID(ClientList<Client>.ClientsList, tmp));
                     if (SelectedClient != null)
                     {
                         _dialogService.StartDialogScenario(new ClientInformationViewModel());
@@ -288,7 +287,7 @@ namespace Homework_13.ViewModel
                 }
                 else
                 {
-                    SelectedClient = (SearchEngine.SearchByName(ClientList<Client>.ClientsList, (string)s));
+                    SelectedClient = (BankModelLibrary.BankServices.SearchEngine.SearchByName(ClientList<Client>.ClientsList, (string)s));
                     if (SelectedClient != null)
                     {
                         _dialogService.StartDialogScenario(new ClientInformationViewModel());

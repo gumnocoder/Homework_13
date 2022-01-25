@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Windows;
-using Homework_13.Model;
-using Homework_13.Model.bankModel;
+using BankModelLibrary;
+using BankModelLibrary.BankServices;
+using BankModelLibrary.BaseBankModels;
 using Homework_13.Service;
 using Homework_13.Service.Command;
 using static Homework_13.ViewModel.ClientListViewModel;

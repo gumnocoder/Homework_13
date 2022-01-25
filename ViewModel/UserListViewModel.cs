@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
-using Homework_13.Model;
 using Homework_13.Service;
 using Homework_13.Service.Command;
+using BankModelLibrary;
+using BankModelLibrary.BankServices;
+using BankModelLibrary.BaseBankModels;
 
 namespace Homework_13.ViewModel
 {
